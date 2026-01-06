@@ -58,7 +58,7 @@ class HomeActionCard extends StatelessWidget {
                     children: [
                       // Background
                       SvgPicture.asset(
-                        "assets/icons/Container(1).svg",
+                        "assets/icons/Container.svg",
                         fit: BoxFit.fill,
                       ),
                       // Icon
