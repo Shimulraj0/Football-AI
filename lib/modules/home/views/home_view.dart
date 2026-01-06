@@ -97,8 +97,6 @@ class HomeView extends GetView<HomeController> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        // Fallback if image missing
-                        child: const Icon(Icons.person, color: Colors.white70),
                       ),
                       const SizedBox(width: 16),
                       // Welcome Text

@@ -58,7 +58,7 @@ class HomeActionCard extends StatelessWidget {
                     children: [
                       // Background
                       SvgPicture.asset(
-                        "assets/icons/Container.svg",
+                        "assets/icons/Container(1).svg",
                         fit: BoxFit.fill,
                       ),
                       // Icon
@@ -73,12 +73,6 @@ class HomeActionCard extends StatelessWidget {
                                     0xFF5D6D7E,
                                   ), // Gold for premium icon, greyish blue for others
                             BlendMode.srcIn,
-                          ),
-                          placeholderBuilder: (context) => Icon(
-                            Icons.grid_view_rounded,
-                            color: isPremium
-                                ? const Color(0xFFF1C40F)
-                                : const Color(0xFF5D6D7E),
                           ),
                         ),
                       ),
