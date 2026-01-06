@@ -3,11 +3,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class ActionCardIcon extends StatelessWidget {
   final String iconPath;
+  final String? backgroundPath;
+  final EdgeInsetsGeometry? iconPadding;
   final bool isPremium;
 
   const ActionCardIcon({
     super.key,
     required this.iconPath,
+    this.backgroundPath,
+    this.iconPadding,
     this.isPremium = false,
   });
 
@@ -20,10 +24,9 @@ class ActionCardIcon extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           // Background
-          SvgPicture.asset("assets/icons/Container.svg", fit: BoxFit.fill),
-          // Icon
+          _buildBackground(backgroundPath ?? "assets/images/Container(4).png"),
           Padding(
-            padding: const EdgeInsets.all(12),
+            padding: iconPadding ?? const EdgeInsets.all(12),
             child: SvgPicture.asset(
               iconPath,
               colorFilter: ColorFilter.mode(
@@ -39,5 +42,13 @@ class ActionCardIcon extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildBackground(String path) {
+    if (path.endsWith('.svg')) {
+      return SvgPicture.asset(path, fit: BoxFit.fill);
+    } else {
+      return Image.asset(path, fit: BoxFit.fill);
+    }
   }
 }

@@ -37,7 +37,9 @@ class AuthController extends GetxController {
 
   void login() {
     // Implement login logic
-    print("Login with ${emailController.text} and role ${selectedRole.value}");
+    debugPrint(
+      "Login with ${emailController.text} and role ${selectedRole.value}",
+    );
 
     // Navigate based on role
     if (selectedRole.value == "Coach") {
@@ -63,7 +65,7 @@ class AuthController extends GetxController {
 
   void signUp() {
     // Implement sign up logic
-    print(
+    debugPrint(
       "Sign up with ${emailController.text} and role ${selectedRole.value}",
     );
   }

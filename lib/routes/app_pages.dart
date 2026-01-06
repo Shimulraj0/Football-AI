@@ -11,6 +11,8 @@ import '../modules/onboarding/auth/views/reset_password_view.dart';
 import '../modules/onboarding/auth/controllers/auth_controller.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/team_management/views/team_management_view.dart';
+import '../modules/home/team_management/bindings/team_management_binding.dart';
 
 class AppPages {
   static const initial = AppRoutes.splash;
@@ -52,6 +54,11 @@ class AppPages {
       name: AppRoutes.home,
       page: () => const HomeView(),
       binding: HomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.teamManagement,
+      page: () => const TeamManagementView(),
+      binding: TeamManagementBinding(),
     ),
   ];
 }

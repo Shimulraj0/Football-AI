@@ -5,6 +5,8 @@ class HomeActionCard extends StatefulWidget {
   final String title;
   final String subtitle;
   final String iconPath; // SVG Asset path or use IconData if preferred
+  final String? backgroundIconPath;
+  final EdgeInsetsGeometry? iconPadding;
   final bool isPremium;
   final VoidCallback onTap;
 
@@ -14,6 +16,8 @@ class HomeActionCard extends StatefulWidget {
     required this.subtitle,
     required this.iconPath,
     required this.onTap,
+    this.backgroundIconPath,
+    this.iconPadding,
     this.isPremium = false,
   });
 
@@ -36,7 +40,7 @@ class _HomeActionCardState extends State<HomeActionCard> {
             : Border.all(color: const Color(0xFF012356)),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF000000).withOpacity(0.05),
+            color: const Color(0xFF000000).withValues(alpha: 0.05),
             offset: const Offset(0, 4),
             blurRadius: 12,
             spreadRadius: 0,
@@ -61,6 +65,8 @@ class _HomeActionCardState extends State<HomeActionCard> {
                 // Icon Box
                 ActionCardIcon(
                   iconPath: widget.iconPath,
+                  backgroundPath: widget.backgroundIconPath,
+                  iconPadding: widget.iconPadding,
                   isPremium: widget.isPremium,
                 ),
                 const SizedBox(width: 16),
@@ -86,8 +92,8 @@ class _HomeActionCardState extends State<HomeActionCard> {
                         style: TextStyle(
                           fontSize: 13,
                           color: widget.isPremium
-                              ? Colors.white.withOpacity(0.8)
-                              : const Color(0xFF00204A).withOpacity(0.7),
+                              ? Colors.white.withValues(alpha: 0.8)
+                              : const Color(0xFF00204A).withValues(alpha: 0.7),
                           height: 1.4,
                         ),
                       ),

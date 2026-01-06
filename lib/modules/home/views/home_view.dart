@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
-import '../widgets/home_action_card.dart';
+import '../widgets/home_menu_section.dart';
 import '../widgets/profile_image.dart';
+import '../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../core/values/app_colors.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -11,56 +12,6 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    // Assuming icons might not exist, creating reusable SVG paths references.
-    // In real scenario, user should provide these assets. I will use a placeholder or existing ones.
-    const String iconUsers = "assets/icons/users.svg"; // Placeholder name
-    const String iconTrophy = "assets/icons/trophy.svg"; // Placeholder name
-    const String iconChart = "assets/icons/chart_bar.svg"; // Placeholder name
-    const String iconMonitor = "assets/icons/monitor.svg"; // Placeholder name
-    const String iconChat = "assets/icons/chat_bubble.svg"; // Placeholder name
-    const String iconCrown = "assets/icons/crown.svg"; // Placeholder name
-
-    // Using a list for data to keep build method clean
-    final List<Map<String, dynamic>> menuItems = [
-      {
-        "title": "Team Management",
-        "subtitle":
-            "View and edit players, assign drills and\ntrack attendance",
-        "icon": iconUsers,
-        "isPremium": false,
-      },
-      {
-        "title": "Training Strategy",
-        "subtitle": "Get AI suggestions for formations, drills and\ngame plans",
-        "icon": iconTrophy,
-        "isPremium": false,
-      },
-      {
-        "title": "Performance Reports",
-        "subtitle": "Review team or individual player progress\nand statistics",
-        "icon": iconChart,
-        "isPremium": false,
-      },
-      {
-        "title": "Technical Director",
-        "subtitle": "Review team or individual player progress\nand statistics",
-        "icon": iconMonitor,
-        "isPremium": false,
-      },
-      {
-        "title": "Ask Coach AI",
-        "subtitle": "Get instant answers to your coaching\nquestions",
-        "icon": iconChat,
-        "isPremium": false,
-      },
-      {
-        "title": "Upgrade to Premium",
-        "subtitle": "Unlock advanced playbooks and exclusive\ncoaching content",
-        "icon": iconCrown,
-        "isPremium": true,
-      },
-    ];
-
     return Scaffold(
       backgroundColor: AppColors.background, // #EEF5FF
       body: Stack(
@@ -133,7 +84,7 @@ class HomeView extends GetView<HomeController> {
                           },
                           customBorder: const CircleBorder(),
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(12.0),
                             child: SvgPicture.asset(
                               "assets/icons/Notification.svg",
                             ),
@@ -146,102 +97,16 @@ class HomeView extends GetView<HomeController> {
               ),
 
               // Scrollable List
-              Expanded(
-                child: ListView.builder(
-                  padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
-                  itemCount: menuItems.length,
-                  itemBuilder: (context, index) {
-                    final item = menuItems[index];
-                    return HomeActionCard(
-                      title: item['title'],
-                      subtitle: item['subtitle'],
-                      iconPath: item['icon'],
-                      isPremium: item['isPremium'],
-                      onTap: () {
-                        // Handle navigation based on title or index
-                      },
-                    );
-                  },
-                ),
-              ),
+              // Scrollable List
+              const Expanded(child: HomeMenuSection()),
             ],
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, -5),
-            ),
-          ],
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Obx(
-              () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildNavItem(
-                    icon: Icons.home_rounded,
-                    label: "Home",
-                    isSelected: controller.selectedIndex.value == 0,
-                    onTap: () => controller.changeTabIndex(0),
-                  ),
-                  _buildNavItem(
-                    icon: Icons.chat_bubble_outline_rounded,
-                    label: "Coach AI",
-                    isSelected: controller.selectedIndex.value == 1,
-                    onTap: () => controller.changeTabIndex(1),
-                  ),
-                  _buildNavItem(
-                    icon: Icons.settings_outlined,
-                    label: "Settings",
-                    isSelected: controller.selectedIndex.value == 2,
-                    onTap: () => controller.changeTabIndex(2),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem({
-    required IconData icon,
-    required String label,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              color: isSelected ? const Color(0xFF00204A) : Colors.grey,
-              size: 24,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                color: isSelected ? const Color(0xFF00204A) : Colors.grey,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-              ),
-            ),
-          ],
+      bottomNavigationBar: Obx(
+        () => CustomBottomNavBar(
+          selectedIndex: controller.selectedIndex.value,
+          onItemTapped: controller.changeTabIndex,
         ),
       ),
     );

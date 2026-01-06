@@ -8,4 +8,5 @@ abstract class AppRoutes {
   static const otp = '/otp';
   static const resetPassword = '/reset-password';
   static const home = '/home';
+  static const teamManagement = '/team-management';
 }
