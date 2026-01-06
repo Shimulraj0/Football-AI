@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 import '../widgets/home_action_card.dart';
+import '../widgets/profile_image.dart';
 import '../../../core/values/app_colors.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -86,17 +88,12 @@ class HomeView extends GetView<HomeController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       // Avatar
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2),
-                          image: const DecorationImage(
-                            image: AssetImage('assets/icons/Ellipse 13.png'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                      // Avatar
+                      ProfileImage(
+                        imagePath: 'assets/icons/Ellipse 13.png',
+                        onTap: () {
+                          // Handle profile tap
+                        },
                       ),
                       const SizedBox(width: 16),
                       // Welcome Text
@@ -110,7 +107,7 @@ class HomeView extends GetView<HomeController> {
                               "Welcome Back",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 25,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -118,24 +115,29 @@ class HomeView extends GetView<HomeController> {
                             Text(
                               "Coach Dashboard",
                               style: TextStyle(
-                                color: Colors.white70,
+                                color: Color.fromARGB(255, 255, 255, 255),
                                 fontSize: 14,
                               ),
                             ),
                           ],
                         ),
                       ),
+
                       // Notification Icon
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.notifications_none_rounded,
-                          color: Colors.white,
-                          size: 24,
+                      Material(
+                        color: Colors.white,
+                        shape: const CircleBorder(),
+                        child: InkWell(
+                          onTap: () {
+                            // Handle notification tap
+                          },
+                          customBorder: const CircleBorder(),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SvgPicture.asset(
+                              "assets/icons/Notification.svg",
+                            ),
+                          ),
                         ),
                       ),
                     ],

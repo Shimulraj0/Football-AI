@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'action_card_icon.dart';
 
-class HomeActionCard extends StatelessWidget {
+class HomeActionCard extends StatefulWidget {
   final String title;
   final String subtitle;
   final String iconPath; // SVG Asset path or use IconData if preferred
@@ -18,17 +18,22 @@ class HomeActionCard extends StatelessWidget {
   });
 
   @override
+  State<HomeActionCard> createState() => _HomeActionCardState();
+}
+
+class _HomeActionCardState extends State<HomeActionCard> {
+  bool _isPressed = false;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: isPremium ? const Color(0xFF00204A) : Colors.white,
+        color: widget.isPremium ? const Color(0xFF00204A) : Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: isPremium
+        border: (widget.isPremium || _isPressed)
             ? null
-            : Border.all(
-                color: const Color(0xFF2C3E50).withOpacity(0.1),
-              ), // Subtle border
+            : Border.all(color: const Color(0xFF012356)),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF000000).withOpacity(0.05),
@@ -42,42 +47,21 @@ class HomeActionCard extends StatelessWidget {
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
-          onTap: onTap,
+          onTap: widget.onTap,
+          onHighlightChanged: (value) {
+            setState(() {
+              _isPressed = value;
+            });
+          },
           borderRadius: BorderRadius.circular(16),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
                 // Icon Box
-                // Icon Box
-                SizedBox(
-                  width: 56,
-                  height: 56,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      // Background
-                      SvgPicture.asset(
-                        "assets/icons/Container.svg",
-                        fit: BoxFit.fill,
-                      ),
-                      // Icon
-                      Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: SvgPicture.asset(
-                          iconPath,
-                          colorFilter: ColorFilter.mode(
-                            isPremium
-                                ? const Color(0xFFF1C40F)
-                                : const Color(
-                                    0xFF5D6D7E,
-                                  ), // Gold for premium icon, greyish blue for others
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                ActionCardIcon(
+                  iconPath: widget.iconPath,
+                  isPremium: widget.isPremium,
                 ),
                 const SizedBox(width: 16),
 
@@ -87,21 +71,21 @@ class HomeActionCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        widget.title,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: isPremium
+                          color: widget.isPremium
                               ? const Color(0xFFF1C40F)
                               : const Color(0xFF00204A),
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        subtitle,
+                        widget.subtitle,
                         style: TextStyle(
                           fontSize: 13,
-                          color: isPremium
+                          color: widget.isPremium
                               ? Colors.white.withOpacity(0.8)
                               : const Color(0xFF00204A).withOpacity(0.7),
                           height: 1.4,
