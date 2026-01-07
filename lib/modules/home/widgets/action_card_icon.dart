@@ -23,32 +23,18 @@ class ActionCardIcon extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Background
-          _buildBackground(backgroundPath ?? "assets/images/Container(4).png"),
+          if (backgroundPath != null) SvgPicture.asset(backgroundPath!),
           Padding(
-            padding: iconPadding ?? const EdgeInsets.all(12),
+            padding: iconPadding ?? EdgeInsets.zero,
             child: SvgPicture.asset(
               iconPath,
-              colorFilter: ColorFilter.mode(
-                isPremium
-                    ? const Color(0xFFF1C40F)
-                    : const Color(
-                        0xFF5D6D7E,
-                      ), // Gold for premium, grey-blue for others
-                BlendMode.srcIn,
-              ),
+              colorFilter: isPremium
+                  ? const ColorFilter.mode(Color(0xFFF1C40F), BlendMode.srcIn)
+                  : null,
             ),
           ),
         ],
       ),
     );
-  }
-
-  Widget _buildBackground(String path) {
-    if (path.endsWith('.svg')) {
-      return SvgPicture.asset(path, fit: BoxFit.fill);
-    } else {
-      return Image.asset(path, fit: BoxFit.fill);
-    }
   }
 }

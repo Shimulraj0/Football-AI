@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../global_widgets/custom_back_button.dart';
 
 // --- Auth Button ---
 class AuthButton extends StatelessWidget {
@@ -158,21 +159,7 @@ class AuthBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFFF5F7FA), // Light grey background
-        borderRadius: BorderRadius.circular(10), // Rounded corners
-      ),
-      child: IconButton(
-        icon: SvgPicture.asset('assets/icons/Back.svg'),
-        onPressed: () => Get.back(),
-        padding: EdgeInsets.zero,
-        constraints: const BoxConstraints(),
-        style: IconButton.styleFrom(
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        ),
-      ),
-    );
+    return const CustomBackButton();
   }
 }
 

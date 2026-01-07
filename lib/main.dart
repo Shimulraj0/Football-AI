@@ -3,8 +3,13 @@ import 'package:get/get.dart';
 import 'routes/app_pages.dart';
 import 'core/theme/app_theme.dart';
 
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart'; // For kReleaseMode
+
 void main() {
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(enabled: !kReleaseMode, builder: (context) => const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,6 +20,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Football AI',
       debugShowCheckedModeBanner: false,
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       theme: AppTheme.lightTheme,
       initialRoute: AppPages.initial,
       getPages: AppPages.routes,

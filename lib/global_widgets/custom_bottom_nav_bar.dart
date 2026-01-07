@@ -23,39 +23,39 @@ class CustomBottomNavBar extends StatelessWidget {
           ),
         ],
       ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(
-                icon: Icons.home_rounded,
-                label: "Home",
-                isSelected: selectedIndex == 0,
-                onTap: () => onItemTapped(0),
-              ),
-              _buildNavItem(
-                icon: Icons.chat_bubble_outline_rounded,
-                label: "Coach AI",
-                isSelected: selectedIndex == 1,
-                onTap: () => onItemTapped(1),
-              ),
-              _buildNavItem(
-                icon: Icons.settings_outlined,
-                label: "Settings",
-                isSelected: selectedIndex == 2,
-                onTap: () => onItemTapped(2),
-              ),
-            ],
-          ),
+
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildNavItem(
+              imagePath: 'assets/images/home.png',
+              label: "Home",
+              isSelected: selectedIndex == 0,
+              onTap: () => onItemTapped(0),
+            ),
+            _buildNavItem(
+              imagePath: 'assets/images/bubble-chat.png',
+              label: "Coach AI",
+              isSelected: selectedIndex == 1,
+              onTap: () => onItemTapped(1),
+            ),
+            _buildNavItem(
+              imagePath: 'assets/images/settings.png',
+              label: "Settings",
+              isSelected: selectedIndex == 2,
+              onTap: () => onItemTapped(2),
+            ),
+          ],
         ),
       ),
     );
   }
 
   Widget _buildNavItem({
-    required IconData icon,
+    IconData? iconData,
+    String? imagePath,
     required String label,
     required bool isSelected,
     required VoidCallback onTap,
@@ -68,11 +68,14 @@ class CustomBottomNavBar extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
-              color: isSelected ? const Color(0xFF00204A) : Colors.grey,
-              size: 24,
-            ),
+            if (iconData != null)
+              Icon(
+                iconData,
+                color: isSelected ? const Color(0xFF00204A) : Colors.grey,
+                size: 24,
+              )
+            else if (imagePath != null)
+              Image.asset(imagePath, width: 24, height: 24),
             const SizedBox(height: 4),
             Text(
               label,
