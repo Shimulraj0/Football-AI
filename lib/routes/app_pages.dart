@@ -13,6 +13,15 @@ import '../modules/home/views/home_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/team_management/views/team_management_view.dart';
 import '../modules/home/team_management/bindings/team_management_binding.dart';
+import '../modules/settings/views/settings_view.dart';
+import '../modules/settings/bindings/settings_binding.dart';
+import '../modules/settings/views/edit_profile_view.dart';
+import '../modules/settings/views/change_password_view.dart';
+import '../modules/settings/views/faq_view.dart';
+import '../modules/settings/views/contact_support_view.dart';
+import '../modules/settings/views/privacy_policy_view.dart';
+import '../modules/settings/views/terms_condition_view.dart';
+import '../modules/settings/controllers/edit_profile_controller.dart';
 
 class AppPages {
   static const initial = AppRoutes.splash;
@@ -59,6 +68,35 @@ class AppPages {
       name: AppRoutes.teamManagement,
       page: () => const TeamManagementView(),
       binding: TeamManagementBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.settings,
+      page: () => const SettingsView(),
+      binding: SettingsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.editProfile,
+      page: () => const EditProfileView(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut(() => EditProfileController()),
+      ),
+    ),
+    GetPage(
+      name: AppRoutes.changePassword,
+      page: () => const ChangePasswordView(),
+    ),
+    GetPage(name: AppRoutes.faq, page: () => const FaqView()),
+    GetPage(
+      name: AppRoutes.contactSupport,
+      page: () => const ContactSupportView(),
+    ),
+    GetPage(
+      name: AppRoutes.privacyPolicy,
+      page: () => const PrivacyPolicyView(),
+    ),
+    GetPage(
+      name: AppRoutes.termsCondition,
+      page: () => const TermsConditionView(),
     ),
   ];
 }

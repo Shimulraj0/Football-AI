@@ -79,7 +79,7 @@ class SignInView extends GetView<AuthController> {
                       onTap: () => controller.rememberMe.toggle(),
                       child: Container(
                         height: 20,
-                        width: 20,
+                        width: 45,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(

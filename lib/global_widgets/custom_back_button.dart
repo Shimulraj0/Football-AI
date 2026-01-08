@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:get/get.dart';
 
 class CustomBackButton extends StatelessWidget {
@@ -16,24 +17,22 @@ class CustomBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color:
-            backgroundColor ?? const Color(0xFFF5F7FA), // Light grey background
-        shape: BoxShape.circle, // Circular shape
-      ),
-      child: IconButton(
-        icon: SvgPicture.asset(
-          'assets/icons/Back.svg',
-          colorFilter: iconColor != null
-              ? ColorFilter.mode(iconColor!, BlendMode.srcIn)
-              : null,
-        ),
-        onPressed: onPressed ?? () => Get.back(),
-        padding: EdgeInsets.zero,
-        constraints: const BoxConstraints(),
-        style: IconButton.styleFrom(
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    return Material(
+      color: backgroundColor ?? const Color.fromARGB(0, 184, 182, 182),
+      borderRadius: BorderRadius.circular(50),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(50),
+        onTap: onPressed ?? () => Get.back(),
+        child: Padding(
+          padding: EdgeInsets.zero,
+          child: SvgPicture.asset(
+            'assets/icons/Back.svg',
+            colorFilter: iconColor != null
+                ? ColorFilter.mode(iconColor!, BlendMode.srcIn)
+                : null,
+            width: 44,
+            height: 44,
+          ),
         ),
       ),
     );

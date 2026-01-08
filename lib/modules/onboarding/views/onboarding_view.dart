@@ -94,28 +94,29 @@ class OnboardingView extends StatelessWidget {
                     const SizedBox(height: 16),
 
                     // Login Link
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          // Login navigation placeholder
-                        },
-                        child: Text.rich(
-                          TextSpan(
-                            text: "Already have an account? ",
-                            style: TextStyle(color: Colors.white70),
-                            children: [
-                              TextSpan(
-                                text: "Login",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          textAlign: TextAlign.center,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Already have an account? ",
+                          style: TextStyle(color: Colors.white70),
                         ),
-                      ),
+                        TextButton(
+                          onPressed: () => Get.toNamed(AppRoutes.login),
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: const Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

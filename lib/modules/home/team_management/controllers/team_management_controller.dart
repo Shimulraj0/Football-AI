@@ -42,4 +42,28 @@ class TeamManagementController extends GetxController {
       "dribbling": 0,
     });
   }
+
+  void updatePlayer(
+    int index,
+    String name,
+    String age,
+    String role,
+    String team,
+  ) {
+    if (index >= 0 && index < players.length) {
+      final player = players[index];
+      player['name'] = name;
+      player['age'] = age.contains('years') ? age : "$age years";
+      player['role'] = role;
+      player['team'] = team;
+      players
+          .refresh(); // Trigger Obx update manually since we modified the map inside the list
+    }
+  }
+
+  void deletePlayer(int index) {
+    if (index >= 0 && index < players.length) {
+      players.removeAt(index);
+    }
+  }
 }

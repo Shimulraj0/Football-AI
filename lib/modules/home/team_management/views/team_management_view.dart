@@ -18,10 +18,7 @@ class TeamManagementView extends GetView<TeamManagementController> {
         elevation: 0,
         backgroundColor: const Color(0xFF00204A),
         leadingWidth: 50,
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 10),
-          child: CustomBackButton(),
-        ),
+        leading: const CustomBackButton(),
         title: const Text(
           "Team Management",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -52,7 +49,11 @@ class TeamManagementView extends GetView<TeamManagementController> {
                 Obx(
                   () => Column(
                     children: controller.players
-                        .map((player) => _buildPlayerCard(player))
+                        .asMap()
+                        .entries
+                        .map(
+                          (entry) => _buildPlayerCard(entry.value, entry.key),
+                        )
                         .toList(),
                   ),
                 ),
@@ -104,11 +105,13 @@ class TeamManagementView extends GetView<TeamManagementController> {
             ),
           ),
           const SizedBox(height: 2),
-          Text(
-            "4 active players • Next session: Monday 4 PM",
-            style: TextStyle(
-              color: const Color.fromARGB(255, 255, 254, 254),
-              fontSize: 14,
+          Obx(
+            () => Text(
+              "${controller.players.length} active players • Next session: Monday 4 PM",
+              style: TextStyle(
+                color: const Color.fromARGB(255, 255, 254, 254),
+                fontSize: 14,
+              ),
             ),
           ),
           const SizedBox(height: 12),
@@ -139,7 +142,7 @@ class TeamManagementView extends GetView<TeamManagementController> {
     );
   }
 
-  Widget _buildPlayerCard(Map<String, dynamic> player) {
+  Widget _buildPlayerCard(Map<String, dynamic> player, int index) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
@@ -173,7 +176,11 @@ class TeamManagementView extends GetView<TeamManagementController> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      // No snackbar for edit
+                      showDialog(
+                        context: Get.context!,
+                        builder: (context) =>
+                            AddPlayerDialog(player: player, index: index),
+                      );
                     },
                     icon: Image.asset(
                       'assets/icons/edit_icon.png',
@@ -187,12 +194,14 @@ class TeamManagementView extends GetView<TeamManagementController> {
                   const SizedBox(width: 12),
                   IconButton(
                     onPressed: () {
+                      Get.find<TeamManagementController>().deletePlayer(index);
                       Get.snackbar(
                         "Delete Player",
-                        "Deleting ${player['name']}",
+                        "Deleted ${player['name']}",
                         snackPosition: SnackPosition.BOTTOM,
                         backgroundColor: Colors.red.withValues(alpha: 0.1),
                         colorText: Colors.red,
+                        margin: const EdgeInsets.all(10),
                       );
                     },
                     icon: Image.asset(
@@ -308,25 +317,37 @@ class TeamManagementView extends GetView<TeamManagementController> {
 }
 
 class AddPlayerDialog extends StatefulWidget {
-  const AddPlayerDialog({super.key});
+  final Map<String, dynamic>? player;
+  final int? index;
+
+  const AddPlayerDialog({super.key, this.player, this.index});
 
   @override
   State<AddPlayerDialog> createState() => _AddPlayerDialogState();
 }
 
 class _AddPlayerDialogState extends State<AddPlayerDialog> {
-  final _nameController = TextEditingController();
-  final _ageController = TextEditingController();
+  late TextEditingController _nameController;
+  late TextEditingController _ageController;
   String? _selectedPosition;
   String? _selectedTeam;
 
-  final List<String> _positions = [
-    'Forward',
-    'Midfielder',
-    'Defender',
-    'Goalkeeper',
-  ];
+  final List<String> _positions = ['Forward', 'Midfielder', 'Goalkeeper'];
   final List<String> _teams = ['Team A', 'Team B'];
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.player?['name']);
+    // Extract age number if format is "13 years"
+    String age = widget.player?['age'] ?? '';
+    if (age.contains(' ')) {
+      age = age.split(' ')[0];
+    }
+    _ageController = TextEditingController(text: age);
+    _selectedPosition = widget.player?['role'];
+    _selectedTeam = widget.player?['team'];
+  }
 
   @override
   void dispose() {
@@ -347,9 +368,9 @@ class _AddPlayerDialogState extends State<AddPlayerDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Add New Player",
-              style: TextStyle(
+            Text(
+              widget.index == null ? "Add New Player" : "Edit Player",
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
@@ -399,49 +420,89 @@ class _AddPlayerDialogState extends State<AddPlayerDialog> {
             const SizedBox(height: 20),
             Row(
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    if (_nameController.text.isNotEmpty &&
-                        _ageController.text.isNotEmpty &&
-                        _selectedPosition != null &&
-                        _selectedTeam != null) {
-                      Get.find<TeamManagementController>().addPlayer(
-                        _nameController.text,
-                        _ageController.text,
-                        _selectedPosition!,
-                        _selectedTeam!,
-                      );
-                      Get.back();
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF4CD964),
-                    foregroundColor: const Color(0xFF00204A),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_nameController.text.isNotEmpty &&
+                          _ageController.text.isNotEmpty &&
+                          _selectedPosition != null &&
+                          _selectedTeam != null) {
+                        if (widget.index == null) {
+                          Get.find<TeamManagementController>().addPlayer(
+                            _nameController.text,
+                            _ageController.text,
+                            _selectedPosition!,
+                            _selectedTeam!,
+                          );
+                          Get.snackbar(
+                            "Success",
+                            "Player added successfully",
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: Colors.green.withValues(
+                              alpha: 0.1,
+                            ),
+                            colorText: Colors.green,
+                            margin: const EdgeInsets.all(10),
+                          );
+                        } else {
+                          Get.find<TeamManagementController>().updatePlayer(
+                            widget.index!,
+                            _nameController.text,
+                            _ageController.text,
+                            _selectedPosition!,
+                            _selectedTeam!,
+                          );
+                          Get.snackbar(
+                            "Success",
+                            "Player updated successfully",
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: Colors.green.withValues(
+                              alpha: 0.1,
+                            ),
+                            colorText: Colors.green,
+                            margin: const EdgeInsets.all(10),
+                          );
+                        }
+
+                        Get.back();
+                      } else {
+                        Get.snackbar(
+                          "Error",
+                          "Please fill all fields",
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.red.withValues(alpha: 0.1),
+                          colorText: Colors.red,
+                          margin: const EdgeInsets.all(10),
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4CD964),
+                      foregroundColor: const Color(0xFF00204A),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 12,
+                    child: Text(
+                      widget.index == null ? "Save Player" : "Update Player",
                     ),
                   ),
-                  child: const Text("Save Player"),
                 ),
                 const SizedBox(width: 12),
-                ElevatedButton(
-                  onPressed: () => Get.back(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFAAAAAA),
-                    foregroundColor: Colors.black54,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => Get.back(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFAAAAAA),
+                      foregroundColor: Colors.black54,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 12,
-                    ),
+                    child: const Text("Cancel"),
                   ),
-                  child: const Text("Cancel"),
                 ),
               ],
             ),
@@ -471,7 +532,10 @@ class _AddPlayerDialogState extends State<AddPlayerDialog> {
           border: InputBorder.none,
           hintText: hint,
           hintStyle: TextStyle(color: Colors.grey.shade600, fontSize: 14),
-          contentPadding: const EdgeInsets.only(bottom: 8),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 0,
+            vertical: 10,
+          ),
         ),
       ),
     );

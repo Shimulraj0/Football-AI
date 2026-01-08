@@ -17,19 +17,6 @@ class HomeMenuSection extends StatelessWidget {
     const String iconChat = "assets/icons/chat_bubble.svg"; // Placeholder name
     const String iconCrown = "assets/icons/crown.svg"; // Placeholder name
 
-    // Background Images - Change these to customize each row's background individually
-    const String bgTeam = "assets/images/Container(4).png";
-    const String bgTraining =
-        "assets/images/Container(4).png"; // Change this path for different image
-    const String bgPerformance =
-        "assets/images/Container(4).png"; // Change this path for different image
-    const String bgDirector =
-        "assets/images/Container(4).png"; // Change this path for different image
-    const String bgCoach =
-        "assets/images/Container(4).png"; // Change this path for different image
-    const String bgPremium =
-        "assets/icons/Containerr.svg"; // Keeping original for premium
-
     // Using a list for data to keep build method clean
     final List<Map<String, dynamic>> menuItems = [
       {
@@ -37,7 +24,7 @@ class HomeMenuSection extends StatelessWidget {
         "subtitle":
             "View and edit players, assign drills and\ntrack attendance",
         "icon": iconUsers,
-        "background": bgTeam, // Team Management Background
+        // Team Management Background
         "padding": const EdgeInsets.all(12),
         "isPremium": false,
       },
@@ -45,35 +32,34 @@ class HomeMenuSection extends StatelessWidget {
         "title": "Training Strategy",
         "subtitle": "Get AI suggestions for formations, drills and\ngame plans",
         "icon": iconTrophy,
-        "background": bgTraining, // Training Strategy Background
+        // Training Strategy Background
         "isPremium": false,
       },
       {
         "title": "Performance Reports",
         "subtitle": "Review team or individual player progress\nand statistics",
         "icon": iconChart,
-        "background": bgPerformance, // Performance Reports Background
+        // Performance Reports Background
         "isPremium": false,
       },
       {
         "title": "Technical Director",
         "subtitle": "Review team or individual player progress\nand statistics",
         "icon": iconMonitor,
-        "background": bgDirector, // Technical Director Background
+        // Technical Director Background
         "isPremium": false,
       },
       {
         "title": "Ask Coach AI",
         "subtitle": "Get instant answers to your coaching\nquestions",
         "icon": iconChat,
-        "background": bgCoach, // Ask Coach AI Background
+        // Ask Coach AI Background
         "isPremium": false,
       },
       {
         "title": "Upgrade to Premium",
         "subtitle": "Unlock advanced playbooks and exclusive\ncoaching content",
         "icon": iconCrown,
-        "background": bgPremium, // Upgrade to Premium Background
         "isPremium": true,
       },
     ];

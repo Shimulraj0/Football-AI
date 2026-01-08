@@ -12,31 +12,23 @@ class HomeController extends GetxController {
   }
 
   void changeTabIndex(int index) {
+    // If the same tab is clicked
     if (index == selectedIndex.value) {
-      // If tapping Home again, check if we need to pop to root
-      if (index == 0) {
-        // If we are deep in the navigation stack (not on HomeView), pop to Home
-        if (Get.currentRoute != AppRoutes.home) {
-          Get.offNamedUntil(AppRoutes.home, (route) => false);
-        }
+      // If we are not on the main HomeView (e.g., inside a sub-page), pop to HomeView
+      if (Get.currentRoute != AppRoutes.home) {
+        Get.offNamedUntil(AppRoutes.home, (route) => false);
       }
       return;
     }
 
+    // Update the selected index
     selectedIndex.value = index;
-    switch (index) {
-      case 0:
-        Get.offNamedUntil(
-          AppRoutes.home,
-          (route) => false,
-        ); // Reset stack to home
-        break;
-      case 1:
-        // Get.toNamed(AppRoutes.coachAi); // Placeholder
-        break;
-      case 2:
-        // Get.toNamed(AppRoutes.settings); // Placeholder
-        break;
+
+    // Logic to ensure we are on the HomeView (root of navigation for tabs)
+    // If we are currently on a sub-page (like settings sub-page or team management),
+    // we need to clear the stack and go back to HomeView so the body updates correctly.
+    if (Get.currentRoute != AppRoutes.home) {
+      Get.offNamedUntil(AppRoutes.home, (route) => false);
     }
   }
 }
