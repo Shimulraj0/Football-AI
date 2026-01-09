@@ -25,4 +25,5 @@ abstract class AppRoutes {
   static const aiCommunication = '/ai-communication';
   static const permissions = '/permissions';
   static const trainingStrategy = '/training-strategy';
+  static const performanceReports = '/performance-reports';
 }

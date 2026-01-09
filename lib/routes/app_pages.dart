@@ -41,6 +41,8 @@ import '../modules/ai_communication/bindings/ai_communication_binding.dart';
 import '../modules/permissions/bindings/permissions_binding.dart';
 import '../modules/training_strategy/bindings/training_strategy_binding.dart';
 import '../modules/training_strategy/views/training_strategy_view.dart';
+import '../modules/performance_reports/bindings/performance_reports_binding.dart';
+import '../modules/performance_reports/views/performance_reports_view.dart';
 
 class AppPages {
   static const initial = AppRoutes.splash;
@@ -165,6 +167,11 @@ class AppPages {
       name: AppRoutes.trainingStrategy,
       page: () => const TrainingStrategyView(),
       binding: TrainingStrategyBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.performanceReports,
+      page: () => const PerformanceReportsView(),
+      binding: PerformanceReportsBinding(),
     ),
   ];
 }

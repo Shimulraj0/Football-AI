@@ -19,7 +19,7 @@ class ActionCardIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 56,
       height: 56,
 

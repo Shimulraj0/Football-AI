@@ -68,6 +68,8 @@ class HomeMenuSection extends StatelessWidget {
               Get.toNamed(AppRoutes.teamManagement);
             } else if (item['title'] == "Training Strategy") {
               Get.toNamed(AppRoutes.trainingStrategy);
+            } else if (item['title'] == "Performance Reports") {
+              Get.toNamed(AppRoutes.performanceReports);
             } else if (item['title'] == "Ask Coach AI") {
               controller.changeTabIndex(1);
             }

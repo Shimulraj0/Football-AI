@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../controllers/dashboard_controller.dart';
 import '../widgets/role_selector_grid.dart';
 import '../../../core/values/app_colors.dart';
+import '../../../global_widgets/custom_bottom_nav_bar.dart';
+import '../../home/controllers/home_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
@@ -34,6 +36,19 @@ class DashboardView extends GetView<DashboardController> {
           ),
         ),
       ),
+      bottomNavigationBar: () {
+        if (Get.isRegistered<HomeController>()) {
+          final homeController = Get.find<HomeController>();
+          return Obx(
+            () => CustomBottomNavBar(
+              selectedIndex: homeController.selectedIndex.value,
+              onItemTapped: homeController.changeTabIndex,
+            ),
+          );
+        } else {
+          return null;
+        }
+      }(),
     );
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../global_widgets/custom_back_button.dart';
+import '../../../global_widgets/custom_bottom_nav_bar.dart';
+import '../../home/controllers/home_controller.dart';
 import '../controllers/training_strategy_controller.dart';
+import '../../../../core/values/app_colors.dart';
 
 class TrainingStrategyView extends GetView<TrainingStrategyController> {
   const TrainingStrategyView({super.key});
@@ -34,6 +37,19 @@ class TrainingStrategyView extends GetView<TrainingStrategyController> {
           ),
         ),
       ),
+      bottomNavigationBar: () {
+        if (Get.isRegistered<HomeController>()) {
+          final homeController = Get.find<HomeController>();
+          return Obx(
+            () => CustomBottomNavBar(
+              selectedIndex: homeController.selectedIndex.value,
+              onItemTapped: homeController.changeTabIndex,
+            ),
+          );
+        } else {
+          return null;
+        }
+      }(),
     );
   }
 
@@ -92,24 +108,24 @@ class TrainingStrategyView extends GetView<TrainingStrategyController> {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(
-          0xFF4EEeb2,
-        ).withOpacity(0.9), // Approximate Teal color
+        color: AppColors.teal,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              Icon(Icons.auto_awesome, color: Colors.white, size: 24),
-              SizedBox(width: 8),
-              Text(
-                'Generate Custom Training Plan',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+            children: [
+              const Icon(Icons.auto_awesome, color: Colors.white, size: 24),
+              const SizedBox(width: 7),
+              Expanded(
+                child: const Text(
+                  'Generate Custom Training Plan',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ],
@@ -185,7 +201,6 @@ class TrainingStrategyView extends GetView<TrainingStrategyController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildGenerateCustomPlanCard(), // Keep the input card visible or modified? Design implies it stays or transforms. Let's keep it but maybe it updates?
-
         // Actually, looking at design 3, the green card remains but with the dropdown filled.
         // And BELOW it a new card appears.
         const SizedBox(height: 24),
@@ -287,7 +302,7 @@ class TrainingStrategyView extends GetView<TrainingStrategyController> {
                     ),
                   ),
                 );
-              }).toList(),
+              }),
             ],
           ),
         ),
@@ -361,31 +376,29 @@ class TrainingStrategyView extends GetView<TrainingStrategyController> {
                 ),
               ),
               const SizedBox(height: 12),
-              ...(plan['drills'] as List)
-                  .map(
-                    (drill) => Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            '• ',
-                            style: TextStyle(color: Colors.grey, fontSize: 14),
-                          ),
-                          Expanded(
-                            child: Text(
-                              drill,
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 13,
-                              ),
-                            ),
-                          ),
-                        ],
+              ...(plan['drills'] as List).map(
+                (drill) => Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '• ',
+                        style: TextStyle(color: Colors.grey, fontSize: 14),
                       ),
-                    ),
-                  )
-                  .toList(),
+                      Expanded(
+                        child: Text(
+                          drill,
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         );
