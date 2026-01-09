@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../../global_widgets/custom_back_button.dart';
 
 // --- Auth Button ---
 class AuthButton extends StatelessWidget {
@@ -150,16 +149,6 @@ class AuthTextField extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-// --- Back Button ---
-class AuthBackButton extends StatelessWidget {
-  const AuthBackButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CustomBackButton();
   }
 }
 

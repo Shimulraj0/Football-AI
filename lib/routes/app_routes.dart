@@ -16,4 +16,13 @@ abstract class AppRoutes {
   static const contactSupport = '/contact-support';
   static const privacyPolicy = '/privacy-policy';
   static const termsCondition = '/terms-condition';
+  static const billing = '/billing';
+  static const tryouts = '/tryouts';
+  static const clinics = '/clinics';
+  static const evaluation = '/evaluation';
+  static const surveys = '/surveys';
+  static const digitalProductHub = '/digital-product-hub';
+  static const aiCommunication = '/ai-communication';
+  static const permissions = '/permissions';
+  static const trainingStrategy = '/training-strategy';
 }

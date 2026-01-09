@@ -2,5 +2,7 @@ class RoleModel {
   final String title;
   final String assetPath;
 
-  RoleModel({required this.title, required this.assetPath});
+  final String? route;
+
+  RoleModel({required this.title, required this.assetPath, this.route});
 }

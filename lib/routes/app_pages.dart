@@ -22,6 +22,25 @@ import '../modules/settings/views/contact_support_view.dart';
 import '../modules/settings/views/privacy_policy_view.dart';
 import '../modules/settings/views/terms_condition_view.dart';
 import '../modules/settings/controllers/edit_profile_controller.dart';
+import '../modules/billing/views/billing_view.dart';
+import '../modules/tryouts/views/tryouts_view.dart';
+import '../modules/clinics/views/clinics_view.dart';
+import '../modules/evaluation/views/evaluation_view.dart';
+import '../modules/surveys/views/surveys_view.dart';
+import '../modules/digital_product_hub/views/digital_product_hub_view.dart';
+import '../modules/ai_communication/views/ai_communication_view.dart';
+import '../modules/permissions/views/permissions_view.dart';
+import '../modules/dashboard/bindings/dashboard_binding.dart';
+import '../modules/billing/bindings/billing_binding.dart';
+import '../modules/tryouts/bindings/tryouts_binding.dart';
+import '../modules/clinics/bindings/clinics_binding.dart';
+import '../modules/evaluation/bindings/evaluation_binding.dart';
+import '../modules/surveys/bindings/surveys_binding.dart';
+import '../modules/digital_product_hub/bindings/digital_product_hub_binding.dart';
+import '../modules/ai_communication/bindings/ai_communication_binding.dart';
+import '../modules/permissions/bindings/permissions_binding.dart';
+import '../modules/training_strategy/bindings/training_strategy_binding.dart';
+import '../modules/training_strategy/views/training_strategy_view.dart';
 
 class AppPages {
   static const initial = AppRoutes.splash;
@@ -33,7 +52,11 @@ class AppPages {
       page: () => const OnboardingView(),
       transition: Transition.fadeIn,
     ),
-    GetPage(name: AppRoutes.dashboard, page: () => const DashboardView()),
+    GetPage(
+      name: AppRoutes.dashboard,
+      page: () => const DashboardView(),
+      binding: DashboardBinding(),
+    ),
     GetPage(
       name: AppRoutes.login,
       page: () => const SignInView(),
@@ -97,6 +120,51 @@ class AppPages {
     GetPage(
       name: AppRoutes.termsCondition,
       page: () => const TermsConditionView(),
+    ),
+    GetPage(
+      name: AppRoutes.billing,
+      page: () => const BillingView(),
+      binding: BillingBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.tryouts,
+      page: () => const TryoutsView(),
+      binding: TryoutsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.clinics,
+      page: () => const ClinicsView(),
+      binding: ClinicsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.evaluation,
+      page: () => const EvaluationView(),
+      binding: EvaluationBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.surveys,
+      page: () => const SurveysView(),
+      binding: SurveysBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.digitalProductHub,
+      page: () => const DigitalProductHubView(),
+      binding: DigitalProductHubBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.aiCommunication,
+      page: () => const AiCommunicationView(),
+      binding: AiCommunicationBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.permissions,
+      page: () => const PermissionsView(),
+      binding: PermissionsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.trainingStrategy,
+      page: () => const TrainingStrategyView(),
+      binding: TrainingStrategyBinding(),
     ),
   ];
 }

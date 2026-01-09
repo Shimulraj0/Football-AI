@@ -14,17 +14,75 @@ class DashboardController extends GetxController {
       title: "Director of\nCoaching (DOC)",
       assetPath: 'assets/icons/ic_single_role.png',
     ),
-    RoleModel(title: "Coach", assetPath: 'assets/icons/ic_group_role.png'),
+    RoleModel(
+      title: "Age Group\nCoordinator\n(AGC)",
+      assetPath: 'assets/icons/ic_single_role.png',
+    ),
     RoleModel(
       title: "Specialty Director",
       assetPath: 'assets/icons/ic_single_role.png',
     ),
-    RoleModel(title: "Parent", assetPath: 'assets/icons/ic_single_role.png'),
+    RoleModel(title: "Coach", assetPath: 'assets/icons/ic_group_role.png'),
     RoleModel(title: "Player", assetPath: 'assets/icons/ic_single_role.png'),
+    RoleModel(title: "Parent", assetPath: 'assets/icons/ic_single_role.png'),
+    RoleModel(
+      title: "Field Scheduling\nDirector",
+      assetPath: 'assets/icons/ic_single_role.png',
+    ),
+    RoleModel(
+      title: "TD AI —\nSOFTWARE\nADD-ON BILLING",
+      assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.billing,
+    ),
+    RoleModel(
+      title: "TRYOUTS\nMODULE",
+      assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.tryouts,
+    ),
+    RoleModel(
+      title: "CLINICS &\nCAMPS MODULE",
+      assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.clinics,
+    ),
+    RoleModel(
+      title: "EVALUATION\nSYSTEM",
+      assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.evaluation,
+    ),
+    RoleModel(
+      title: "SURVEYS\nMODULE",
+      assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.surveys,
+    ),
+    RoleModel(
+      title: "Digital Product\nHub",
+      assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.digitalProductHub,
+    ),
+    RoleModel(
+      title: "AI\nCOMMUNICATION",
+      assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.aiCommunication,
+    ),
+    RoleModel(
+      title: "PERMISSIONS &\nROLE\nASSIGNMENT",
+      assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.permissions,
+    ),
   ];
 
-  void selectRole(String role) {
-    selectedRole.value = role;
-    Get.toNamed(AppRoutes.login, arguments: role);
+  void selectRole(String roleTitle) {
+    // Find the role model
+    RoleModel? role = roles.firstWhereOrNull((r) => r.title == roleTitle);
+
+    if (role == null) return;
+
+    selectedRole.value = roleTitle;
+
+    if (role.route != null) {
+      Get.toNamed(role.route!);
+    } else {
+      Get.toNamed(AppRoutes.login, arguments: roleTitle);
+    }
   }
 }

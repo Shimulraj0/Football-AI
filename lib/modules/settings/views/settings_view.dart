@@ -33,7 +33,7 @@ class SettingsView extends GetView<SettingsController> {
               children: [
                 const CustomBackButton(
                   backgroundColor: Colors.white,
-                  iconColor: Colors.black,
+                  iconColor: Color(0xFF00204A),
                 ),
                 const SizedBox(width: 16),
                 const Text(

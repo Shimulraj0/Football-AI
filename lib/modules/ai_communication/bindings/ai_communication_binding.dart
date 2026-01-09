@@ -1,0 +1,9 @@
+import 'package:get/get.dart';
+import '../controllers/ai_communication_controller.dart';
+
+class AiCommunicationBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<AiCommunicationController>(() => AiCommunicationController());
+  }
+}

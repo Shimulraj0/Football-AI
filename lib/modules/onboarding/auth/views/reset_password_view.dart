@@ -5,6 +5,8 @@ import '../controllers/auth_controller.dart';
 import '../widgets/auth_widgets.dart';
 import '../../../../core/values/app_colors.dart';
 
+import '../../../../global_widgets/custom_back_button.dart';
+
 class ResetPasswordView extends GetView<AuthController> {
   const ResetPasswordView({super.key});
 
@@ -24,7 +26,7 @@ class ResetPasswordView extends GetView<AuthController> {
                 children: [
                   const Align(
                     alignment: Alignment.centerLeft,
-                    child: AuthBackButton(),
+                    child: CustomBackButton(),
                   ),
                   const Text(
                     "Reset Password",

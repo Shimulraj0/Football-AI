@@ -18,7 +18,7 @@ class TeamManagementView extends GetView<TeamManagementController> {
         elevation: 0,
         backgroundColor: const Color(0xFF00204A),
         leadingWidth: 50,
-        leading: const CustomBackButton(),
+        leading: const CustomBackButton(iconColor: Colors.white),
         title: const Text(
           "Team Management",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

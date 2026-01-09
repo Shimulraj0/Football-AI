@@ -4,14 +4,11 @@ import '../controllers/dashboard_controller.dart';
 import '../widgets/role_selector_grid.dart';
 import '../../../core/values/app_colors.dart';
 
-class DashboardView extends StatelessWidget {
+class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Instantiate the controller
-    final DashboardController controller = Get.put(DashboardController());
-
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(

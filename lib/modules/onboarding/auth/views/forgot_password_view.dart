@@ -4,6 +4,8 @@ import '../controllers/auth_controller.dart';
 import '../widgets/auth_widgets.dart';
 import '../../../../core/values/app_colors.dart';
 
+import '../../../../global_widgets/custom_back_button.dart';
+
 class ForgotPasswordView extends GetView<AuthController> {
   const ForgotPasswordView({super.key});
 
@@ -24,7 +26,7 @@ class ForgotPasswordView extends GetView<AuthController> {
                 children: [
                   const Align(
                     alignment: Alignment.centerLeft,
-                    child: AuthBackButton(),
+                    child: CustomBackButton(),
                   ),
                   const Text(
                     "Forgot Password",

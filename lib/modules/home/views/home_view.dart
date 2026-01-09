@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 import '../widgets/home_menu_section.dart';
 import '../widgets/profile_image.dart';
+import 'coach_ai_view.dart';
 import '../../settings/views/settings_view.dart';
 import '../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../global_widgets/custom_back_button.dart';
@@ -25,21 +26,51 @@ class HomeView extends GetView<HomeController> {
           // Persistent Header
           Obx(() {
             // Determine header content based on selected index
-            if (controller.selectedIndex.value == 2) {
+            if (controller.selectedIndex.value == 1) {
+              // Coach AI Header
+              return PersistentHeader(
+                height: 120, // Slightly shorter for chat
+                child: Row(
+                  children: [
+                    CustomBackButton(
+                      onPressed: () =>
+                          controller.changeTabIndex(0), // Back to Home
+                      backgroundColor: Colors.white,
+                      iconColor: const Color(0xFF00204A),
+                    ),
+                    const Expanded(
+                      child: Text(
+                        "Coach AI",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    // Balance the back button spacing
+                    const SizedBox(width: 40),
+                  ],
+                ),
+              );
+            } else if (controller.selectedIndex.value == 2) {
               // Settings Header Content
               return PersistentHeader(
                 height: 160,
                 child: Row(
                   children: [
-                    const CustomBackButton(
+                    CustomBackButton(
+                      onPressed: () => controller.changeTabIndex(0),
                       backgroundColor: Colors.white,
-                      iconColor: Colors.black,
+                      iconColor: const Color(0xFF00204A),
                     ),
                     const SizedBox(width: 16),
                     const Text(
-                      "Coach AI",
+                      "Settings", // Fixed Title
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 250, 249, 249),
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -113,6 +144,8 @@ class HomeView extends GetView<HomeController> {
             child: Obx(() {
               if (controller.selectedIndex.value == 2) {
                 return const SettingsView(isEmbedded: true);
+              } else if (controller.selectedIndex.value == 1) {
+                return const CoachAiView();
               }
               return const HomeMenuSection();
             }),

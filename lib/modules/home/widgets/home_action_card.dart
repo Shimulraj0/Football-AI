@@ -4,7 +4,8 @@ import 'action_card_icon.dart';
 class HomeActionCard extends StatefulWidget {
   final String title;
   final String subtitle;
-  final String iconPath; // SVG Asset path or use IconData if preferred
+  final String? iconPath; // SVG Asset path
+  final IconData? iconData; // Material Icon
   final String? backgroundIconPath;
   final EdgeInsetsGeometry? iconPadding;
   final bool isPremium;
@@ -14,8 +15,9 @@ class HomeActionCard extends StatefulWidget {
     super.key,
     required this.title,
     required this.subtitle,
-    required this.iconPath,
     required this.onTap,
+    this.iconPath,
+    this.iconData,
     this.backgroundIconPath,
     this.iconPadding,
     this.isPremium = false,
@@ -65,6 +67,7 @@ class _HomeActionCardState extends State<HomeActionCard> {
                 // Icon Box
                 ActionCardIcon(
                   iconPath: widget.iconPath,
+                  iconData: widget.iconData,
                   backgroundPath: widget.backgroundIconPath,
                   iconPadding: widget.iconPadding,
                   isPremium: widget.isPremium,

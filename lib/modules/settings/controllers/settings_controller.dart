@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../../../../routes/app_routes.dart';
 
 class SettingsController extends GetxController {
   final isPushNotificationsEnabled = true.obs;
@@ -9,6 +10,6 @@ class SettingsController extends GetxController {
 
   void logout() {
     // Implement logout logic here
-    Get.offAllNamed('/login');
+    Get.offAllNamed(AppRoutes.dashboard);
   }
 }
