@@ -57,7 +57,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.onboarding,
       page: () => const OnboardingView(),
-      transition: Transition.fadeIn,
+      transition: Transition.zoom,
     ),
     GetPage(
       name: AppRoutes.dashboard,
