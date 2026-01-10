@@ -6,6 +6,9 @@ import '../../../../global_widgets/custom_back_button.dart';
 
 // Actually CustomBottomNavBar is in global_widgets, need to import that.
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
+import '../../../../global_widgets/persistent_header.dart';
+
+import '../../../../core/values/app_padding.dart';
 
 class TeamManagementView extends GetView<TeamManagementController> {
   const TeamManagementView({super.key});
@@ -14,35 +17,35 @@ class TeamManagementView extends GetView<TeamManagementController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEEF5FF),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: const Color(0xFF00204A),
-        leadingWidth: 50,
-        leading: const CustomBackButton(iconColor: Colors.white),
-        title: const Text(
-          "Team Management",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
       body: Column(
         children: [
-          // Header Smooth Edge
-          Container(
-            height: 35,
-            decoration: const BoxDecoration(
-              color: Color(0xFF00204A),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
-              ),
+          PersistentHeader(
+            child: Row(
+              children: [
+                const CustomBackButton(
+                  iconColor: Color(0xFF00204A),
+                  backgroundColor: Colors.white,
+                ),
+                const Expanded(
+                  child: Text(
+                    "Team Management",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF00204A),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 40),
+              ],
             ),
           ),
           const SizedBox(height: 20),
 
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+              padding: AppPadding.pagePadding.copyWith(top: 0),
               children: [
                 _buildSummaryCard(context),
                 const SizedBox(height: 20),

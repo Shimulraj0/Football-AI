@@ -9,5 +9,10 @@ class AppPadding {
     vertical: vertical,
   );
 
-  static const EdgeInsets pagePadding = EdgeInsets.all(20.0);
+  static const EdgeInsets pagePadding = EdgeInsets.symmetric(
+    horizontal: horizontal,
+    vertical: vertical,
+  );
+
+  static const EdgeInsets cardPadding = EdgeInsets.all(16.0);
 }

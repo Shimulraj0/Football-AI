@@ -46,16 +46,6 @@ class AuthController extends GetxController {
       Get.offAllNamed(AppRoutes.home);
     } else {
       // Default to Dashboard or show error/placeholder for other roles
-      // For now, let's go to Dashboard so they can re-select or see 'Coming Soon'
-      // Or maybe go to a placeholder "Player Home" if we had one.
-      // User request only specified Coach -> Home.
-      // Let's assume others might go back to Dashboard or stay.
-      // But typically login should go *somewhere*.
-      // Let's print for now or route all "Others" to dashboard?
-      // Re-reading user request: "this page will route after select the coach tile" -> implies specific logic for coach.
-      // "whether i select any tile i have face auth anyhow" -> implies Auth is the gate.
-
-      // Let's assume for now only Coach has a built dashboard.
       if (selectedRole.value.isNotEmpty) {
         // Placeholder for other roles
         Get.snackbar("Success", "Logged in as ${selectedRole.value}");

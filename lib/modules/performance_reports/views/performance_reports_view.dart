@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../global_widgets/custom_back_button.dart';
+import '../../../../global_widgets/custom_bottom_nav_bar.dart';
+import '../../../../global_widgets/persistent_header.dart';
+import '../../home/controllers/home_controller.dart';
 import '../controllers/performance_reports_controller.dart';
+
+import '../../../../core/values/app_padding.dart';
 
 class PerformanceReportsView extends GetView<PerformanceReportsController> {
   const PerformanceReportsView({super.key});
@@ -10,56 +15,78 @@ class PerformanceReportsView extends GetView<PerformanceReportsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEEF5FF),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(),
-              const SizedBox(height: 24),
-              _buildHeroCard(),
-              const SizedBox(height: 16),
-              _buildAiSummaryCard(),
-              const SizedBox(height: 24),
-              _buildSectionTitle('Team Averages'),
-              const SizedBox(height: 16),
-              _buildTeamAverages(),
-              const SizedBox(height: 24),
-              _buildSectionTitle('Top Performers'),
-              const SizedBox(height: 16),
-              _buildTopPerformersList(),
-              const SizedBox(height: 24),
-              _buildSectionTitle('Individual Player Reports'),
-              const SizedBox(height: 16),
-              _buildIndividualReportsList(),
-            ],
+      body: Column(
+        children: [
+          PersistentHeader(
+            child: Row(
+              children: [
+                const CustomBackButton(
+                  iconColor: Color(0xFF00204A),
+                  backgroundColor: Colors.white,
+                ),
+                const Expanded(
+                  child: Text(
+                    "Performance Reports",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 40), // Balance back button
+              ],
+            ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Row(
-      children: [
-        const CustomBackButton(),
-        const Expanded(
-          child: Center(
-            child: Text(
-              'Performance Reports',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF00204A),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: AppPadding.pagePadding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // _buildHeader() removed or integrated
+                  const SizedBox(
+                    height: 10,
+                  ), // Reduced top spacing as header provides some
+                  _buildHeroCard(),
+                  const SizedBox(height: 16),
+                  _buildAiSummaryCard(),
+                  const SizedBox(height: 24),
+                  _buildSectionTitle('Team Averages'),
+                  const SizedBox(height: 16),
+                  _buildTeamAverages(),
+                  const SizedBox(height: 24),
+                  _buildSectionTitle('Top Performers'),
+                  const SizedBox(height: 16),
+                  _buildTopPerformersList(),
+                  const SizedBox(height: 24),
+                  _buildSectionTitle('Individual Player Reports'),
+                  const SizedBox(height: 16),
+                  _buildIndividualReportsList(),
+                ],
               ),
             ),
           ),
-        ),
-        const SizedBox(width: 48), // Balance for back button
-      ],
+        ],
+      ),
+      bottomNavigationBar: () {
+        if (Get.isRegistered<HomeController>()) {
+          final homeController = Get.find<HomeController>();
+          return Obx(
+            () => CustomBottomNavBar(
+              selectedIndex: homeController.selectedIndex.value,
+              onItemTapped: homeController.changeTabIndex,
+            ),
+          );
+        } else {
+          return null;
+        }
+      }(),
     );
   }
+
+  // _buildHeader removed
 
   Widget _buildHeroCard() {
     return Container(
@@ -110,7 +137,7 @@ class PerformanceReportsView extends GetView<PerformanceReportsController> {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFF4EEeb2).withOpacity(0.9),
+        color: const Color(0xFF4EEeb2).withValues(alpha: 0.9),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -159,7 +186,7 @@ class PerformanceReportsView extends GetView<PerformanceReportsController> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -213,7 +240,7 @@ class PerformanceReportsView extends GetView<PerformanceReportsController> {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: controller.topPerformers.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 12),
+      separatorBuilder: (context, index) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
         final player = controller.topPerformers[index];
         return Container(
@@ -281,7 +308,7 @@ class PerformanceReportsView extends GetView<PerformanceReportsController> {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: controller.individualReports.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 16),
+      separatorBuilder: (context, index) => const SizedBox(height: 16),
       itemBuilder: (context, index) {
         final player = controller.individualReports[index];
         final stats = player['stats'] as Map<String, String>;
@@ -291,10 +318,10 @@ class PerformanceReportsView extends GetView<PerformanceReportsController> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.grey.withOpacity(0.1)),
+            border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),

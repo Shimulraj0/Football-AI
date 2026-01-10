@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../routes/app_routes.dart';
 import '../../../../core/values/app_padding.dart';
-import '../controllers/home_controller.dart';
-import 'home_action_card.dart';
+import '../controllers/player_home_controller.dart';
+import '../../home/widgets/home_action_card.dart';
 
-class HomeMenuSection extends StatelessWidget {
-  const HomeMenuSection({super.key});
+class PlayerMenuSection extends StatelessWidget {
+  const PlayerMenuSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<HomeController>();
+    final controller = Get.find<PlayerHomeController>();
 
     // Using a list for data to keep build method clean
-    // Note: Replace these with actual icon assets when available
     final List<Map<String, dynamic>> menuItems = [
       {
         "title": "Team Management",
@@ -33,7 +32,6 @@ class HomeMenuSection extends StatelessWidget {
         "iconPath": "assets/images/states.png",
         "isPremium": false,
       },
-
       {
         "title": "Ask Coach AI",
         "subtitle": "Get instant answers to your coaching questions",

@@ -24,7 +24,7 @@ class ActionCardIcon extends StatelessWidget {
       height: 56,
 
       child: Row(
-        mainAxisAlignment: .center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (backgroundPath != null) SvgPicture.asset(backgroundPath!),
           Padding(

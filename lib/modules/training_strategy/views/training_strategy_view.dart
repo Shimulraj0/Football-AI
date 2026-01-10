@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../global_widgets/custom_back_button.dart';
-import '../../../global_widgets/custom_bottom_nav_bar.dart';
+import '../../../../global_widgets/custom_bottom_nav_bar.dart';
+import '../../../../global_widgets/persistent_header.dart';
 import '../../home/controllers/home_controller.dart';
 import '../controllers/training_strategy_controller.dart';
 import '../../../../core/values/app_colors.dart';
+
+import '../../../../core/values/app_padding.dart';
 
 class TrainingStrategyView extends GetView<TrainingStrategyController> {
   const TrainingStrategyView({super.key});
@@ -13,29 +16,54 @@ class TrainingStrategyView extends GetView<TrainingStrategyController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEEF5FF),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(),
-              const SizedBox(height: 24),
-              _buildTrainingStrategyCard(),
-              const SizedBox(height: 16),
-              Obx(() {
-                if (controller.generatedPlan.value != null) {
-                  return _buildGeneratedPlanView();
-                }
-                return _buildGenerateCustomPlanCard();
-              }),
-              const SizedBox(height: 24),
-              _buildSectionTitle('Saved Training Plans'),
-              const SizedBox(height: 12),
-              _buildSavedPlansList(),
-            ],
+      body: Column(
+        children: [
+          PersistentHeader(
+            child: Row(
+              children: [
+                const CustomBackButton(
+                  iconColor: Color(0xFF00204A),
+                  backgroundColor: Colors.white,
+                ),
+                const Expanded(
+                  child: Text(
+                    "Training Strategy",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 40),
+              ],
+            ),
           ),
-        ),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: AppPadding.pagePadding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 10),
+                  _buildTrainingStrategyCard(),
+                  const SizedBox(height: 16),
+                  Obx(() {
+                    if (controller.generatedPlan.value != null) {
+                      return _buildGeneratedPlanView();
+                    }
+                    return _buildGenerateCustomPlanCard();
+                  }),
+                  const SizedBox(height: 24),
+                  _buildSectionTitle('Saved Training Plans'),
+                  const SizedBox(height: 12),
+                  _buildSavedPlansList(),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: () {
         if (Get.isRegistered<HomeController>()) {
@@ -53,26 +81,7 @@ class TrainingStrategyView extends GetView<TrainingStrategyController> {
     );
   }
 
-  Widget _buildHeader() {
-    return Row(
-      children: [
-        const CustomBackButton(),
-        const Expanded(
-          child: Center(
-            child: Text(
-              'Training Strategy',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF00204A),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 48), // Balance for back button
-      ],
-    );
-  }
+  // _buildHeader removed
 
   Widget _buildTrainingStrategyCard() {
     return Container(
@@ -211,7 +220,7 @@ class TrainingStrategyView extends GetView<TrainingStrategyController> {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -326,7 +335,7 @@ class TrainingStrategyView extends GetView<TrainingStrategyController> {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: controller.savedPlans.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 16),
+      separatorBuilder: (context, index) => const SizedBox(height: 16),
       itemBuilder: (context, index) {
         final plan = controller.savedPlans[index];
         return Container(
@@ -336,7 +345,7 @@ class TrainingStrategyView extends GetView<TrainingStrategyController> {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),

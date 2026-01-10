@@ -29,7 +29,7 @@ class HomeView extends GetView<HomeController> {
             if (controller.selectedIndex.value == 1) {
               // Coach AI Header
               return PersistentHeader(
-                height: 120, // Slightly shorter for chat
+                // height: 140, // Uses default now
                 child: Row(
                   children: [
                     CustomBackButton(
@@ -57,7 +57,7 @@ class HomeView extends GetView<HomeController> {
             } else if (controller.selectedIndex.value == 2) {
               // Settings Header Content
               return PersistentHeader(
-                height: 160,
+                // height: 140, // Uses default now
                 child: Row(
                   children: [
                     CustomBackButton(
@@ -83,7 +83,7 @@ class HomeView extends GetView<HomeController> {
 
             // Home Header Content (Default)
             return PersistentHeader(
-              height: 180,
+              // height: 140, // consistent with others
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -103,7 +103,7 @@ class HomeView extends GetView<HomeController> {
                           "Welcome Back",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25,
+                            fontSize: 19,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -112,7 +112,7 @@ class HomeView extends GetView<HomeController> {
                           "Coach Dashboard",
                           style: TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255),
-                            fontSize: 14,
+                            fontSize: 12,
                           ),
                         ),
                       ],
@@ -127,7 +127,7 @@ class HomeView extends GetView<HomeController> {
                       },
                       customBorder: const CircleBorder(),
                       child: Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: SvgPicture.asset(
                           "assets/icons/Notification.svg",
                         ),

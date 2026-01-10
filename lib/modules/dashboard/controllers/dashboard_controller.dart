@@ -22,7 +22,11 @@ class DashboardController extends GetxController {
       title: "Specialty Director",
       assetPath: 'assets/icons/ic_single_role.png',
     ),
-    RoleModel(title: "Coach", assetPath: 'assets/icons/ic_group_role.png'),
+    RoleModel(
+      title: "Coach",
+      assetPath: 'assets/icons/ic_group_role.png',
+      // route: AppRoutes.home, // Removed to force Login
+    ),
     RoleModel(title: "Player", assetPath: 'assets/icons/ic_single_role.png'),
     RoleModel(title: "Parent", assetPath: 'assets/icons/ic_single_role.png'),
     RoleModel(

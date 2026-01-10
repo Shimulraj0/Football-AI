@@ -10,7 +10,7 @@ class PersistentHeader extends StatelessWidget {
   const PersistentHeader({
     super.key,
     this.child,
-    this.height = 160,
+    this.height = 140,
     this.backgroundColor = const Color(0xFF00204A),
     this.padding,
   });
