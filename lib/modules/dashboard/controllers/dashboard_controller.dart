@@ -83,10 +83,10 @@ class DashboardController extends GetxController {
 
     selectedRole.value = roleTitle;
 
-    if (role.route != null) {
-      Get.toNamed(role.route!);
-    } else {
-      Get.toNamed(AppRoutes.login, arguments: roleTitle);
-    }
+    // We mostly go to login now, passing the intended route if present
+    Get.toNamed(
+      AppRoutes.login,
+      arguments: {'role': roleTitle, 'redirect': role.route},
+    );
   }
 }

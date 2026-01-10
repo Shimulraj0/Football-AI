@@ -13,62 +13,65 @@ class PlayerMenuSection extends StatelessWidget {
     final controller = Get.find<PlayerHomeController>();
 
     // Using a list for data to keep build method clean
-    final List<Map<String, dynamic>> menuItems = [
-      {
-        "title": "Team Management",
-        "subtitle": "View and edit players, assign drills and track attendance",
-        "iconPath": "assets/images/user.png",
-        "isPremium": false,
-      },
-      {
-        "title": "Training Strategy",
-        "subtitle": "Get AI suggestions for formations, drills and game plans",
-        "iconPath": "assets/images/trophy.png",
-        "isPremium": false,
-      },
-      {
-        "title": "Performance Reports",
-        "subtitle": "Review team or individual player progress and statistics",
-        "iconPath": "assets/images/states.png",
-        "isPremium": false,
-      },
-      {
-        "title": "Ask Coach AI",
-        "subtitle": "Get instant answers to your coaching questions",
-        "iconPath": "assets/images/chat.png",
-        "isPremium": false,
-      },
-      {
-        "title": "Upgrade to Premium",
-        "subtitle": "Unlock advanced playbooks and exclusive coaching content",
-        "iconPath": "assets/icons/vip.svg",
-        "isPremium": true,
-      },
-    ];
-
-    return ListView.builder(
+    // Define the menu items directly to handle specific styling
+    return ListView(
       padding: AppPadding.pagePadding,
-      itemCount: menuItems.length,
-      itemBuilder: (context, index) {
-        final item = menuItems[index];
-        return HomeActionCard(
-          title: item['title'],
-          subtitle: item['subtitle'],
-          iconPath: item['iconPath'],
-          isPremium: item['isPremium'],
+      children: [
+        // 1. Daily Mindset Tip (Gradient)
+        HomeActionCard(
+          title: "Daily Mindset Tip",
+          subtitle: "The harder you work, the luckier you get.",
+          iconData: Icons.auto_awesome_outlined,
+          backgroundGradient: const LinearGradient(
+            colors: [Color(0xFF4CD8C4), Color(0xFF36C3B5)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          titleColor: Colors.white,
+          subtitleColor: Colors.white,
+          iconColor: Colors.white,
           onTap: () {
-            if (item['title'] == "Team Management") {
-              Get.toNamed(AppRoutes.teamManagement);
-            } else if (item['title'] == "Training Strategy") {
-              Get.toNamed(AppRoutes.trainingStrategy);
-            } else if (item['title'] == "Performance Reports") {
-              Get.toNamed(AppRoutes.performanceReports);
-            } else if (item['title'] == "Ask Coach AI") {
-              controller.changeTabIndex(1);
-            }
+            // Static tile, no action
           },
-        );
-      },
+        ),
+
+        // 2. Training Feedback (Dark Blue)
+        HomeActionCard(
+          title: "Training Feedback",
+          subtitle:
+              "Share your training experience and get personalized advice",
+          iconData: Icons.chat_bubble_outline_rounded,
+          backgroundColor: const Color(0xFF00204A),
+          titleColor: Colors.white,
+          subtitleColor: Colors.white.withValues(alpha: 0.9),
+          iconColor: Colors.white,
+          onTap: () {
+            Get.toNamed(AppRoutes.trainingFeedback);
+          },
+        ),
+
+        // 3. Skill Progress Tracker (White)
+        HomeActionCard(
+          title: "Skill Progress Tracker",
+          subtitle: "View your improvement over time with detailed charts",
+          // Use similar icon to "Performance Reports" if available, else standard icon
+          iconData: Icons.show_chart_rounded,
+          // Default white background style matches this, so just need text/icon default
+          onTap: () {
+            Get.toNamed(AppRoutes.performanceReports);
+          },
+        ),
+
+        // 4. Talk to Player AI (White)
+        HomeActionCard(
+          title: "Talk to Player AI",
+          subtitle: "Get instant help with technique, tactics and mindset",
+          iconData: Icons.chat_bubble_outline_rounded, // Reusing chat icon
+          onTap: () {
+            controller.changeTabIndex(1); // Switch to Coach/Player AI tab
+          },
+        ),
+      ],
     );
   }
 }

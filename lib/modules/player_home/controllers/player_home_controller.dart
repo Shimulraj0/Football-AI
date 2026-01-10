@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import '../../../routes/app_routes.dart';
 
 class PlayerHomeController extends GetxController {
   final selectedIndex = 0.obs;

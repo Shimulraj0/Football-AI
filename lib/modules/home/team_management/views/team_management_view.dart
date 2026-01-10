@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/team_management_controller.dart';
 import '../../controllers/home_controller.dart';
-import '../../../../global_widgets/custom_back_button.dart';
-
-// Actually CustomBottomNavBar is in global_widgets, need to import that.
+import '../../../../global_widgets/base_scaffold.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
-import '../../../../global_widgets/persistent_header.dart';
-
 import '../../../../core/values/app_padding.dart';
 
 class TeamManagementView extends GetView<TeamManagementController> {
@@ -15,32 +11,11 @@ class TeamManagementView extends GetView<TeamManagementController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFEEF5FF),
+    return BaseScaffold(
+      title: "Team Management",
       body: Column(
         children: [
-          PersistentHeader(
-            child: Row(
-              children: [
-                const CustomBackButton(
-                  iconColor: Color(0xFF00204A),
-                  backgroundColor: Colors.white,
-                ),
-                const Expanded(
-                  child: Text(
-                    "Team Management",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF00204A),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 40),
-              ],
-            ),
-          ),
+          const SizedBox(height: 20),
           const SizedBox(height: 20),
 
           Expanded(

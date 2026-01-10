@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../global_widgets/custom_back_button.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
+import '../../../../global_widgets/persistent_header.dart';
 import '../../home/controllers/home_controller.dart';
 
 import '../controllers/edit_profile_controller.dart';
@@ -22,22 +23,13 @@ class EditProfileView extends GetView<EditProfileController> {
                 clipBehavior: Clip.none,
                 children: [
                   // 1. Blue Header Background
-                  Container(
+                  PersistentHeader(
                     height: 160,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF00204A),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      ),
-                    ),
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).padding.top + 10,
+                    padding: const EdgeInsets.only(
                       left: 20,
                       right: 20,
+                      top: 10,
                     ),
-                    alignment: Alignment.topCenter,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

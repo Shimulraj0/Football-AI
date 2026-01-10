@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../global_widgets/custom_back_button.dart';
+import '../../../../global_widgets/base_scaffold.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
 
@@ -9,36 +9,9 @@ class TermsConditionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFEEF5FF),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: const Color(0xFF00204A),
-        leading: const CustomBackButton(
-          iconColor: Colors.black,
-          backgroundColor: Colors.white,
-        ),
-        title: const Text(
-          "Terms & Condition",
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-      ),
-      body: Stack(
-        children: [
-          Container(
-            height: 40,
-            decoration: const BoxDecoration(
-              color: Color(0xFF00204A),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
-              ),
-            ),
-          ),
-          const Center(child: Text("Content needed")),
-        ],
-      ),
+    return BaseScaffold(
+      title: "Terms & Condition",
+      body: const Center(child: Text("Content needed")),
       bottomNavigationBar: () {
         if (Get.isRegistered<HomeController>()) {
           final homeController = Get.find<HomeController>();

@@ -11,6 +11,11 @@ class HomeActionCard extends StatefulWidget {
   final EdgeInsetsGeometry? iconPadding;
   final bool isPremium;
   final VoidCallback onTap;
+  final Color? backgroundColor;
+  final Gradient? backgroundGradient;
+  final Color? titleColor;
+  final Color? subtitleColor;
+  final Color? iconColor;
 
   const HomeActionCard({
     super.key,
@@ -22,6 +27,11 @@ class HomeActionCard extends StatefulWidget {
     this.backgroundIconPath,
     this.iconPadding,
     this.isPremium = false,
+    this.backgroundColor,
+    this.backgroundGradient,
+    this.titleColor,
+    this.subtitleColor,
+    this.iconColor,
   });
 
   @override
@@ -37,9 +47,17 @@ class _HomeActionCardState extends State<HomeActionCard> {
       margin: const EdgeInsets.only(bottom: 16),
       constraints: const BoxConstraints(minHeight: 100),
       decoration: BoxDecoration(
-        color: widget.isPremium ? const Color(0xFF00204A) : Colors.white,
+        color: widget.backgroundGradient == null
+            ? (widget.backgroundColor ??
+                  (widget.isPremium ? const Color(0xFF00204A) : Colors.white))
+            : null,
+        gradient: widget.backgroundGradient,
         borderRadius: BorderRadius.circular(16),
-        border: (widget.isPremium || _isPressed)
+        border:
+            (widget.isPremium ||
+                _isPressed ||
+                widget.backgroundColor != null ||
+                widget.backgroundGradient != null)
             ? null
             : Border.all(color: const Color(0xFF012356)),
         boxShadow: [
@@ -73,6 +91,7 @@ class _HomeActionCardState extends State<HomeActionCard> {
                   backgroundPath: widget.backgroundIconPath,
                   iconPadding: widget.iconPadding,
                   isPremium: widget.isPremium,
+                  iconColor: widget.iconColor,
                 ),
                 const SizedBox(width: 16),
 
@@ -86,9 +105,11 @@ class _HomeActionCardState extends State<HomeActionCard> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: widget.isPremium
-                              ? const Color(0xFFF1C40F)
-                              : const Color(0xFF00204A),
+                          color:
+                              widget.titleColor ??
+                              (widget.isPremium
+                                  ? const Color(0xFFF1C40F)
+                                  : const Color(0xFF00204A)),
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -96,9 +117,13 @@ class _HomeActionCardState extends State<HomeActionCard> {
                         widget.subtitle,
                         style: TextStyle(
                           fontSize: 13,
-                          color: widget.isPremium
-                              ? Colors.white.withValues(alpha: 0.9)
-                              : const Color(0xFF00204A).withValues(alpha: 0.7),
+                          color:
+                              widget.subtitleColor ??
+                              (widget.isPremium
+                                  ? Colors.white.withValues(alpha: 0.9)
+                                  : const Color(
+                                      0xFF00204A,
+                                    ).withValues(alpha: 0.7)),
                           height: 1.4,
                         ),
                       ),

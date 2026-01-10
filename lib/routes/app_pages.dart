@@ -13,6 +13,11 @@ import '../modules/home/views/home_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/team_management/views/team_management_view.dart';
 import '../modules/home/team_management/bindings/team_management_binding.dart';
+import '../modules/player_home/views/player_home_view.dart';
+import '../modules/player_home/views/daily_mindset_view.dart';
+import '../modules/player_home/views/training_feedback_view.dart';
+import '../modules/player_home/bindings/player_home_binding.dart';
+import '../modules/player_home/bindings/training_feedback_binding.dart';
 import '../modules/settings/views/settings_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/edit_profile_view.dart';
@@ -93,6 +98,17 @@ class AppPages {
       name: AppRoutes.teamManagement,
       page: () => const TeamManagementView(),
       binding: TeamManagementBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.playerHome,
+      page: () => const PlayerHomeView(),
+      binding: PlayerHomeBinding(),
+    ),
+    GetPage(name: AppRoutes.dailyMindset, page: () => const DailyMindsetView()),
+    GetPage(
+      name: AppRoutes.trainingFeedback,
+      page: () => const TrainingFeedbackView(),
+      binding: TrainingFeedbackBinding(),
     ),
     GetPage(
       name: AppRoutes.settings,

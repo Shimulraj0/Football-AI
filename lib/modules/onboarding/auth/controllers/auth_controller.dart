@@ -17,13 +17,19 @@ class AuthController extends GetxController {
 
   // Selected Role from Dashboard
   final RxString selectedRole = ''.obs;
+  String? redirectRoute;
 
   @override
   void onInit() {
     super.onInit();
     // Get arguments if passed (e.g., from Dashboard)
-    if (Get.arguments != null && Get.arguments is String) {
-      selectedRole.value = Get.arguments;
+    if (Get.arguments != null) {
+      if (Get.arguments is Map) {
+        selectedRole.value = Get.arguments['role'] ?? '';
+        redirectRoute = Get.arguments['redirect'];
+      } else if (Get.arguments is String) {
+        selectedRole.value = Get.arguments;
+      }
     }
   }
 
@@ -41,13 +47,23 @@ class AuthController extends GetxController {
       "Login with ${emailController.text} and role ${selectedRole.value}",
     );
 
-    // Navigate based on role
+    // If we have a stored redirect route, go there
+    if (redirectRoute != null) {
+      Get.offAllNamed(redirectRoute!);
+      return;
+    }
+
+    // Otherwise navigate based on role
     if (selectedRole.value == "Coach") {
       Get.offAllNamed(AppRoutes.home);
+    } else if (selectedRole.value == "Player") {
+      Get.offAllNamed(AppRoutes.playerHome);
     } else {
       // Default to Dashboard or show error/placeholder for other roles
       if (selectedRole.value.isNotEmpty) {
-        // Placeholder for other roles
+        // Since we are now handling all dashboard items via login,
+        // if we fall through here it means no specific redirect was found
+        // or it's a role without a specific home page yet.
         Get.snackbar("Success", "Logged in as ${selectedRole.value}");
       }
     }

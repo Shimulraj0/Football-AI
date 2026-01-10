@@ -11,13 +11,54 @@ class SplashView extends StatefulWidget {
   State<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashViewState extends State<SplashView> {
+class _SplashViewState extends State<SplashView>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _topRightAnimation;
+  late Animation<Offset> _bottomLeftAnimation;
+  late Animation<double> _logoScaleAnimation;
+  late Animation<double> _logoFadeAnimation;
+
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    );
+
+    _topRightAnimation = Tween<Offset>(
+      begin: const Offset(1.0, -1.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+
+    _bottomLeftAnimation = Tween<Offset>(
+      begin: const Offset(-1.0, 1.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+
+    _logoScaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.2, 1.0, curve: Curves.elasticOut),
+      ),
+    );
+
+    _logoFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.6)),
+    );
+
+    _controller.forward();
+
     Future.delayed(const Duration(seconds: 3), () {
       Get.offNamed(AppRoutes.onboarding);
     });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -30,25 +71,40 @@ class _SplashViewState extends State<SplashView> {
           Positioned(
             top: 0,
             right: 0,
-            child: Image.asset(
-              'assets/images/shape_top_right.png',
-              width: 200,
-              fit: BoxFit.contain,
+            child: SlideTransition(
+              position: _topRightAnimation,
+              child: Image.asset(
+                'assets/images/shape_top_right.png',
+                width: 200,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
           // Bottom Left Shape
           Positioned(
             bottom: 0,
             left: 0,
-            child: Image.asset(
-              'assets/images/shape_bottom_left.png',
-              width: 200,
-              fit: BoxFit.contain,
+            child: SlideTransition(
+              position: _bottomLeftAnimation,
+              child: Image.asset(
+                'assets/images/shape_bottom_left.png',
+                width: 200,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
           // Center Logo
           Center(
-            child: SvgPicture.asset('assets/images/Layer_1.svg', width: 200),
+            child: FadeTransition(
+              opacity: _logoFadeAnimation,
+              child: ScaleTransition(
+                scale: _logoScaleAnimation,
+                child: SvgPicture.asset(
+                  'assets/images/Layer_1.svg',
+                  width: 200,
+                ),
+              ),
+            ),
           ),
         ],
       ),

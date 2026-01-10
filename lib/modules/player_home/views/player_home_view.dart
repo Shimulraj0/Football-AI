@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import '../controllers/home_controller.dart';
-import '../widgets/home_menu_section.dart';
-import '../widgets/profile_image.dart';
-import 'coach_ai_view.dart';
+import '../controllers/player_home_controller.dart';
+import '../widgets/player_menu_section.dart';
+import '../../home/widgets/profile_image.dart';
+import '../../home/views/coach_ai_view.dart';
 import '../../settings/views/settings_view.dart';
 import '../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../global_widgets/custom_back_button.dart';
 import '../../../core/values/app_colors.dart';
-
 import '../../../global_widgets/base_scaffold.dart';
 
-// ... imports ...
-
-class HomeView extends GetView<HomeController> {
-  const HomeView({super.key});
+class PlayerHomeView extends GetView<PlayerHomeController> {
+  const PlayerHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +21,7 @@ class HomeView extends GetView<HomeController> {
       headerContent: Obx(() {
         // Determine header content based on selected index
         if (controller.selectedIndex.value == 1) {
-          // Coach AI Header
+          // Coach AI Header (Shared)
           return Row(
             children: [
               CustomBackButton(
@@ -58,7 +55,7 @@ class HomeView extends GetView<HomeController> {
               ),
               const SizedBox(width: 16),
               const Text(
-                "Settings", // Fixed Title
+                "Settings",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color.fromARGB(255, 250, 249, 249),
@@ -71,12 +68,12 @@ class HomeView extends GetView<HomeController> {
           );
         }
 
-        // Home Header Content (Default)
+        // Player Home Header Content (Default)
         return Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ProfileImage(
-              imagePath: 'assets/icons/Ellipse 13.png',
+              imagePath: 'assets/icons/Ellipse 13.png', // Or player specific
               onTap: () {
                 // Handle profile tap
               },
@@ -97,7 +94,7 @@ class HomeView extends GetView<HomeController> {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    "Coach Dashboard",
+                    "Player Dashboard",
                     style: TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
                       fontSize: 12,
@@ -129,7 +126,7 @@ class HomeView extends GetView<HomeController> {
         } else if (controller.selectedIndex.value == 1) {
           return const CoachAiView();
         }
-        return const HomeMenuSection();
+        return const PlayerMenuSection();
       }),
       bottomNavigationBar: Obx(
         () => CustomBottomNavBar(

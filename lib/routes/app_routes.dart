@@ -9,6 +9,9 @@ abstract class AppRoutes {
   static const resetPassword = '/reset-password';
   static const home = '/home';
   static const teamManagement = '/team-management';
+  static const playerHome = '/player-home';
+  static const dailyMindset = '/daily-mindset';
+  static const trainingFeedback = '/training-feedback';
 
   static const settings = '/settings';
   static const editProfile = '/edit-profile';

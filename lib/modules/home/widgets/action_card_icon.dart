@@ -7,6 +7,7 @@ class ActionCardIcon extends StatelessWidget {
   final String? backgroundPath;
   final EdgeInsetsGeometry? iconPadding;
   final bool isPremium;
+  final Color? iconColor;
 
   const ActionCardIcon({
     super.key,
@@ -15,6 +16,7 @@ class ActionCardIcon extends StatelessWidget {
     this.backgroundPath,
     this.iconPadding,
     this.isPremium = false,
+    this.iconColor,
   });
 
   @override
@@ -33,13 +35,22 @@ class ActionCardIcon extends StatelessWidget {
                 ? Icon(
                     iconData,
                     size: 40,
-                    color: isPremium
-                        ? const Color(0xFFF1C40F)
-                        : const Color(0xFF00204A),
+                    color:
+                        iconColor ??
+                        (isPremium
+                            ? const Color(0xFFF1C40F)
+                            : const Color(0xFF00204A)),
                   )
                 : iconPath != null
                 ? (iconPath!.endsWith('.svg')
-                      ? SvgPicture.asset(iconPath!, width: 40, height: 40)
+                      ? SvgPicture.asset(
+                          iconPath!,
+                          width: 40,
+                          height: 40,
+                          colorFilter: iconColor != null
+                              ? ColorFilter.mode(iconColor!, BlendMode.srcIn)
+                              : null,
+                        )
                       : Image.asset(iconPath!, width: 40, height: 40))
                 : const SizedBox(),
           ),

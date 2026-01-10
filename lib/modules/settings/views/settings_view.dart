@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/settings_controller.dart';
 import '../../../../routes/app_routes.dart';
-import '../../../../global_widgets/custom_back_button.dart';
 import '../../../../core/values/app_padding.dart';
+import '../../../../global_widgets/base_scaffold.dart';
 import '../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
-import '../../../core/values/app_colors.dart';
 
 class SettingsView extends GetView<SettingsController> {
   final bool isEmbedded;
@@ -17,47 +16,9 @@ class SettingsView extends GetView<SettingsController> {
     if (isEmbedded) {
       return _buildSettingsContent();
     }
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: Column(
-        children: [
-          // Header
-          Container(
-            height: 160,
-            padding: AppPadding.headerPadding,
-            decoration: const BoxDecoration(
-              color: Color(0xFF00204A),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
-              ),
-            ),
-            child: SafeArea(
-              bottom: false,
-              child: Row(
-                children: [
-                  const CustomBackButton(
-                    backgroundColor: Colors.white,
-                    iconColor: Color(0xFF00204A),
-                  ),
-                  const SizedBox(width: 16),
-                  const Text(
-                    "Coach AI",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Spacer(),
-                ],
-              ),
-            ),
-          ),
-
-          Expanded(child: _buildSettingsContent()),
-        ],
-      ),
+    return BaseScaffold(
+      title: "Coach AI",
+      body: _buildSettingsContent(),
       bottomNavigationBar: () {
         if (Get.isRegistered<HomeController>()) {
           final homeController = Get.find<HomeController>();
