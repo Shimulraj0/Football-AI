@@ -48,17 +48,15 @@ import '../modules/training_strategy/bindings/training_strategy_binding.dart';
 import '../modules/training_strategy/views/training_strategy_view.dart';
 import '../modules/performance_reports/bindings/performance_reports_binding.dart';
 import '../modules/performance_reports/views/performance_reports_view.dart';
+import '../modules/player_home/views/skill_progress_tracker_view.dart';
+import '../modules/player_home/bindings/skill_progress_tracker_binding.dart';
 
 class AppPages {
   static const initial = AppRoutes.splash;
 
   static final routes = [
     GetPage(name: AppRoutes.splash, page: () => const SplashView()),
-    GetPage(
-      name: AppRoutes.onboarding,
-      page: () => const OnboardingView(),
-      transition: Transition.zoom,
-    ),
+    GetPage(name: AppRoutes.onboarding, page: () => const OnboardingView()),
     GetPage(
       name: AppRoutes.dashboard,
       page: () => const DashboardView(),
@@ -188,6 +186,11 @@ class AppPages {
       name: AppRoutes.performanceReports,
       page: () => const PerformanceReportsView(),
       binding: PerformanceReportsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.skillProgressTracker,
+      page: () => const SkillProgressTrackerView(),
+      binding: SkillProgressTrackerBinding(),
     ),
   ];
 }

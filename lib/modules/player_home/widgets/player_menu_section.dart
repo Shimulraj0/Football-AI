@@ -58,7 +58,7 @@ class PlayerMenuSection extends StatelessWidget {
           iconData: Icons.show_chart_rounded,
           // Default white background style matches this, so just need text/icon default
           onTap: () {
-            Get.toNamed(AppRoutes.performanceReports);
+            Get.toNamed(AppRoutes.skillProgressTracker);
           },
         ),
 

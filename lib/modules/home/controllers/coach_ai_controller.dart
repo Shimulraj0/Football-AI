@@ -9,8 +9,7 @@ class CoachAiController extends GetxController {
   final messages = <Map<String, String>>[
     {
       "sender": "ai",
-      "text":
-          "Hello vdsv! I'm your AI coach assistant. How can I help you today?",
+      "text": "Hello! I'm your AI coach assistant. How can I help you today?",
       "time": "11:47 PM",
     },
   ].obs;

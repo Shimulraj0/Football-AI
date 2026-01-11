@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../global_widgets/base_scaffold.dart';
+import '../../../global_widgets/custom_bottom_nav_bar.dart';
+import '../controllers/player_home_controller.dart';
 import '../controllers/training_feedback_controller.dart';
 
 class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
@@ -8,6 +10,9 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
 
   @override
   Widget build(BuildContext context) {
+    // Attempt to find PlayerHomeController to manage bottom nav
+    final playerHomeController = Get.find<PlayerHomeController>();
+
     return BaseScaffold(
       title: "Training Feedback",
       body: SingleChildScrollView(
@@ -131,6 +136,17 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: CustomBottomNavBar(
+        selectedIndex: 0, // Always highlight Home
+        onItemTapped: (index) {
+          if (index != 0) {
+            playerHomeController.changeTabIndex(index);
+            Get.back(); // Return to PlayerHome
+          } else {
+            Get.back(); // Just return to PlayerHome main view
+          }
+        },
       ),
     );
   }

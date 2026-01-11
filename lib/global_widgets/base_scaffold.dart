@@ -26,6 +26,9 @@ class BaseScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Check if keyboard is open
+    final bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Column(
@@ -37,7 +40,8 @@ class BaseScaffold extends StatelessWidget {
           Expanded(child: body),
         ],
       ),
-      bottomNavigationBar: bottomNavigationBar,
+      // Hide bottom nav bar when keyboard is open to prevent "big space"
+      bottomNavigationBar: isKeyboardOpen ? null : bottomNavigationBar,
     );
   }
 

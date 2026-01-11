@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       initialRoute: AppPages.initial,
       getPages: AppPages.routes,
+      defaultTransition: Transition.zoom,
     );
   }
 }

@@ -30,4 +30,5 @@ abstract class AppRoutes {
   static const permissions = '/permissions';
   static const trainingStrategy = '/training-strategy';
   static const performanceReports = '/performance-reports';
+  static const skillProgressTracker = '/skill-progress-tracker';
 }

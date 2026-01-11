@@ -79,6 +79,7 @@ class SignInView extends GetView<AuthController> {
                   Obx(
                     () => InkWell(
                       onTap: () => controller.rememberMe.toggle(),
+                      customBorder: const CircleBorder(),
                       child: Container(
                         height: 20,
                         width: 45,
@@ -92,12 +93,10 @@ class SignInView extends GetView<AuthController> {
                           ),
                         ),
                         child: controller.rememberMe.value
-                            ? const Center(
-                                child: Icon(
-                                  Icons.circle,
-                                  size: 10,
-                                  color: Color(0xFF00204A),
-                                ),
+                            ? Icon(
+                                Icons.circle,
+                                size: 10,
+                                color: Color(0xFF00204A),
                               )
                             : null,
                       ),

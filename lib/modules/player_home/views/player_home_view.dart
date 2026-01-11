@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 import '../controllers/player_home_controller.dart';
 import '../widgets/player_menu_section.dart';
 import '../../home/widgets/profile_image.dart';
-import '../../home/views/coach_ai_view.dart';
+
 import '../../settings/views/settings_view.dart';
 import '../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../global_widgets/custom_back_button.dart';
 import '../../../core/values/app_colors.dart';
+import 'package:football_ai/modules/player_home/views/player_ai_chat_view.dart'; // Import correct view
 import '../../../global_widgets/base_scaffold.dart';
 
 class PlayerHomeView extends GetView<PlayerHomeController> {
@@ -31,7 +32,7 @@ class PlayerHomeView extends GetView<PlayerHomeController> {
               ),
               const Expanded(
                 child: Text(
-                  "Coach AI",
+                  "Talk to Player AI", // Updated Title
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -124,7 +125,7 @@ class PlayerHomeView extends GetView<PlayerHomeController> {
         if (controller.selectedIndex.value == 2) {
           return const SettingsView(isEmbedded: true);
         } else if (controller.selectedIndex.value == 1) {
-          return const CoachAiView();
+          return const PlayerAiChatView(); // Use separated Player AI Chat
         }
         return const PlayerMenuSection();
       }),

@@ -37,7 +37,7 @@ class _SplashViewState extends State<SplashView>
 
     _controller.forward();
 
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Get.offNamed(AppRoutes.onboarding);
     });
   }
