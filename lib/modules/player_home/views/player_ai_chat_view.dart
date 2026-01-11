@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/player_ai_chat_controller.dart';
+import '../../../../core/values/app_colors.dart';
 
 class PlayerAiChatView extends StatelessWidget {
   const PlayerAiChatView({super.key});
@@ -130,26 +131,63 @@ class PlayerAiChatView extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: const Color(0xFFE0E0E0)),
+                      borderRadius: BorderRadius.circular(30), // Pill shape
+                      border: Border.all(
+                        color: AppColors.inputBorderLight,
+                        width: 2.0, // Made bolder as requested
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color.fromARGB(
+                            255,
+                            3,
+                            3,
+                            3,
+                          ).withOpacity(0.1),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                      // Removed border to match "floating" pill look
                     ),
                     child: TextField(
                       controller: controller.messageController,
                       decoration: InputDecoration(
                         hintText: "Ask Player AI",
-                        hintStyle: TextStyle(
-                          color: Colors.grey[400],
-                          fontSize: 14,
+                        hintStyle: const TextStyle(
+                          color: Color.fromARGB(
+                            255,
+                            41,
+                            44,
+                            49,
+                          ), // Slate grey matching the image
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
                         ),
-                        prefixIcon: Icon(
-                          Icons.chat_bubble_outline,
-                          color: Colors.grey[400],
-                          size: 20,
+                        prefixIcon: IntrinsicHeight(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const SizedBox(width: 16), // More left padding
+                              // Using custom asset as requested
+                              Image.asset(
+                                'assets/icons/ChatBubble.png',
+                                width: 28,
+                                height: 28,
+                                color: const Color(
+                                  0xFF4B5563,
+                                ), // Applying the slate grey tint
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ), // Space between icon and text
+                            ],
+                          ),
                         ),
                         border: InputBorder.none,
                         contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 14,
+                          horizontal: 20,
+                          vertical: 16, // Taller padding for pill look
                         ),
                       ),
                       style: const TextStyle(color: Color(0xFF00204A)),

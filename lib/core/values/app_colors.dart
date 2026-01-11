@@ -11,6 +11,7 @@ class AppColors {
   static const Color navyBlue = Color(0xFF00204A);
   static const Color inputFill = Color(0xFFF9F9F9);
   static const Color inputBorder = Color(0xFF959595);
+  static const Color inputBorderLight = Color(0xFFE6E6E6);
   static const Color black = Colors.black;
   static const Color white = Colors.white;
   static const Color grey = Colors.grey;
