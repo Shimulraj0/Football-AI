@@ -31,4 +31,5 @@ abstract class AppRoutes {
   static const trainingStrategy = '/training-strategy';
   static const performanceReports = '/performance-reports';
   static const skillProgressTracker = '/skill-progress-tracker';
+  static const technicalDirectorHome = '/technical-director-home';
 }

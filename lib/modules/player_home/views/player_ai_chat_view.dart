@@ -143,7 +143,7 @@ class PlayerAiChatView extends StatelessWidget {
                             3,
                             3,
                             3,
-                          ).withOpacity(0.1),
+                          ).withValues(alpha: 0.1),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),

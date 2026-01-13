@@ -50,6 +50,8 @@ import '../modules/performance_reports/bindings/performance_reports_binding.dart
 import '../modules/performance_reports/views/performance_reports_view.dart';
 import '../modules/player_home/views/skill_progress_tracker_view.dart';
 import '../modules/player_home/bindings/skill_progress_tracker_binding.dart';
+import '../modules/technical_director_home/views/technical_director_home_view.dart';
+import '../modules/technical_director_home/bindings/technical_director_home_binding.dart';
 
 class AppPages {
   static const initial = AppRoutes.splash;
@@ -191,6 +193,11 @@ class AppPages {
       name: AppRoutes.skillProgressTracker,
       page: () => const SkillProgressTrackerView(),
       binding: SkillProgressTrackerBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.technicalDirectorHome,
+      page: () => const TechnicalDirectorHomeView(),
+      binding: TechnicalDirectorHomeBinding(),
     ),
   ];
 }

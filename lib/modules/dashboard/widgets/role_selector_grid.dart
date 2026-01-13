@@ -78,8 +78,10 @@ class RoleSelectorGrid extends StatelessWidget {
         return RoleTile(
           title: role.title,
           assetPath: role.assetPath,
-          isSelected: selectedRole == role.title,
-          onTap: () => onRoleSelected(role.title),
+          icon: role.icon,
+          isFeatured: role.isFeatured,
+          isSelected: selectedRole == role.id,
+          onTap: () => onRoleSelected(role.id),
         );
       }).toList(),
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../core/values/app_padding.dart';
 
 class PersistentHeader extends StatelessWidget {
   final Widget? child;
@@ -15,11 +14,50 @@ class PersistentHeader extends StatelessWidget {
     this.padding,
   });
 
+  factory PersistentHeader.welcome({
+    required String title,
+    required String subtitle,
+  }) {
+    return PersistentHeader(
+      height: 180,
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Welcome Text
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.8),
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      padding: padding ?? AppPadding.headerPadding,
+      padding: padding,
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: const BorderRadius.only(
@@ -27,7 +65,7 @@ class PersistentHeader extends StatelessWidget {
           bottomRight: Radius.circular(30),
         ),
       ),
-      child: SafeArea(bottom: false, child: child ?? const SizedBox.shrink()),
+      child: child,
     );
   }
 }

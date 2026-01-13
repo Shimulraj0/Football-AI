@@ -28,32 +28,47 @@ class ActionCardIcon extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (backgroundPath != null) SvgPicture.asset(backgroundPath!),
-          Padding(
-            padding: iconPadding ?? EdgeInsets.zero,
-            child: iconData != null
-                ? Icon(
-                    iconData,
-                    size: 40,
-                    color:
-                        iconColor ??
-                        (isPremium
-                            ? const Color(0xFFF1C40F)
-                            : const Color(0xFF00204A)),
-                  )
-                : iconPath != null
-                ? (iconPath!.endsWith('.svg')
-                      ? SvgPicture.asset(
-                          iconPath!,
-                          width: 40,
-                          height: 40,
-                          colorFilter: iconColor != null
-                              ? ColorFilter.mode(iconColor!, BlendMode.srcIn)
-                              : null,
+          if (backgroundPath != null)
+            SvgPicture.asset(backgroundPath!)
+          else
+            Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF8F9FA), // Light background for icon
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Padding(
+                  padding: iconPadding ?? EdgeInsets.zero,
+                  child: iconData != null
+                      ? Icon(
+                          iconData,
+                          size: 28, // Slightly smaller to fit in box
+                          color:
+                              iconColor ??
+                              (isPremium
+                                  ? const Color(0xFFF1C40F)
+                                  : const Color(0xFF00204A)),
                         )
-                      : Image.asset(iconPath!, width: 40, height: 40))
-                : const SizedBox(),
-          ),
+                      : iconPath != null
+                      ? (iconPath!.endsWith('.svg')
+                            ? SvgPicture.asset(
+                                iconPath!,
+                                width: 28,
+                                height: 28,
+                                colorFilter: iconColor != null
+                                    ? ColorFilter.mode(
+                                        iconColor!,
+                                        BlendMode.srcIn,
+                                      )
+                                    : null,
+                              )
+                            : Image.asset(iconPath!, width: 28, height: 28))
+                      : const SizedBox(),
+                ),
+              ),
+            ),
         ],
       ),
     );
