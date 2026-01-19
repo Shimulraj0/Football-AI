@@ -1,6 +1,6 @@
 import '../../../routes/app_routes.dart';
 import '../models/role_model.dart';
-import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
 class DashboardController extends GetxController {
@@ -8,22 +8,16 @@ class DashboardController extends GetxController {
 
   final List<RoleModel> roles = [
     RoleModel(
-      id: "Club Setup",
-      title: "CLUB SETUP &\nGOVERNANCE",
-      assetPath: "", // Not used because icon is provided
-      icon: Icons.person_outline,
-      isFeatured: true,
-      // route: AppRoutes.clubSetup, // Placeholder if needed
-    ),
-    RoleModel(
       id: "Technical Director",
       title: "Technical\nDirector (TD)",
       assetPath: 'assets/icons/ic_group_role.png',
+      route: AppRoutes.technicalDirectorHome,
     ),
     RoleModel(
       id: "Director of Coaching",
       title: "Director of\nCoaching (DOC)",
       assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.directorOfCoachingHome,
     ),
     RoleModel(
       id: "Age Group Coordinator",
@@ -45,6 +39,7 @@ class DashboardController extends GetxController {
       id: "Player",
       title: "Player",
       assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.playerHome,
     ),
     RoleModel(
       id: "Parent",
@@ -96,7 +91,7 @@ class DashboardController extends GetxController {
       id: "AI Communication",
       title: "AI\nCOMMUNICATION",
       assetPath: 'assets/icons/ic_single_role.png',
-      route: AppRoutes.aiCommunication,
+      route: AppRoutes.aiCommunicationHub,
     ),
     RoleModel(
       id: "Permissions",
@@ -104,7 +99,25 @@ class DashboardController extends GetxController {
       assetPath: 'assets/icons/ic_single_role.png',
       route: AppRoutes.permissions,
     ),
+    RoleModel(
+      id: "Club Setup",
+      title: "CLUB SETUP &\nGOVERNANCE",
+      assetPath: "assets/icons/ic_group_role.png",
+      route: AppRoutes.teamManagement, // Best guess for Command Center
+      isFeatured: true,
+    ),
   ];
+
+  // Player & Family Hub Local State
+  final RxString familyHubSelection = 'Player'.obs;
+
+  void selectFamilyHubRole(String role) {
+    familyHubSelection.value = role;
+  }
+
+  void proceedToAuthFromHub() {
+    selectRole(familyHubSelection.value);
+  }
 
   void selectRole(String roleId) {
     // Find the role model

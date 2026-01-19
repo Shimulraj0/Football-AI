@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../../routes/app_routes.dart';
-import '../controllers/technical_director_home_controller.dart';
+import '../controllers/director_of_coaching_home_controller.dart';
 
-class TechnicalDirectorHomeView
-    extends GetView<TechnicalDirectorHomeController> {
-  const TechnicalDirectorHomeView({super.key});
+class DirectorOfCoachingHomeView
+    extends GetView<DirectorOfCoachingHomeController> {
+  const DirectorOfCoachingHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Determine the bottom nav index.
+    // If we want it to be highlighted as "Home", index 0 is usually appropriate or we can add a specific logic.
+    // For now, let's keep it 0 or manage it via controller if it shares the shared HomeController.
+    // The previous TD view used `controller.selectedIndex.value`. TechnicalDirectorHomeController extends GetxController.
+    // I made DirectorOfCoachingHomeController extend GetxController too.
+    // I should add selectedIndex to the controller to support the bottom nav bar.
+
     return Scaffold(
       body: Stack(
         children: [
@@ -24,31 +31,30 @@ class TechnicalDirectorHomeView
                   ),
                   children: [
                     _buildMenuCard(
-                      title: "Curriculum Engine",
-                      subtitle: "Create or upload curriculam",
-                      icon: Icons.assignment_outlined, // Placeholder icon
-                      onTap: () => Get.toNamed(AppRoutes.curriculumEngine),
+                      title: "Assigned Age groups",
+                      subtitle: "Assaign groups as per their age",
+                      icon: Icons.sync_alt, // Placeholder for cycle/swap icon
+                      onTap: () {
+                        Get.toNamed(AppRoutes.assignedAgeGroups);
+                      },
                     ),
                     const SizedBox(height: 16),
                     _buildMenuCard(
-                      title: "Analytics & Insights",
-                      subtitle: "See the analytics & AI insights",
-                      icon: Icons.bar_chart_outlined, // Placeholder icon
-                      onTap: () => Get.toNamed(AppRoutes.analyticsInsights),
+                      title: "Coaches Oversight",
+                      subtitle: "See through coaches Oversight",
+                      icon: Icons.alt_route, // Placeholder for path/strategy
+                      onTap: () {
+                        // Navigate to Coaches Oversight
+                      },
                     ),
                     const SizedBox(height: 16),
                     _buildMenuCard(
-                      title: "Curriculum Adaptation",
-                      subtitle: "You can use adaptive curriculum editor",
-                      icon: Icons.cached_outlined, // Placeholder icon
-                      onTap: () => Get.toNamed(AppRoutes.curriculumAdaptation),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildMenuCard(
-                      title: "Communication Hub",
-                      subtitle: "You can use adaptive curriculum editor",
-                      icon: Icons.chat_bubble_outline, // Placeholder icon
-                      onTap: () => Get.toNamed(AppRoutes.communicationHub),
+                      title: "Curriculum Alignment",
+                      subtitle: "Adjust curriculum alignment",
+                      icon: Icons.assessment_outlined, // Document with chart
+                      onTap: () {
+                        // Navigate to Curriculum Alignment
+                      },
                     ),
                   ],
                 ),
@@ -59,11 +65,21 @@ class TechnicalDirectorHomeView
             left: 0,
             right: 0,
             bottom: 0,
-            child: Obx(
-              () => CustomBottomNavBar(
-                selectedIndex: controller.selectedIndex.value,
-                onItemTapped: controller.changeTabIndex,
-              ),
+            child: CustomBottomNavBar(
+              selectedIndex: 0, // Default to 0 for Home
+              onItemTapped: (index) {
+                switch (index) {
+                  case 0:
+                    // Already on Home
+                    break;
+                  case 1:
+                    Get.toNamed(AppRoutes.aiCommunication);
+                    break;
+                  case 2:
+                    Get.toNamed(AppRoutes.settings);
+                    break;
+                }
+              },
             ),
           ),
         ],
@@ -90,9 +106,7 @@ class TechnicalDirectorHomeView
         children: [
           const CircleAvatar(
             radius: 28,
-            backgroundImage: AssetImage(
-              'assets/icons/Ellipse 13.png',
-            ), // Placeholder
+            backgroundImage: AssetImage('assets/icons/Ellipse 13.png'),
             backgroundColor: Colors.grey,
           ),
           const SizedBox(width: 16),
@@ -110,7 +124,7 @@ class TechnicalDirectorHomeView
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "Tecnical Director",
+                  "Director of Coaching (DOC)",
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.8),
                     fontSize: 14,

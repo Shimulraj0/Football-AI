@@ -23,7 +23,7 @@ class RoleTile extends StatelessWidget {
     // Featured (Club Setup) styling overrides
     final backgroundColor = isFeatured
         ? const Color(0xFF00204A)
-        : (isSelected ? const Color(0xFF00204A) : const Color(0xFFEAF2F8));
+        : (isSelected ? const Color(0xFF00204A) : Colors.white);
 
     final borderColor = isFeatured
         ? null
@@ -75,7 +75,7 @@ class RoleTile extends StatelessWidget {
                 title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: isFeatured ? 16 : 14,
+                  fontSize: isFeatured ? 13 : 14,
                   fontWeight: FontWeight.bold,
                   color: textColor,
                 ),

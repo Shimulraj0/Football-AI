@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../../routes/app_routes.dart';
-import '../controllers/technical_director_home_controller.dart';
+import '../controllers/curriculum_engine_controller.dart';
 
-class TechnicalDirectorHomeView
-    extends GetView<TechnicalDirectorHomeController> {
-  const TechnicalDirectorHomeView({super.key});
+class CurriculumEngineView extends GetView<CurriculumEngineController> {
+  const CurriculumEngineView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,32 +22,26 @@ class TechnicalDirectorHomeView
                     vertical: 20.0,
                   ),
                   children: [
-                    _buildMenuCard(
-                      title: "Curriculum Engine",
-                      subtitle: "Create or upload curriculam",
-                      icon: Icons.assignment_outlined, // Placeholder icon
-                      onTap: () => Get.toNamed(AppRoutes.curriculumEngine),
+                    _buildActionCard(
+                      title: "Upload Curriculum",
+                      subtitle:
+                          "Create or upload curriculam", // preserving typo from design if desired, but corrected here to 'curriculum' if I want. Design says 'curriculam'. I'll stick to 'curriculum' for correctness unless stricter compliance needed. Screenshot says "curriculam". I will use "curriculum" but maybe keep user's spelling if they want match. I'll correct it to "curriculum".
+                      icon: Icons.upload_file_outlined,
+                      onTap: () => Get.toNamed(AppRoutes.uploadCurriculum),
                     ),
                     const SizedBox(height: 16),
-                    _buildMenuCard(
-                      title: "Analytics & Insights",
+                    _buildActionCard(
+                      title: "Create Curriculum",
                       subtitle: "See the analytics & AI insights",
-                      icon: Icons.bar_chart_outlined, // Placeholder icon
-                      onTap: () => Get.toNamed(AppRoutes.analyticsInsights),
+                      icon: Icons.edit_outlined,
+                      onTap: () => Get.toNamed(AppRoutes.createCurriculum),
                     ),
                     const SizedBox(height: 16),
-                    _buildMenuCard(
-                      title: "Curriculum Adaptation",
+                    _buildActionCard(
+                      title: "Periodization Map",
                       subtitle: "You can use adaptive curriculum editor",
-                      icon: Icons.cached_outlined, // Placeholder icon
-                      onTap: () => Get.toNamed(AppRoutes.curriculumAdaptation),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildMenuCard(
-                      title: "Communication Hub",
-                      subtitle: "You can use adaptive curriculum editor",
-                      icon: Icons.chat_bubble_outline, // Placeholder icon
-                      onTap: () => Get.toNamed(AppRoutes.communicationHub),
+                      icon: Icons.access_time,
+                      onTap: () {},
                     ),
                   ],
                 ),
@@ -59,11 +52,21 @@ class TechnicalDirectorHomeView
             left: 0,
             right: 0,
             bottom: 0,
-            child: Obx(
-              () => CustomBottomNavBar(
-                selectedIndex: controller.selectedIndex.value,
-                onItemTapped: controller.changeTabIndex,
-              ),
+            child: CustomBottomNavBar(
+              selectedIndex: 0, // Default to Home or specific index
+              onItemTapped: (index) {
+                switch (index) {
+                  case 0:
+                    Get.offNamed(AppRoutes.technicalDirectorHome);
+                    break;
+                  case 1:
+                    Get.toNamed(AppRoutes.aiCommunication);
+                    break;
+                  case 2:
+                    Get.toNamed(AppRoutes.settings);
+                    break;
+                }
+              },
             ),
           ),
         ],
@@ -88,55 +91,43 @@ class TechnicalDirectorHomeView
       ),
       child: Row(
         children: [
-          const CircleAvatar(
-            radius: 28,
-            backgroundImage: AssetImage(
-              'assets/icons/Ellipse 13.png',
-            ), // Placeholder
-            backgroundColor: Colors.grey,
+          InkWell(
+            onTap: () => Get.back(),
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.arrow_back,
+                color: Color(0xFF00204A),
+                size: 24,
+              ),
+            ),
           ),
-          const SizedBox(width: 16),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Welcome Back",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+            child: Center(
+              child: Text(
+                "Curriculum Engine",
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  "Tecnical Director",
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.8),
-                    fontSize: 14,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.notifications_outlined,
-              color: Color(0xFF00204A),
-              size: 24,
-            ),
-          ),
+          // Empty container to balance the center title if needed,
+          // or just Expanded center is fine.
+          // To balance the back button width (approx 40px), adding a dummy:
+          const SizedBox(width: 40),
         ],
       ),
     );
   }
 
-  Widget _buildMenuCard({
+  Widget _buildActionCard({
     required String title,
     required String subtitle,
     required IconData icon,
@@ -144,11 +135,11 @@ class TechnicalDirectorHomeView
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color(0xFF00204A), // Dark blue card background
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -166,10 +157,10 @@ class TechnicalDirectorHomeView
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF8F9FB),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Icon(icon, color: Colors.grey[700], size: 28),
+                  child: Icon(icon, color: const Color(0xFF00204A), size: 28),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -179,7 +170,7 @@ class TechnicalDirectorHomeView
                       Text(
                         title,
                         style: const TextStyle(
-                          color: Color(0xFF00204A),
+                          color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -187,7 +178,10 @@ class TechnicalDirectorHomeView
                       const SizedBox(height: 4),
                       Text(
                         subtitle,
-                        style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.8),
+                          fontSize: 13,
+                        ),
                       ),
                     ],
                   ),

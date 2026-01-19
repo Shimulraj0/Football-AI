@@ -32,4 +32,17 @@ abstract class AppRoutes {
   static const performanceReports = '/performance-reports';
   static const skillProgressTracker = '/skill-progress-tracker';
   static const technicalDirectorHome = '/technical-director-home';
+  static const curriculumEngine = '/curriculum-engine';
+  static const uploadCurriculum = '/upload-curriculum';
+  static const createCurriculum = '/create-curriculum';
+  static const analyticsInsights = '/analytics-insights';
+  static const clubAnalyticsDashboard = '/club-analytics-dashboard';
+  static const aiInsightsSummary = '/ai-insights-summary';
+  static const curriculumAdaptation = '/curriculum-adaptation';
+  static const communicationHub = '/communication-hub';
+  static const communicationSummary = '/communication-summary';
+  static const aiCommunicationHub = '/ai-communication-hub';
+  static const directorOfCoachingHome = '/director-of-coaching-home';
+  static const assignedAgeGroups = '/assigned-age-groups';
+  static const playerFamilyHub = '/player-family-hub';
 }

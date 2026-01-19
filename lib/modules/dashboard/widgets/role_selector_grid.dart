@@ -22,7 +22,7 @@ class RoleSelectorGrid extends StatelessWidget {
       crossAxisCount: 2,
       mainAxisSpacing: 12,
       crossAxisSpacing: 12,
-      childAspectRatio: 1.1,
+      childAspectRatio: 0.85,
       children: roles.map((role) {
         // We assume the role title handles "Newline" characters appropriately for display,
         // or we can clean it for the selection check if needed.

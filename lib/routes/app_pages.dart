@@ -3,6 +3,7 @@ import 'app_routes.dart';
 import '../modules/onboarding/views/splash_view.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/dashboard/views/player_family_hub_view.dart';
 import '../modules/onboarding/auth/views/sign_in_view.dart';
 import '../modules/onboarding/auth/views/sign_up_view.dart';
 import '../modules/onboarding/auth/views/forgot_password_view.dart';
@@ -52,6 +53,25 @@ import '../modules/player_home/views/skill_progress_tracker_view.dart';
 import '../modules/player_home/bindings/skill_progress_tracker_binding.dart';
 import '../modules/technical_director_home/views/technical_director_home_view.dart';
 import '../modules/technical_director_home/bindings/technical_director_home_binding.dart';
+import '../modules/curriculum_engine/views/curriculum_engine_view.dart';
+import '../modules/curriculum_engine/views/upload_curriculum_view.dart';
+import '../modules/curriculum_engine/views/create_curriculum_view.dart';
+import '../modules/curriculum_engine/bindings/curriculum_engine_binding.dart';
+import '../modules/analytics_insights/views/analytics_insights_view.dart';
+import '../modules/analytics_insights/views/club_analytics_dashboard_view.dart';
+import '../modules/analytics_insights/views/ai_insights_summary_view.dart';
+import '../modules/analytics_insights/bindings/analytics_insights_binding.dart';
+import '../modules/curriculum_adaptation/views/curriculum_adaptation_view.dart';
+import '../modules/curriculum_adaptation/bindings/curriculum_adaptation_binding.dart';
+import '../modules/communication_hub/views/communication_hub_view.dart';
+import '../modules/communication_hub/views/communication_summary_view.dart';
+import '../modules/communication_hub/views/ai_communication_view.dart'
+    as comm_hub_ai;
+import '../modules/communication_hub/bindings/communication_hub_binding.dart';
+import '../modules/director_of_coaching_home/views/director_of_coaching_home_view.dart';
+import '../modules/director_of_coaching_home/bindings/director_of_coaching_home_binding.dart';
+import '../modules/assigned_age_groups/views/assigned_age_groups_view.dart';
+import '../modules/assigned_age_groups/bindings/assigned_age_groups_binding.dart';
 
 class AppPages {
   static const initial = AppRoutes.splash;
@@ -198,6 +218,70 @@ class AppPages {
       name: AppRoutes.technicalDirectorHome,
       page: () => const TechnicalDirectorHomeView(),
       binding: TechnicalDirectorHomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.curriculumEngine,
+      page: () => const CurriculumEngineView(),
+      binding: CurriculumEngineBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.uploadCurriculum,
+      page: () => const UploadCurriculumView(),
+      binding: CurriculumEngineBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.createCurriculum,
+      page: () => const CreateCurriculumView(),
+      binding: CurriculumEngineBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.analyticsInsights,
+      page: () => const AnalyticsInsightsView(),
+      binding: AnalyticsInsightsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.clubAnalyticsDashboard,
+      page: () => const ClubAnalyticsDashboardView(),
+      binding: AnalyticsInsightsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.aiInsightsSummary,
+      page: () => const AiInsightsSummaryView(),
+      binding: AnalyticsInsightsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.curriculumAdaptation,
+      page: () => const CurriculumAdaptationView(),
+      binding: CurriculumAdaptationBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.communicationHub,
+      page: () => const CommunicationHubView(),
+      binding: CommunicationHubBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.communicationSummary,
+      page: () => const CommunicationSummaryView(),
+      binding: CommunicationHubBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.aiCommunicationHub,
+      page: () => const comm_hub_ai.AiCommunicationView(),
+      binding: CommunicationHubBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.directorOfCoachingHome,
+      page: () => const DirectorOfCoachingHomeView(),
+      binding: DirectorOfCoachingHomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.assignedAgeGroups,
+      page: () => const AssignedAgeGroupsView(),
+      binding: AssignedAgeGroupsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.playerFamilyHub,
+      page: () => const PlayerFamilyHubView(),
     ),
   ];
 }
