@@ -74,6 +74,24 @@ class AuthController extends GetxController {
     debugPrint(
       "Sign up with ${emailController.text} and role ${selectedRole.value}",
     );
+
+    // If we have a stored redirect route, go there
+    if (redirectRoute != null) {
+      Get.offAllNamed(redirectRoute!);
+      return;
+    }
+
+    // Otherwise navigate based on role
+    if (selectedRole.value == "Coach") {
+      Get.offAllNamed(AppRoutes.home);
+    } else if (selectedRole.value == "Player") {
+      Get.offAllNamed(AppRoutes.playerHome);
+    } else {
+      // Default fallback
+      if (selectedRole.value.isNotEmpty) {
+        Get.snackbar("Success", "Signed up as ${selectedRole.value}");
+      }
+    }
   }
 
   void sendResetCode() {

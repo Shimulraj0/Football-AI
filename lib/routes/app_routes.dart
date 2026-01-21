@@ -45,4 +45,7 @@ abstract class AppRoutes {
   static const directorOfCoachingHome = '/director-of-coaching-home';
   static const assignedAgeGroups = '/assigned-age-groups';
   static const playerFamilyHub = '/player-family-hub';
+  static const staffWorkspace = '/staff-workspace';
+  static const clubCommandCenter = '/club-command-center';
+  static const operationsAdmin = '/operations-admin';
 }

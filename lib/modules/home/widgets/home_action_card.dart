@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'action_card_icon.dart';
 import '../../../../core/values/app_padding.dart';
+import '../../../../core/utils/size_utils.dart';
 
 class HomeActionCard extends StatefulWidget {
   final String title;
@@ -16,6 +17,8 @@ class HomeActionCard extends StatefulWidget {
   final Color? titleColor;
   final Color? subtitleColor;
   final Color? iconColor;
+  final Color? iconBackgroundColor;
+  final Color? borderColor;
 
   const HomeActionCard({
     super.key,
@@ -32,6 +35,8 @@ class HomeActionCard extends StatefulWidget {
     this.titleColor,
     this.subtitleColor,
     this.iconColor,
+    this.iconBackgroundColor,
+    this.borderColor,
   });
 
   @override
@@ -44,34 +49,33 @@ class _HomeActionCardState extends State<HomeActionCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      constraints: const BoxConstraints(minHeight: 100),
+      margin: EdgeInsets.only(bottom: 16.h),
+      constraints: BoxConstraints(minHeight: widget.isPremium ? 100.h : 72.h),
       decoration: BoxDecoration(
         color: widget.backgroundGradient == null
             ? (widget.backgroundColor ??
                   (widget.isPremium ? const Color(0xFF00204A) : Colors.white))
             : null,
         gradient: widget.backgroundGradient,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.w),
         border:
             (widget.isPremium ||
                 _isPressed ||
-                widget.backgroundColor != null ||
                 widget.backgroundGradient != null)
             ? null
             : Border.all(color: const Color(0xFF012356)),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF000000).withValues(alpha: 0.1),
-            offset: const Offset(0, 4),
-            blurRadius: 15,
-            spreadRadius: 2,
+            offset: Offset(0, 4.h),
+            blurRadius: 15.w,
+            spreadRadius: 2.w,
           ),
         ],
       ),
       child: Material(
         color: Colors.transparent,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.w),
         child: InkWell(
           onTap: widget.onTap,
           onHighlightChanged: (value) {
@@ -79,9 +83,12 @@ class _HomeActionCardState extends State<HomeActionCard> {
               _isPressed = value;
             });
           },
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.w),
           child: Padding(
-            padding: AppPadding.cardPadding,
+            padding: widget.isPremium
+                ? AppPadding
+                      .cardPadding // Assuming AppPadding will be updated or is okay for now
+                : EdgeInsets.all(8.w),
             child: Row(
               children: [
                 // Icon Box
@@ -92,8 +99,9 @@ class _HomeActionCardState extends State<HomeActionCard> {
                   iconPadding: widget.iconPadding,
                   isPremium: widget.isPremium,
                   iconColor: widget.iconColor,
+                  iconBackgroundColor: widget.iconBackgroundColor,
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 16.w),
 
                 // Text Content
                 Expanded(
@@ -103,7 +111,7 @@ class _HomeActionCardState extends State<HomeActionCard> {
                       Text(
                         widget.title,
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                           color:
                               widget.titleColor ??
@@ -112,11 +120,11 @@ class _HomeActionCardState extends State<HomeActionCard> {
                                   : const Color(0xFF00204A)),
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4.h),
                       Text(
                         widget.subtitle,
                         style: TextStyle(
-                          fontSize: 13,
+                          fontSize: 13.sp,
                           color:
                               widget.subtitleColor ??
                               (widget.isPremium

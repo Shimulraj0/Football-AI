@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/utils/size_utils.dart';
 
 class DashboardCard extends StatelessWidget {
   final String title;
@@ -19,95 +20,93 @@ class DashboardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: const EdgeInsets.only(bottom: 20), // Handled by parent
+      width: 335.w,
+      height: 104.h,
       decoration: isHighlighted
-          ? BoxDecoration(
-              border: Border.all(
-                color: const Color(
-                  0xFF0091FF,
-                ), // Bright Blue/Cyan highlight from design
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(16),
-            )
+          ? BoxDecoration(borderRadius: BorderRadius.circular(16.w))
           : null,
       child: Container(
-        padding: const EdgeInsets.all(3), // Border spacing
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+        padding: EdgeInsets.all(3.w),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.w)),
         child: Material(
-          color: const Color(0xFF031945), // AppColors.primary (Dark Navy)
-          borderRadius: BorderRadius.circular(12),
+          color: const Color(0xFF031945),
+          borderRadius: BorderRadius.circular(12.w),
           clipBehavior: Clip.antiAlias,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Icon
-              SizedBox(
-                height: 36,
-                width: 36,
-                child: icon,
-              ), // Slightly larger for clarity
-              const SizedBox(height: 6),
-              // Title
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18, // Restored to 18 for better readability
-                  fontWeight: FontWeight.bold,
+              if (showAction) ...[
+                SizedBox(height: 24.h, width: 24.w, child: icon),
+                SizedBox(height: 2.h),
+                // Title
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
+                SizedBox(height: 4.h),
+              ] else ...[
+                // Centered layout for cards without action bar
+                SizedBox(height: 24.h, width: 24.w, child: icon),
+                SizedBox(height: 6.h),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+
               // Bottom "Select to use" area
-              IgnorePointer(
-                ignoring: !showAction,
-                child: Opacity(
-                  opacity: showAction ? 1.0 : 0.0,
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: onTap,
-                      borderRadius: BorderRadius.circular(8),
-                      child: Container(
-                        width: double.infinity, // Stretch to full width
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 4,
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color(
-                            0xFFEFEFEF,
-                          ), // Off-white/Light Grey button bg
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            const Text(
-                              "Select to use",
-                              style: TextStyle(
-                                color: Color(0xFF031945), // AppColors.primary
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
+              if (showAction)
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: onTap,
+                    borderRadius: BorderRadius.circular(8.w),
+                    child: Container(
+                      width: double.infinity,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                        vertical: 2.h,
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                        vertical: 4.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFEFEFEF),
+                        borderRadius: BorderRadius.circular(8.w),
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Select to use",
+                            style: TextStyle(
+                              color: const Color(0xFF031945),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
                             ),
-                            const Spacer(),
-                            const Icon(
-                              Icons.chevron_right,
-                              color: Color(0xFF031945), // AppColors.primary
-                              size: 20,
-                            ),
-                          ],
-                        ),
+                          ),
+                          const Spacer(),
+                          Icon(
+                            Icons.chevron_right,
+                            color: const Color(0xFF031945),
+                            size: 16.sp,
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         ),

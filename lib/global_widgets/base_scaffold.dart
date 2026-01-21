@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../core/values/app_colors.dart';
 import 'custom_back_button.dart';
 import 'persistent_header.dart';
+import '../../core/utils/size_utils.dart';
 
 class BaseScaffold extends StatelessWidget {
   final Widget body;
@@ -12,6 +13,7 @@ class BaseScaffold extends StatelessWidget {
   final Color backgroundColor;
   final bool showBackButton;
   final VoidCallback? onBackPress;
+  final bool showHeader;
 
   const BaseScaffold({
     super.key,
@@ -21,6 +23,7 @@ class BaseScaffold extends StatelessWidget {
     this.bottomNavigationBar,
     this.backgroundColor = AppColors.background,
     this.showBackButton = true,
+    this.showHeader = true,
     this.onBackPress,
   });
 
@@ -31,14 +34,20 @@ class BaseScaffold extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: Column(
-        children: [
-          // Persistent Header
-          PersistentHeader(child: headerContent ?? _buildDefaultHeader()),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Persistent Header
+            if (showHeader)
+              PersistentHeader(
+                height: 140.h,
+                child: headerContent ?? _buildDefaultHeader(),
+              ),
 
-          // Main Content
-          Expanded(child: body),
-        ],
+            // Main Content
+            Expanded(child: body),
+          ],
+        ),
       ),
       // Hide bottom nav bar when keyboard is open to prevent "big space"
       bottomNavigationBar: isKeyboardOpen ? null : bottomNavigationBar,
@@ -55,19 +64,19 @@ class BaseScaffold extends StatelessWidget {
             iconColor: const Color(0xFF00204A),
           ),
         if (title != null) ...[
-          if (showBackButton) const SizedBox(width: 16),
+          if (showBackButton) SizedBox(width: 16.w),
           Expanded(
             child: Text(
               title!,
               textAlign: showBackButton ? TextAlign.left : TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
-                fontSize: 20,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          if (showBackButton) const SizedBox(width: 40), // Balance back button
+          if (showBackButton) SizedBox(width: 40.w), // Balance back button
         ],
       ],
     );

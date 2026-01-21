@@ -30,6 +30,7 @@ class PlayerMenuSection extends StatelessWidget {
           titleColor: Colors.white,
           subtitleColor: Colors.white,
           iconColor: Colors.white,
+          iconBackgroundColor: Colors.transparent, // Make icon box transparent
           onTap: () {
             // Static tile, no action
           },
@@ -44,7 +45,7 @@ class PlayerMenuSection extends StatelessWidget {
           backgroundColor: const Color(0xFF00204A),
           titleColor: Colors.white,
           subtitleColor: Colors.white.withValues(alpha: 0.9),
-          iconColor: Colors.white,
+          iconColor: const Color(0xFF00204A), // Contrast with white icon box
           onTap: () {
             Get.toNamed(AppRoutes.trainingFeedback);
           },

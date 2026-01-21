@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../core/utils/size_utils.dart';
 
 class ProfileImage extends StatelessWidget {
   final String imagePath;
@@ -21,7 +22,7 @@ class ProfileImage extends StatelessWidget {
         height: size,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(color: Colors.white, width: 2),
+          border: Border.all(color: Colors.white, width: 1.w),
           image: DecorationImage(
             image: AssetImage(imagePath),
             fit: BoxFit.cover,

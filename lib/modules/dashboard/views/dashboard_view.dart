@@ -7,6 +7,7 @@ import '../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../routes/app_routes.dart';
+import '../../../core/utils/size_utils.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
@@ -17,39 +18,39 @@ class DashboardView extends GetView<DashboardController> {
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 20, // Reduced from 100
-            left: 20,
-            right: 20,
-            bottom: 10,
+          padding: EdgeInsets.only(
+            top: 20.h,
+            left: 20.w,
+            right: 20.w,
+            bottom: 10.h,
           ),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 // Club Command Center
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: EdgeInsets.only(bottom: 10.h),
                   child: DashboardCard(
                     title: 'Club Command Center',
                     icon: SvgPicture.asset('assets/icons/Membership.svg'),
-                    onTap: () => controller.selectRole('Club Setup'),
+                    onTap: () => Get.toNamed(AppRoutes.clubCommandCenter),
                   ),
                 ),
 
                 // Staff Workspace (Highlighted)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: EdgeInsets.only(bottom: 10.h),
                   child: DashboardCard(
                     title: 'Staff Workspace',
                     icon: SvgPicture.asset('assets/icons/Grouping.svg'),
                     isHighlighted: true,
-                    onTap: () => controller.selectRole('Technical Director'),
+                    onTap: () => Get.toNamed(AppRoutes.staffWorkspace),
                   ),
                 ),
 
                 // Player & Family Hub
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: EdgeInsets.only(bottom: 10.h),
                   child: DashboardCard(
                     title: 'Player & Family Hub',
                     icon: SvgPicture.asset('assets/icons/Grou.svg'),
@@ -59,20 +60,22 @@ class DashboardView extends GetView<DashboardController> {
 
                 // Operations & Admin
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: EdgeInsets.only(bottom: 10.h),
                   child: DashboardCard(
                     title: 'Operations & Admin',
                     icon: SvgPicture.asset('assets/icons/Settings.svg'),
-                    onTap: () => controller.selectRole('Permissions'),
+                    onTap: () => Get.toNamed(AppRoutes.operationsAdmin),
                   ),
                 ),
 
                 // AI Communication
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: EdgeInsets.only(bottom: 10.h),
                   child: DashboardCard(
                     title: 'AI Communication',
-                    icon: SvgPicture.asset('assets/icons/Grouping.svg'),
+                    icon: SvgPicture.asset(
+                      'assets/icons/Virtual Assistant.svg',
+                    ),
                     onTap: () {},
                     showAction: false,
                   ),

@@ -23,17 +23,19 @@ class DashboardController extends GetxController {
       id: "Age Group Coordinator",
       title: "Age Group\nCoordinator\n(AGC)",
       assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.home,
     ),
     RoleModel(
       id: "Specialty Director",
       title: "Specialty Director",
       assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.home,
     ),
     RoleModel(
       id: "Coach",
       title: "Coach",
       assetPath: 'assets/icons/ic_group_role.png',
-      // route: AppRoutes.home, // Removed to force Login
+      route: AppRoutes.home,
     ),
     RoleModel(
       id: "Player",
@@ -45,11 +47,13 @@ class DashboardController extends GetxController {
       id: "Parent",
       title: "Parent",
       assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.playerHome, // Reuse Player Home for now or separate
     ),
     RoleModel(
       id: "Field Scheduling Director",
       title: "Field Scheduling\nDirector",
       assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.home,
     ),
     RoleModel(
       id: "Billing",
@@ -95,7 +99,7 @@ class DashboardController extends GetxController {
     ),
     RoleModel(
       id: "Permissions",
-      title: "PERMISSIONS &\nROLE\nASSIGNMENT",
+      title: "Operations &\nAdmin", // Updated title to match the Dashboard card
       assetPath: 'assets/icons/ic_single_role.png',
       route: AppRoutes.permissions,
     ),
@@ -103,20 +107,63 @@ class DashboardController extends GetxController {
       id: "Club Setup",
       title: "CLUB SETUP &\nGOVERNANCE",
       assetPath: "assets/icons/ic_group_role.png",
-      route: AppRoutes.teamManagement, // Best guess for Command Center
-      isFeatured: true,
+      route: AppRoutes.technicalDirectorHome, // Redirects to a real dashboard
+      isFeatured: true, // Assuming this flag exists
     ),
   ];
 
-  // Player & Family Hub Local State
-  final RxString familyHubSelection = 'Player'.obs;
+  // Hub Selection State
+  final RxString familyHubSelection = ''.obs;
 
-  void selectFamilyHubRole(String role) {
+  Future<void> selectFamilyHubRole(String role) async {
     familyHubSelection.value = role;
+    // Short delay to allow the user to see the selection color
+    await Future.delayed(const Duration(milliseconds: 200));
+    selectRole(role);
+    // Reset selection after navigation starts
+    Future.delayed(const Duration(milliseconds: 500), () {
+      familyHubSelection.value = '';
+    });
   }
 
-  void proceedToAuthFromHub() {
-    selectRole(familyHubSelection.value);
+  // Staff Workspace Selection State
+  final RxString staffWorkspaceSelection = ''.obs;
+
+  Future<void> selectStaffRole(String role) async {
+    staffWorkspaceSelection.value = role;
+    // Short delay to allow the user to see the selection color
+    await Future.delayed(const Duration(milliseconds: 200));
+    selectRole(role);
+    // Reset selection after navigation starts
+    Future.delayed(const Duration(milliseconds: 500), () {
+      staffWorkspaceSelection.value = '';
+    });
+  }
+
+  // Club Command Center Selection State
+  final RxString clubCommandCenterSelection = ''.obs;
+
+  Future<void> selectClubRole(String role) async {
+    clubCommandCenterSelection.value = role;
+    await Future.delayed(const Duration(milliseconds: 200));
+    selectRole(role);
+    // Reset after delay
+    Future.delayed(const Duration(milliseconds: 500), () {
+      clubCommandCenterSelection.value = '';
+    });
+  }
+
+  // Operations Admin Selection State
+  final RxString operationsAdminSelection = ''.obs;
+
+  Future<void> selectOperationsRole(String role) async {
+    operationsAdminSelection.value = role;
+    await Future.delayed(const Duration(milliseconds: 200));
+    selectRole(role);
+    // Reset after delay
+    Future.delayed(const Duration(milliseconds: 500), () {
+      operationsAdminSelection.value = '';
+    });
   }
 
   void selectRole(String roleId) {

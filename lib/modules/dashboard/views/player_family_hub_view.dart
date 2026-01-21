@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/values/app_colors.dart';
 import '../../../global_widgets/custom_back_button.dart';
+import '../../../core/utils/size_utils.dart';
 import '../controllers/dashboard_controller.dart';
 
 class PlayerFamilyHubView extends GetView<DashboardController> {
@@ -38,56 +39,28 @@ class PlayerFamilyHubView extends GetView<DashboardController> {
               ),
 
               // Selection Cards
-              Obx(
-                () => Row(
-                  children: [
-                    Expanded(
-                      child: _buildSelectionCard(
-                        title: 'Parent',
-                        iconPath: 'assets/icons/ic_single_role.png',
-                        isSelected:
-                            controller.familyHubSelection.value == 'Parent',
-                        isDark: controller.familyHubSelection.value == 'Parent',
-                        onTap: () => controller.selectFamilyHubRole('Parent'),
-                      ),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildSelectionCard(
+                      title: 'Parent',
+                      iconPath: 'assets/icons/ic_single_role.png',
+                      roleId: 'Parent', // Pass roleId for check
+                      onTap: () => controller.selectFamilyHubRole('Parent'),
                     ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: _buildSelectionCard(
-                        title: 'Player',
-                        iconPath: 'assets/icons/ic_single_role.png',
-                        isSelected:
-                            controller.familyHubSelection.value == 'Player',
-                        isDark: controller.familyHubSelection.value == 'Player',
-                        onTap: () => controller.selectFamilyHubRole('Player'),
-                      ),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: _buildSelectionCard(
+                      title: 'Player',
+                      iconPath: 'assets/icons/ic_single_role.png',
+                      roleId: 'Player',
+                      onTap: () => controller.selectFamilyHubRole('Player'),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               const Spacer(),
-              // Continue Button
-              SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: controller.proceedToAuthFromHub,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
               const SizedBox(height: 20),
             ],
           ),
@@ -99,58 +72,66 @@ class PlayerFamilyHubView extends GetView<DashboardController> {
   Widget _buildSelectionCard({
     required String title,
     required String iconPath,
+    required String roleId,
     required VoidCallback onTap,
-    bool isSelected = false,
-    bool isDark = false,
   }) {
     return GestureDetector(
+      onTapDown: (_) => controller.familyHubSelection.value = roleId,
+      onTapCancel: () => controller.familyHubSelection.value = '',
       onTap: onTap,
-      child: Container(
-        height: 150,
-        decoration: BoxDecoration(
-          color: isDark ? const Color(0xFF0A2558) : Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFF0A2558), width: 1),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Icon
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: isDark ? Colors.white : const Color(0xFF0A2558),
-                  width: 1.5,
+      child: Obx(() {
+        final isSelected = controller.familyHubSelection.value == roleId;
+        final backgroundColor = isSelected
+            ? const Color(0xFF031945)
+            : Colors.white;
+        final contentColor = isSelected
+            ? Colors.white
+            : const Color(0xFF031945); // Unified to primary
+        final borderColor = const Color(0xFF031945);
+
+        return Container(
+          height: 120.h,
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(10.w),
+            border: Border.all(color: borderColor, width: 1),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Icon
+              Container(
+                padding: EdgeInsets.all(12.w),
+                decoration: BoxDecoration(
+                  border: Border.all(color: contentColor, width: 1.5),
+                ),
+                child: Image.asset(
+                  iconPath,
+                  width: 24.w,
+                  height: 24.w,
+                  color: contentColor,
                 ),
               ),
-              child: Image.asset(
-                iconPath,
-                width: 24,
-                height: 24,
-                color: isDark ? Colors.white : const Color(0xFF0A2558),
+              SizedBox(height: 12.h),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: contentColor,
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: isDark ? Colors.white : const Color(0xFF0A2558),
-              ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

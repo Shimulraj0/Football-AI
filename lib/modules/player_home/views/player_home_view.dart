@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../controllers/player_home_controller.dart';
 import '../widgets/player_menu_section.dart';
-import '../../home/widgets/profile_image.dart';
+import '../../../global_widgets/profile_image.dart';
 
 import '../../settings/views/settings_view.dart';
 import '../../../global_widgets/custom_bottom_nav_bar.dart';

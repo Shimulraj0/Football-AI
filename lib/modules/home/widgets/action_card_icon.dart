@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../core/utils/size_utils.dart';
 
 class ActionCardIcon extends StatelessWidget {
   final String? iconPath;
@@ -8,6 +9,7 @@ class ActionCardIcon extends StatelessWidget {
   final EdgeInsetsGeometry? iconPadding;
   final bool isPremium;
   final Color? iconColor;
+  final Color? iconBackgroundColor;
 
   const ActionCardIcon({
     super.key,
@@ -17,13 +19,14 @@ class ActionCardIcon extends StatelessWidget {
     this.iconPadding,
     this.isPremium = false,
     this.iconColor,
+    this.iconBackgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 56,
-      height: 56,
+      width: 56.w,
+      height: 56.h,
 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -32,11 +35,13 @@ class ActionCardIcon extends StatelessWidget {
             SvgPicture.asset(backgroundPath!)
           else
             Container(
-              width: 56,
-              height: 56,
+              width: 56.w,
+              height: 56.h,
               decoration: BoxDecoration(
-                color: const Color(0xFFF8F9FA), // Light background for icon
-                borderRadius: BorderRadius.circular(12),
+                color:
+                    iconBackgroundColor ??
+                    const Color(0xFFEEF5FF), // Custom or Light background
+                borderRadius: BorderRadius.circular(12.w),
               ),
               child: Center(
                 child: Padding(
@@ -44,7 +49,7 @@ class ActionCardIcon extends StatelessWidget {
                   child: iconData != null
                       ? Icon(
                           iconData,
-                          size: 28, // Slightly smaller to fit in box
+                          size: 40.sp, // Increased from 28
                           color:
                               iconColor ??
                               (isPremium
@@ -55,8 +60,8 @@ class ActionCardIcon extends StatelessWidget {
                       ? (iconPath!.endsWith('.svg')
                             ? SvgPicture.asset(
                                 iconPath!,
-                                width: 28,
-                                height: 28,
+                                width: 40.w, // Increased from 28
+                                height: 40.h, // Increased from 28
                                 colorFilter: iconColor != null
                                     ? ColorFilter.mode(
                                         iconColor!,
@@ -64,7 +69,15 @@ class ActionCardIcon extends StatelessWidget {
                                       )
                                     : null,
                               )
-                            : Image.asset(iconPath!, width: 28, height: 28))
+                            : Image.asset(
+                                iconPath!,
+                                width: 40.w, // Increased from 28
+                                height: 40.h, // Increased from 28
+                                color: iconColor,
+                                colorBlendMode: iconColor != null
+                                    ? BlendMode.srcIn
+                                    : null,
+                              ))
                       : const SizedBox(),
                 ),
               ),

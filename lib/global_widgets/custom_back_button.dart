@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import '../core/utils/size_utils.dart';
 
 class CustomBackButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -18,9 +19,9 @@ class CustomBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.circular(50.w),
       child: InkWell(
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(50.w),
         onTap: onPressed ?? () => Get.back(),
         child: Padding(
           padding: EdgeInsets.zero,
@@ -29,8 +30,8 @@ class CustomBackButton extends StatelessWidget {
             colorFilter: iconColor != null
                 ? ColorFilter.mode(iconColor!, BlendMode.srcIn)
                 : null,
-            width: 44,
-            height: 44,
+            width: 44.w,
+            height: 44.h,
           ),
         ),
       ),

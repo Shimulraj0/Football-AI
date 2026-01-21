@@ -5,6 +5,7 @@ import '../../controllers/home_controller.dart';
 import '../../../../global_widgets/base_scaffold.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../../core/values/app_padding.dart';
+import '../../../../core/utils/size_utils.dart';
 
 class TeamManagementView extends GetView<TeamManagementController> {
   const TeamManagementView({super.key});
@@ -59,40 +60,40 @@ class TeamManagementView extends GetView<TeamManagementController> {
   Widget _buildSummaryCard(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(15),
+      padding: EdgeInsets.all(15.w),
       decoration: BoxDecoration(
-        color: const Color(0xFF00204A),
-        borderRadius: BorderRadius.circular(16),
+        color: const Color(0xFF012355),
+        borderRadius: BorderRadius.circular(16.w),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF00204A).withValues(alpha: 0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
+            color: const Color(0x1E000000),
+            blurRadius: 10.w,
+            offset: Offset(0, 4.h), // Matched snippet offset 4
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Team Management",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 2),
+          SizedBox(height: 2.h),
           Obx(
             () => Text(
               "${controller.players.length} active players • Next session: Monday 4 PM",
               style: TextStyle(
                 color: const Color.fromARGB(255, 255, 254, 254),
-                fontSize: 14,
+                fontSize: 14.sp,
               ),
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
           ElevatedButton.icon(
             onPressed: () {
               showDialog(
@@ -104,15 +105,15 @@ class TeamManagementView extends GetView<TeamManagementController> {
               backgroundColor: const Color(0xFF4CD964),
               foregroundColor: const Color(0xFF00204A),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12.w),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              minimumSize: const Size(120, 48),
+              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+              minimumSize: Size(120.w, 48.h),
             ),
-            icon: const Icon(Icons.add, size: 26),
-            label: const Text(
+            icon: Icon(Icons.add, size: 26.sp),
+            label: Text(
               "Add Player",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
             ),
           ),
         ],
@@ -122,16 +123,16 @@ class TeamManagementView extends GetView<TeamManagementController> {
 
   Widget _buildPlayerCard(Map<String, dynamic> player, int index) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 16.h),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.w),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.20),
-            blurRadius: 10,
-            offset: const Offset(0, 10),
+            blurRadius: 10.w,
+            offset: Offset(0, 10.h),
           ),
         ],
       ),
@@ -144,10 +145,10 @@ class TeamManagementView extends GetView<TeamManagementController> {
             children: [
               Text(
                 player['name'],
-                style: const TextStyle(
-                  fontSize: 18,
+                style: TextStyle(
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF00204A),
+                  color: const Color(0xFF00204A),
                 ),
               ),
               Row(
@@ -162,14 +163,14 @@ class TeamManagementView extends GetView<TeamManagementController> {
                     },
                     icon: Image.asset(
                       'assets/icons/edit_icon.png',
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
                     constraints: const BoxConstraints(),
                     padding: EdgeInsets.zero,
-                    splashRadius: 20,
+                    splashRadius: 20.w,
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: 12.w),
                   IconButton(
                     onPressed: () {
                       Get.find<TeamManagementController>().deletePlayer(index);
@@ -179,32 +180,32 @@ class TeamManagementView extends GetView<TeamManagementController> {
                         snackPosition: SnackPosition.BOTTOM,
                         backgroundColor: Colors.red.withValues(alpha: 0.1),
                         colorText: Colors.red,
-                        margin: const EdgeInsets.all(10),
+                        margin: EdgeInsets.all(10.w),
                       );
                     },
                     icon: Image.asset(
                       'assets/icons/delete_icon.png',
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
                     constraints: const BoxConstraints(),
                     padding: EdgeInsets.zero,
-                    splashRadius: 20,
+                    splashRadius: 20.w,
                   ),
                 ],
               ),
             ],
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4.h),
           // Subtitle
           Text(
             "${player['age']} • ${player['role']} • ${player['team']}",
             style: TextStyle(
-              fontSize: 13,
+              fontSize: 13.sp,
               color: const Color.fromARGB(255, 10, 10, 10),
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           // Specs Row
           Row(
@@ -218,15 +219,18 @@ class TeamManagementView extends GetView<TeamManagementController> {
                   children: [
                     Text(
                       "Attendance",
-                      style: TextStyle(fontSize: 12, color: Color(0xFF050505)),
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        color: const Color(0xFF050505),
+                      ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4.h),
                     Text(
                       "${player['attendance']} %",
-                      style: const TextStyle(
-                        fontSize: 20,
+                      style: TextStyle(
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF22C55E), // Green
+                        color: const Color(0xFF22C55E), // Green
                       ),
                     ),
                   ],
@@ -243,7 +247,7 @@ class TeamManagementView extends GetView<TeamManagementController> {
                       player['passing'],
                       const Color(0xFF22C55E),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
                     _buildStatBar(
                       "Dribbling",
                       player['dribbling'],

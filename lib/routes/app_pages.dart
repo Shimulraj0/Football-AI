@@ -4,6 +4,9 @@ import '../modules/onboarding/views/splash_view.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/dashboard/views/player_family_hub_view.dart';
+import '../modules/dashboard/views/staff_workspace_view.dart';
+import '../modules/dashboard/views/club_command_center_view.dart';
+import '../modules/dashboard/views/operations_admin_view.dart';
 import '../modules/onboarding/auth/views/sign_in_view.dart';
 import '../modules/onboarding/auth/views/sign_up_view.dart';
 import '../modules/onboarding/auth/views/forgot_password_view.dart';
@@ -282,6 +285,22 @@ class AppPages {
     GetPage(
       name: AppRoutes.playerFamilyHub,
       page: () => const PlayerFamilyHubView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.staffWorkspace,
+      page: () => const StaffWorkspaceView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.clubCommandCenter,
+      page: () => const ClubCommandCenterView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.operationsAdmin,
+      page: () => const OperationsAdminView(),
+      binding: DashboardBinding(),
     ),
   ];
 }
