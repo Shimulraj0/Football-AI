@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../core/values/app_colors.dart';
 import 'custom_back_button.dart';
@@ -14,6 +15,7 @@ class BaseScaffold extends StatelessWidget {
   final bool showBackButton;
   final VoidCallback? onBackPress;
   final bool showHeader;
+  final double? headerHeight;
 
   const BaseScaffold({
     super.key,
@@ -25,6 +27,7 @@ class BaseScaffold extends StatelessWidget {
     this.showBackButton = true,
     this.showHeader = true,
     this.onBackPress,
+    this.headerHeight,
   });
 
   @override
@@ -32,25 +35,40 @@ class BaseScaffold extends StatelessWidget {
     // Check if keyboard is open
     final bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
 
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      body: SafeArea(
-        child: Column(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: showHeader
+          ? SystemUiOverlayStyle.light.copyWith(
+              statusBarColor:
+                  Colors.transparent, // Let header color show through
+              statusBarIconBrightness: Brightness.light, // White icons
+              statusBarBrightness: Brightness.dark, // White text on iOS
+            )
+          : SystemUiOverlayStyle.dark, // Default to dark for no header
+      child: Scaffold(
+        backgroundColor: backgroundColor,
+        body: Column(
           children: [
-            // Persistent Header
+            // Persistent Header - Now handles its own status bar padding/height
             if (showHeader)
               PersistentHeader(
-                height: 140.h,
+                height: headerHeight ?? 140.h,
                 child: headerContent ?? _buildDefaultHeader(),
               ),
 
             // Main Content
-            Expanded(child: body),
+            Expanded(
+              child: SafeArea(
+                top:
+                    !showHeader, // Only apply top SafeArea if there is NO header
+                bottom: true, // Always respect bottom (home indicator)
+                child: body,
+              ),
+            ),
           ],
         ),
+        // Hide bottom nav bar when keyboard is open to prevent "big space"
+        bottomNavigationBar: isKeyboardOpen ? null : bottomNavigationBar,
       ),
-      // Hide bottom nav bar when keyboard is open to prevent "big space"
-      bottomNavigationBar: isKeyboardOpen ? null : bottomNavigationBar,
     );
   }
 

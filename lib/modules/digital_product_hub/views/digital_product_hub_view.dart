@@ -1,36 +1,329 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../controllers/digital_product_hub_controller.dart';
-import '../../../global_widgets/base_scaffold.dart';
-import '../../../global_widgets/custom_bottom_nav_bar.dart';
-import '../../home/controllers/home_controller.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../core/utils/size_utils.dart';
+import '../../../../global_widgets/base_scaffold.dart';
 
-class DigitalProductHubView extends GetView<DigitalProductHubController> {
+class DigitalProductHubView extends StatelessWidget {
   const DigitalProductHubView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      title: "Digital Product Hub",
-      body: Center(
-        child: Text(
-          'Digital Product Hub',
-          style: Theme.of(context).textTheme.headlineSmall,
+      showHeader: true,
+      headerHeight: 127.h, // Fixed height standard
+      headerContent: _buildHeaderContent(), // Custom header content
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 24.h),
+              _buildEmptyStateCard(),
+              SizedBox(height: 32.h),
+              Text(
+                'Available Surveys',
+                style: TextStyle(
+                  color: const Color(0xFF012356),
+                  fontSize: 16.sp,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(height: 16.h),
+              _buildSurveyItem(
+                title: 'Module Cover', // Fixed typo "Moduel" to "Module"
+                subtitle: 'Setup title, description, thumbnail',
+                icon: Icons.bookmark_border,
+              ),
+              SizedBox(height: 12.h),
+              _buildSurveyItem(
+                title: 'Tools',
+                subtitle: 'Video, drills, text-based lessons',
+                icon: Icons.assignment_outlined,
+              ),
+              SizedBox(height: 12.h),
+              _buildSurveyItem(
+                title: 'AI Assistant',
+                subtitle: 'PDFs, checklists, downloads',
+                isAi: true,
+              ),
+              SizedBox(height: 12.h),
+              _buildSurveyItem(
+                title: 'Progress Tracking',
+                subtitle: 'Completion & milestones',
+                icon: Icons.donut_large,
+              ),
+              SizedBox(height: 12.h),
+              _buildSurveyItem(
+                title: 'Module Setting',
+                subtitle: 'Visibility, access, pricing',
+                icon: Icons.settings_outlined,
+              ),
+              SizedBox(height: 12.h),
+              _buildSurveyItem(
+                title: 'AI Rules',
+                subtitle: 'AI behavior & restrictions',
+                icon: Icons.rule,
+              ),
+              SizedBox(height: 32.h),
+            ],
+          ),
         ),
       ),
-      bottomNavigationBar: () {
-        if (Get.isRegistered<HomeController>()) {
-          final homeController = Get.find<HomeController>();
-          return Obx(
-            () => CustomBottomNavBar(
-              selectedIndex: homeController.selectedIndex.value,
-              onItemTapped: homeController.changeTabIndex,
+    );
+  }
+
+  Widget _buildHeaderContent() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 51.w,
+                    height: 51.w,
+                    decoration: ShapeDecoration(
+                      image: const DecorationImage(
+                        image: AssetImage('assets/icons/Ellipse13.png'),
+                        fit: BoxFit.cover,
+                      ),
+                      shape: OvalBorder(
+                        side: BorderSide(width: 1, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Welcome Back',
+                        style: TextStyle(
+                          color: const Color(0xFFFEFEFE),
+                          fontSize: 18.sp,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: 6.h),
+                      Text(
+                        'Digital Product Hub',
+                        style: TextStyle(
+                          color: const Color(0xFFFEFEFE),
+                          fontSize: 12.sp,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Container(
+                width: 38.w,
+                height: 38.w,
+                decoration: ShapeDecoration(
+                  color: const Color(0xFFFEFEFE),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.r),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(
+                    8.w,
+                  ), // Padding to center the icon inside 38x38 container
+                  child: SvgPicture.asset(
+                    "assets/icons/Notification.svg",
+                    // color: const Color(0xFF012355), // Applying color if needed, or use original svg colors
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20.h,
+          ), // Bottom padding simulation if alignment is end
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmptyStateCard() {
+    return Container(
+      width: 335.w,
+      height: 206.h,
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      alignment: Alignment.center,
+      decoration: ShapeDecoration(
+        color: const Color(0xFFFEFEFE),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+        shadows: [
+          BoxShadow(
+            color: const Color(0x28000000),
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+            spreadRadius: 0,
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Image.asset('assets/images/EDU.png', width: 48.w, height: 48.w),
+          SizedBox(height: 16.h),
+          Text(
+            'No Digital Products Yet',
+            style: TextStyle(
+              color: const Color(0xFF012356),
+              fontSize: 22.sp,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w600,
             ),
-          );
-        } else {
-          return null;
-        }
-      }(),
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            'Create your first digital module to get started',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: const Color(0xFF012356),
+              fontSize: 12.sp,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(height: 24.h),
+          SizedBox(
+            width: 194.w,
+            height: 40.h,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF0581EF),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8.w,
+                ), // Minimal padding, let alignment handle centering
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.center, // Ensure content is centered
+                children: [
+                  Icon(Icons.add, color: Colors.white, size: 20.sp),
+                  SizedBox(width: 4.w),
+                  Text(
+                    'Add Digital Product',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14
+                          .sp, // Slightly smaller to fit 194px with icon if needed, or keep 16 if it fits. Request didn't specify font size change but 194 is tight for 16sp + icon. Let's try 14sp or 15sp if 16 is too big. Original was 16. Let's stick to 16 first, if it overflows we reduce. Actually 194 is plenty for "Add Digital Product".
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSurveyItem({
+    required String title,
+    required String subtitle,
+    IconData? icon,
+    bool isAi = false,
+  }) {
+    return Container(
+      width: 335.w,
+      height: 78.h,
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      decoration: ShapeDecoration(
+        color: const Color(0xFFFEFEFE),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+        shadows: [
+          BoxShadow(
+            color: const Color(0x28000000),
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+            spreadRadius: 0,
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 48.w,
+            height: 48.w,
+            decoration: ShapeDecoration(
+              color: const Color(0xFFF9F9F9),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+            ),
+            child: Center(
+              child: isAi
+                  ? Text(
+                      'AI',
+                      style: TextStyle(
+                        color: const Color(0xFF575757),
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    )
+                  : Icon(
+                      icon ?? Icons.circle,
+                      color: const Color(0xFF575757),
+                      size: 24.sp,
+                    ),
+            ),
+          ),
+          SizedBox(width: 16.w),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: const Color(0xFF012356),
+                    fontSize: 16.sp,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    color: const Color(0xFF575757),
+                    fontSize: 12.sp,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          Icon(
+            Icons.chevron_right,
+            color: const Color(0xFF012356),
+            size: 24.sp,
+          ),
+        ],
+      ),
     );
   }
 }

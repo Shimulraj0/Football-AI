@@ -32,6 +32,10 @@ import '../modules/settings/views/privacy_policy_view.dart';
 import '../modules/settings/views/terms_condition_view.dart';
 import '../modules/settings/controllers/edit_profile_controller.dart';
 import '../modules/billing/views/billing_view.dart';
+import '../modules/billing/views/smart_analytics_view.dart';
+import '../modules/billing/views/pro_curriculum_view.dart';
+import '../modules/billing/views/parent_player_portal_view.dart';
+import '../modules/billing/views/injury_risk_view.dart';
 import '../modules/tryouts/views/tryouts_view.dart';
 import '../modules/clinics/views/clinics_view.dart';
 import '../modules/evaluation/views/evaluation_view.dart';
@@ -165,6 +169,26 @@ class AppPages {
     GetPage(
       name: AppRoutes.billing,
       page: () => const BillingView(),
+      binding: BillingBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.smartAnalytics,
+      page: () => const SmartAnalyticsView(),
+      binding: BillingBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.proCurriculumEngine,
+      page: () => const ProCurriculumView(),
+      binding: BillingBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.parentPlayerPortal,
+      page: () => const ParentPlayerPortalView(),
+      binding: BillingBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.injuryRisk,
+      page: () => const InjuryRiskView(),
       binding: BillingBinding(),
     ),
     GetPage(

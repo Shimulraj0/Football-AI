@@ -83,7 +83,7 @@ class OnboardingView extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                              child: const Text(
+                              child: Text(
                                 "Get Started",
                                 style: TextStyle(
                                   fontSize: 22,

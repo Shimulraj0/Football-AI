@@ -59,24 +59,20 @@ class PersistentHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+
+    // If we want the content to be safe, we need to add padding.
+    // If we want the background to extend, we need to add height.
+    // The 'height' passed in is likely the design height (content + internal padding).
+    // So we should add statusBarHeight to the total container height
+    // and add statusBarHeight to the top padding.
+
     return Container(
-      height:
-          height, // Height is already scaled if passed via welcome(), defaulting in constructor might need scaling too.
-      // Wait, default value in constructor '140' isn't scaled.
-      // I should scale usage or default value.
-      // best practice: scale in constructor or getter?
-      // Since it's a const constructor, I can't do .h there.
-      // I'll leave parameter as is and scale in build? Or require callers to scale?
-      // Given usage in BaseScaffold is `PersistentHeader(child: ...)` using default 140.
-      // I should probably scale the container height in build if it wasn't scaled.
-      // But 'height' parameter is double.
-      // Let's assume callers provide scaled values or I scale in build if it looks like a raw pixel value? No that's risky.
-      // Let's look at BaseScaffold usage: `PersistentHeader(child: headerContent ?? _buildDefaultHeader())`. It uses default 140.
-      // So I should change BaseScaffold to pass a scaled height or change PersistentHeader default.
-      // I can't change default in const constructor to .h.
-      // I will update BaseScaffold to pass scaled height, and here I will just use `height`.
-      // BUT `PersistentHeader.welcome` factory CAN use .h.
-      padding: padding,
+      height: height + statusBarHeight,
+      // Add status bar height to the top padding, ensuring we preserve existing padding if any
+      padding: padding != null
+          ? padding!.add(EdgeInsets.only(top: statusBarHeight))
+          : EdgeInsets.only(top: statusBarHeight),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.only(

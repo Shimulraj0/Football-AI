@@ -23,5 +23,6 @@ class SizeUtils {
 extension SizeExtension on num {
   double get w => SizeUtils.setWidth(this);
   double get h => SizeUtils.setHeight(this);
+  double get r => SizeUtils.setWidth(this); // Radius scaling
   double get sp => SizeUtils.setSp(this);
 }

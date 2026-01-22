@@ -36,6 +36,11 @@ abstract class AppRoutes {
   static const uploadCurriculum = '/upload-curriculum';
   static const createCurriculum = '/create-curriculum';
   static const analyticsInsights = '/analytics-insights';
+  static const smartAnalytics = '/smart-analytics';
+  static const proCurriculumEngine = '/pro-curriculum-engine';
+  static const parentPlayerPortal = '/parent-player-portal';
+  static const injuryRisk = '/injury-risk';
+
   static const clubAnalyticsDashboard = '/club-analytics-dashboard';
   static const aiInsightsSummary = '/ai-insights-summary';
   static const curriculumAdaptation = '/curriculum-adaptation';
