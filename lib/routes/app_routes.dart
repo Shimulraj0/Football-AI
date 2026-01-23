@@ -26,6 +26,14 @@ abstract class AppRoutes {
   static const evaluation = '/evaluation';
   static const surveys = '/surveys';
   static const digitalProductHub = '/digital-product-hub';
+  static const addDigitalProduct = '/add-digital-product';
+  static const manualBuilder = '/manual-builder';
+  static const moduleCover = '/module-cover';
+  static const moduleTools = '/module-tools';
+  static const aiAssistant = '/ai-assistant';
+  static const progressTracking = '/progress-tracking';
+  static const moduleSettings = '/module-settings';
+  static const aiRules = '/ai-rules';
   static const aiCommunication = '/ai-communication';
   static const permissions = '/permissions';
   static const trainingStrategy = '/training-strategy';

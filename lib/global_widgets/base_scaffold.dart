@@ -5,6 +5,8 @@ import '../../core/values/app_colors.dart';
 import 'custom_back_button.dart';
 import 'persistent_header.dart';
 import '../../core/utils/size_utils.dart';
+import 'custom_bottom_nav_bar.dart';
+import '../modules/home/controllers/home_controller.dart';
 
 class BaseScaffold extends StatelessWidget {
   final Widget body;
@@ -16,6 +18,7 @@ class BaseScaffold extends StatelessWidget {
   final VoidCallback? onBackPress;
   final bool showHeader;
   final double? headerHeight;
+  final bool showBottomNav;
 
   const BaseScaffold({
     super.key,
@@ -28,12 +31,31 @@ class BaseScaffold extends StatelessWidget {
     this.showHeader = true,
     this.onBackPress,
     this.headerHeight,
+    this.showBottomNav = true,
   });
 
   @override
   Widget build(BuildContext context) {
     // Check if keyboard is open
     final bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+
+    // Determine effective bottom navigation bar
+    Widget? effectiveBottomNavigationBar = bottomNavigationBar;
+
+    // If no custom bottom nav is provided, and we want to show one, check for HomeController
+    if (effectiveBottomNavigationBar == null &&
+        showBottomNav &&
+        !isKeyboardOpen) {
+      if (Get.isRegistered<HomeController>()) {
+        final homeController = Get.find<HomeController>();
+        effectiveBottomNavigationBar = Obx(
+          () => CustomBottomNavBar(
+            selectedIndex: homeController.selectedIndex.value,
+            onItemTapped: homeController.changeTabIndex,
+          ),
+        );
+      }
+    }
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: showHeader
@@ -67,7 +89,9 @@ class BaseScaffold extends StatelessWidget {
           ],
         ),
         // Hide bottom nav bar when keyboard is open to prevent "big space"
-        bottomNavigationBar: isKeyboardOpen ? null : bottomNavigationBar,
+        bottomNavigationBar: isKeyboardOpen
+            ? null
+            : effectiveBottomNavigationBar,
       ),
     );
   }

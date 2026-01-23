@@ -125,6 +125,13 @@ class ClubCommandCenterView extends GetView<DashboardController> {
         // Use active styling if selected or if originally active (though we primarily use selection now)
         final effectiveActive = isSelected || isActive;
 
+        // Find the role model to get the asset
+        final roleModel = roleId != null
+            ? controller.roles.firstWhereOrNull((r) => r.id == roleId)
+            : null;
+        final assetPath =
+            roleModel?.assetPath ?? 'assets/icons/ic_single_role.png';
+
         return Container(
           height: 120.h,
           padding: EdgeInsets.all(10.w),
@@ -141,11 +148,18 @@ class ClubCommandCenterView extends GetView<DashboardController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 24.w,
-                height: 24.w,
+                width: 40.w,
+                height: 40.w,
                 decoration: BoxDecoration(
-                  color: effectiveActive ? Colors.white30 : Colors.black12,
-                  shape: BoxShape.circle,
+                  color: effectiveActive ? Colors.white30 : Colors.transparent,
+                ),
+                padding: EdgeInsets.all(8.w),
+                child: Image.asset(
+                  assetPath,
+                  color: effectiveActive
+                      ? Colors.white
+                      : (textColor ?? const Color(0xFF012356)),
+                  fit: BoxFit.contain,
                 ),
               ),
               SizedBox(height: 8.h),
@@ -156,7 +170,7 @@ class ClubCommandCenterView extends GetView<DashboardController> {
                   color: effectiveActive
                       ? Colors.white
                       : (textColor ?? Colors.black),
-                  fontSize: 16.sp,
+                  fontSize: 14.sp,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w600,
                 ),

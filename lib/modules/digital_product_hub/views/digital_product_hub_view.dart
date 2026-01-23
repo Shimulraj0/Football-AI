@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/base_scaffold.dart';
+import 'package:get/get.dart';
+import '../../../../routes/app_routes.dart';
 
 class DigitalProductHubView extends StatelessWidget {
   const DigitalProductHubView({super.key});
@@ -35,37 +37,44 @@ class DigitalProductHubView extends StatelessWidget {
                 title: 'Module Cover', // Fixed typo "Moduel" to "Module"
                 subtitle: 'Setup title, description, thumbnail',
                 icon: Icons.bookmark_border,
+                onTap: () => Get.toNamed(AppRoutes.moduleCover),
               ),
               SizedBox(height: 12.h),
               _buildSurveyItem(
                 title: 'Tools',
                 subtitle: 'Video, drills, text-based lessons',
                 icon: Icons.assignment_outlined,
+                onTap: () => Get.toNamed(AppRoutes.moduleTools),
               ),
               SizedBox(height: 12.h),
               _buildSurveyItem(
                 title: 'AI Assistant',
                 subtitle: 'PDFs, checklists, downloads',
                 isAi: true,
+                onTap: () => Get.toNamed(AppRoutes.aiAssistant),
               ),
               SizedBox(height: 12.h),
               _buildSurveyItem(
                 title: 'Progress Tracking',
                 subtitle: 'Completion & milestones',
                 icon: Icons.donut_large,
+                onTap: () => Get.toNamed(AppRoutes.progressTracking),
               ),
               SizedBox(height: 12.h),
               _buildSurveyItem(
                 title: 'Module Setting',
                 subtitle: 'Visibility, access, pricing',
                 icon: Icons.settings_outlined,
+                onTap: () => Get.toNamed(AppRoutes.moduleSettings),
               ),
               SizedBox(height: 12.h),
               _buildSurveyItem(
                 title: 'AI Rules',
-                subtitle: 'AI behavior & restrictions',
-                icon: Icons.rule,
+                subtitle: 'Tone, safety & restrictions',
+                icon: Icons.psychology_outlined,
+                onTap: () => Get.toNamed(AppRoutes.aiRules),
               ),
+
               SizedBox(height: 32.h),
             ],
           ),
@@ -85,6 +94,9 @@ class DigitalProductHubView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     width: 51.w,
@@ -101,20 +113,25 @@ class DigitalProductHubView extends StatelessWidget {
                   ),
                   SizedBox(width: 8.w),
                   Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Welcome Back',
-                        style: TextStyle(
-                          color: const Color(0xFFFEFEFE),
-                          fontSize: 18.sp,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w600,
+                      SizedBox(
+                        width: 159.w,
+                        child: Text(
+                          'Welcome Back',
+                          style: TextStyle(
+                            color: const Color(0xFFFEFEFE),
+                            fontSize: 18.sp,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                       SizedBox(height: 6.h),
                       Text(
-                        'Digital Product Hub',
+                        'Operations & Billing Director',
                         style: TextStyle(
                           color: const Color(0xFFFEFEFE),
                           fontSize: 12.sp,
@@ -132,24 +149,17 @@ class DigitalProductHubView extends StatelessWidget {
                 decoration: ShapeDecoration(
                   color: const Color(0xFFFEFEFE),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.r),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(
-                    8.w,
-                  ), // Padding to center the icon inside 38x38 container
-                  child: SvgPicture.asset(
-                    "assets/icons/Notification.svg",
-                    // color: const Color(0xFF012355), // Applying color if needed, or use original svg colors
-                  ),
+                  padding: EdgeInsets.all(8.w),
+                  child: SvgPicture.asset("assets/icons/Notification.svg"),
                 ),
               ),
             ],
           ),
-          SizedBox(
-            height: 20.h,
-          ), // Bottom padding simulation if alignment is end
+          SizedBox(height: 20.h),
         ],
       ),
     );
@@ -202,7 +212,7 @@ class DigitalProductHubView extends StatelessWidget {
             width: 194.w,
             height: 40.h,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () => Get.toNamed(AppRoutes.addDigitalProduct),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF0581EF),
                 padding: EdgeInsets.symmetric(
@@ -242,87 +252,93 @@ class DigitalProductHubView extends StatelessWidget {
     required String subtitle,
     IconData? icon,
     bool isAi = false,
+    VoidCallback? onTap,
   }) {
-    return Container(
-      width: 335.w,
-      height: 78.h,
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      decoration: ShapeDecoration(
-        color: const Color(0xFFFEFEFE),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
-        shadows: [
-          BoxShadow(
-            color: const Color(0x28000000),
-            blurRadius: 6,
-            offset: const Offset(0, 3),
-            spreadRadius: 0,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 335.w,
+        height: 78.h,
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        decoration: ShapeDecoration(
+          color: const Color(0xFFFEFEFE),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.r),
           ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48.w,
-            height: 48.w,
-            decoration: ShapeDecoration(
-              color: const Color(0xFFF9F9F9),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.r),
+          shadows: [
+            BoxShadow(
+              color: const Color(0x28000000),
+              blurRadius: 6,
+              offset: const Offset(0, 3),
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 48.w,
+              height: 48.w,
+              decoration: ShapeDecoration(
+                color: const Color(0xFFF9F9F9),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+              ),
+              child: Center(
+                child: isAi
+                    ? Text(
+                        'AI',
+                        style: TextStyle(
+                          color: const Color(0xFF575757),
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      )
+                    : Icon(
+                        icon ?? Icons.circle,
+                        color: const Color(0xFF575757),
+                        size: 24.sp,
+                      ),
               ),
             ),
-            child: Center(
-              child: isAi
-                  ? Text(
-                      'AI',
-                      style: TextStyle(
-                        color: const Color(0xFF575757),
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    )
-                  : Icon(
-                      icon ?? Icons.circle,
-                      color: const Color(0xFF575757),
-                      size: 24.sp,
+            SizedBox(width: 16.w),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: const Color(0xFF012356),
+                      fontSize: 16.sp,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
                     ),
-            ),
-          ),
-          SizedBox(width: 16.w),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: const Color(0xFF012356),
-                    fontSize: 16.sp,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w600,
                   ),
-                ),
-                SizedBox(height: 4.h),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    color: const Color(0xFF575757),
-                    fontSize: 12.sp,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
+                  SizedBox(height: 4.h),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      color: const Color(0xFF575757),
+                      fontSize: 12.sp,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Icon(
-            Icons.chevron_right,
-            color: const Color(0xFF012356),
-            size: 24.sp,
-          ),
-        ],
+            Icon(
+              Icons.chevron_right,
+              color: const Color(0xFF012356),
+              size: 24.sp,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -47,14 +47,15 @@ class OperationsAdminView extends GetView<DashboardController> {
               ),
               SizedBox(height: 30.h),
 
-              // Top Row: Billing (Filled) & Digital Product Hub (Outlined)
+              // Top Row: Billing & Digital Product Hub
               Row(
                 children: [
                   Expanded(
                     child: _buildCard(
                       title: 'TD AI —\nSOFTWARE\nADD-ON BILLING',
-                      isFilled: true,
-                      onTap: () => controller.selectRole('Billing'),
+                      isFilled: false,
+                      roleId: 'Billing',
+                      onTap: () => controller.selectOperationsRole('Billing'),
                       icon: Icons.person_outline, // Placeholder icon
                     ),
                   ),
@@ -63,7 +64,10 @@ class OperationsAdminView extends GetView<DashboardController> {
                     child: _buildCard(
                       title: 'Digital Product\nHub',
                       isFilled: false,
-                      onTap: () => controller.selectRole('Digital Product Hub'),
+                      roleId: 'Digital Product Hub',
+                      onTap: () => controller.selectOperationsRole(
+                        'Digital Product Hub',
+                      ),
                       icon: Icons.person_outline, // Placeholder icon
                     ),
                   ),
@@ -71,14 +75,16 @@ class OperationsAdminView extends GetView<DashboardController> {
               ),
               SizedBox(height: 15.h),
 
-              // Bottom Row: Permissions (Outlined)
+              // Bottom Row: Permissions
               Row(
                 children: [
                   Expanded(
                     child: _buildCard(
                       title: 'PERMISSIONS &\nROLE\nASSIGNMENT',
                       isFilled: false,
-                      onTap: () => controller.selectRole('Permissions'),
+                      roleId: 'Permissions',
+                      onTap: () =>
+                          controller.selectOperationsRole('Permissions'),
                       icon: Icons.person_outline, // Placeholder icon
                     ),
                   ),
@@ -97,31 +103,26 @@ class OperationsAdminView extends GetView<DashboardController> {
     required String title,
     required bool isFilled,
     required VoidCallback onTap,
-    required IconData icon,
     String? roleId, // Added roleId for selection matching
+    IconData? icon, // Made optional, as we prefer asset from role
   }) {
     return GestureDetector(
       onTap: onTap,
       child: Obx(() {
         // Determine selection state
-        // Note: For operations, 'isFilled' was the original default style.
-        // We now prioritize selection state.
         final matchingId =
             roleId ?? title.replaceAll('\n', ' '); // Fallback to title if no ID
         final isSelected =
             controller.operationsAdminSelection.value == matchingId;
 
-        // If selected, it should be blue (filled).
-        // If originally filled, it stays filled unless we want to toggle?
-        // User request: "blue outline when selected".
-        // Actually for Operations:
-        // Originally: Some cards filled (Billing), others outline.
-        // User wants visual feedback.
-        // If I tap an outline card, it should probably fill or outline blue.
-        // Let's make it fill blue on selection like the others.
-
         // Effective Filled State:
         final bool effectiveFilled = isFilled || isSelected;
+
+        // Find the role model to get the asset
+        final roleModel = controller.roles.firstWhereOrNull(
+          (r) => r.id == matchingId,
+        );
+        final assetPath = roleModel?.assetPath;
 
         return Container(
           height: 120.h,
@@ -137,10 +138,10 @@ class OperationsAdminView extends GetView<DashboardController> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Icon Placeholder
+              // Icon / Image
               Container(
-                width: 30.w,
-                height: 30.w,
+                width: 40.w, // Slightly larger container
+                height: 40.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
@@ -150,14 +151,22 @@ class OperationsAdminView extends GetView<DashboardController> {
                     width: 1,
                   ),
                 ),
-                // Just a placeholder icon since assets weren't provided in snippet
-                child: Icon(
-                  icon,
-                  color: effectiveFilled
-                      ? Colors.white
-                      : const Color(0xFF031945),
-                  size: 18.w,
-                ),
+                padding: EdgeInsets.all(8.w), // Padding inside the circle
+                child: assetPath != null
+                    ? Image.asset(
+                        assetPath,
+                        color: effectiveFilled
+                            ? Colors.white
+                            : const Color(0xFF031945),
+                        fit: BoxFit.contain,
+                      )
+                    : Icon(
+                        icon ?? Icons.person,
+                        color: effectiveFilled
+                            ? Colors.white
+                            : const Color(0xFF031945),
+                        size: 18.w,
+                      ),
               ),
               SizedBox(height: 10.h),
               // Text

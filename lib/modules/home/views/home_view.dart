@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 import 'coach_ai_view.dart';
 import '../../settings/views/settings_view.dart';
-import '../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../global_widgets/custom_back_button.dart';
+
 import '../../../core/values/app_colors.dart';
 
 import '../../../core/utils/size_utils.dart';
@@ -31,10 +31,6 @@ class HomeView extends GetView<HomeController> {
         backgroundColor: AppColors.background,
         headerContent: _buildHeaderContent(),
         body: _buildBody(),
-        bottomNavigationBar: CustomBottomNavBar(
-          selectedIndex: controller.selectedIndex.value,
-          onItemTapped: controller.changeTabIndex,
-        ),
       );
     });
   }

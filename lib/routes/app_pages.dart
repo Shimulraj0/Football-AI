@@ -41,6 +41,22 @@ import '../modules/clinics/views/clinics_view.dart';
 import '../modules/evaluation/views/evaluation_view.dart';
 import '../modules/surveys/views/surveys_view.dart';
 import '../modules/digital_product_hub/views/digital_product_hub_view.dart';
+import '../modules/digital_product_hub/views/add_digital_product_view.dart';
+import '../modules/digital_product_hub/views/manual_builder_view.dart';
+import '../modules/digital_product_hub/views/module_cover_view.dart';
+import '../modules/digital_product_hub/views/module_tools_view.dart';
+import '../modules/digital_product_hub/views/ai_assistant_view.dart';
+import '../modules/digital_product_hub/bindings/add_digital_product_binding.dart';
+import '../modules/digital_product_hub/bindings/manual_builder_binding.dart';
+import '../modules/digital_product_hub/bindings/module_cover_binding.dart';
+import '../modules/digital_product_hub/bindings/module_tools_binding.dart';
+import '../modules/digital_product_hub/bindings/ai_assistant_binding.dart';
+import '../modules/digital_product_hub/views/progress_tracking_view.dart';
+import '../modules/digital_product_hub/bindings/progress_tracking_binding.dart';
+import '../modules/digital_product_hub/views/module_settings_view.dart';
+import '../modules/digital_product_hub/bindings/module_settings_binding.dart';
+import '../modules/digital_product_hub/views/ai_rules_view.dart';
+import '../modules/digital_product_hub/bindings/ai_rules_binding.dart';
 import '../modules/ai_communication/views/ai_communication_view.dart';
 import '../modules/permissions/views/permissions_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
@@ -215,6 +231,46 @@ class AppPages {
       name: AppRoutes.digitalProductHub,
       page: () => const DigitalProductHubView(),
       binding: DigitalProductHubBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.addDigitalProduct,
+      page: () => const AddDigitalProductView(),
+      binding: AddDigitalProductBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.manualBuilder,
+      page: () => const ManualBuilderView(),
+      binding: ManualBuilderBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.moduleCover,
+      page: () => const ModuleCoverView(),
+      binding: ModuleCoverBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.moduleTools,
+      page: () => const ModuleToolsView(),
+      binding: ModuleToolsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.aiAssistant,
+      page: () => const AiAssistantView(),
+      binding: AiAssistantBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.progressTracking,
+      page: () => const ProgressTrackingView(),
+      binding: ProgressTrackingBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.moduleSettings,
+      page: () => const ModuleSettingsView(),
+      binding: ModuleSettingsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.aiRules,
+      page: () => const AiRulesView(),
+      binding: AiRulesBinding(),
     ),
     GetPage(
       name: AppRoutes.aiCommunication,
