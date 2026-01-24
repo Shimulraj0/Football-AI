@@ -42,7 +42,6 @@ class DashboardView extends GetView<DashboardController> {
                   child: DashboardCard(
                     title: 'Staff Workspace',
                     icon: SvgPicture.asset('assets/icons/Grouping.svg'),
-                    isHighlighted: true,
                     onTap: () => Get.toNamed(AppRoutes.staffWorkspace),
                   ),
                 ),
@@ -76,7 +75,7 @@ class DashboardView extends GetView<DashboardController> {
                     icon: SvgPicture.asset(
                       'assets/icons/Virtual Assistant.svg',
                     ),
-                    onTap: () {},
+                    onTap: () => Get.toNamed(AppRoutes.aiCommunicationHub),
                     showAction: false,
                   ),
                 ),

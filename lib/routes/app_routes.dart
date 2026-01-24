@@ -60,6 +60,8 @@ abstract class AppRoutes {
   static const assignedAgeGroups = '/assigned-age-groups';
   static const playerFamilyHub = '/player-family-hub';
   static const staffWorkspace = '/staff-workspace';
+  static const specialtyDirectorHome = '/specialty-director-home';
+  static const gkDirectorHome = '/gk-director-home';
   static const clubCommandCenter = '/club-command-center';
   static const operationsAdmin = '/operations-admin';
   static const operationsAdminSelection = '/operations-admin-selection';

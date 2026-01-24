@@ -117,68 +117,55 @@ class ClubCommandCenterView extends GetView<DashboardController> {
   }) {
     return GestureDetector(
       onTap: onTap,
-      child: Obx(() {
-        final isSelected =
-            roleId != null &&
-            controller.clubCommandCenterSelection.value == roleId;
+      child: Builder(
+        builder: (context) {
+          // Find the role model to get the asset
+          final roleModel = roleId != null
+              ? controller.roles.firstWhereOrNull((r) => r.id == roleId)
+              : null;
+          final assetPath =
+              roleModel?.assetPath ?? 'assets/icons/ic_single_role.png';
 
-        // Use active styling if selected or if originally active (though we primarily use selection now)
-        final effectiveActive = isSelected || isActive;
-
-        // Find the role model to get the asset
-        final roleModel = roleId != null
-            ? controller.roles.firstWhereOrNull((r) => r.id == roleId)
-            : null;
-        final assetPath =
-            roleModel?.assetPath ?? 'assets/icons/ic_single_role.png';
-
-        return Container(
-          height: 120.h,
-          padding: EdgeInsets.all(10.w),
-          decoration: ShapeDecoration(
-            color: effectiveActive
-                ? const Color(0xFF031945)
-                : Colors.transparent,
-            shape: RoundedRectangleBorder(
-              side: const BorderSide(width: 1, color: Color(0xFF031945)),
-              borderRadius: BorderRadius.circular(10.w),
+          return Container(
+            height: 120.h,
+            padding: EdgeInsets.all(10.w),
+            decoration: ShapeDecoration(
+              color: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(width: 1, color: Color(0xFF031945)),
+                borderRadius: BorderRadius.circular(10.w),
+              ),
             ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 40.w,
-                height: 40.w,
-                decoration: BoxDecoration(
-                  color: effectiveActive ? Colors.white30 : Colors.transparent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 40.w,
+                  height: 40.w,
+                  decoration: const BoxDecoration(color: Colors.transparent),
+                  padding: EdgeInsets.all(8.w),
+                  child: Image.asset(
+                    assetPath,
+                    color: textColor ?? const Color(0xFF012356),
+                    fit: BoxFit.contain,
+                  ),
                 ),
-                padding: EdgeInsets.all(8.w),
-                child: Image.asset(
-                  assetPath,
-                  color: effectiveActive
-                      ? Colors.white
-                      : (textColor ?? const Color(0xFF012356)),
-                  fit: BoxFit.contain,
+                SizedBox(height: 8.h),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: textColor ?? Colors.black,
+                    fontSize: 14.sp,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              SizedBox(height: 8.h),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: effectiveActive
-                      ? Colors.white
-                      : (textColor ?? Colors.black),
-                  fontSize: 14.sp,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        );
-      }),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

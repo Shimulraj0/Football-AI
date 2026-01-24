@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
-import '../../../../routes/app_routes.dart';
+
+import '../../home/controllers/home_controller.dart';
 
 class CommunicationSummaryView extends StatelessWidget {
   const CommunicationSummaryView({super.key});
@@ -9,47 +10,34 @@ class CommunicationSummaryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            children: [
-              _buildHeader(),
-              Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.all(20.0),
-                  children: [
-                    _buildStatRow(),
-                    const SizedBox(height: 24),
-                    _buildFeedbackList(),
-                    const SizedBox(height: 80),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: CustomBottomNavBar(
-              selectedIndex: 0,
-              onItemTapped: (index) {
-                switch (index) {
-                  case 0:
-                    Get.offNamed(AppRoutes.technicalDirectorHome);
-                    break;
-                  case 1:
-                    Get.toNamed(AppRoutes.aiCommunication);
-                    break;
-                  case 2:
-                    Get.toNamed(AppRoutes.settings);
-                    break;
-                }
-              },
+          _buildHeader(),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(20.0),
+              children: [
+                _buildStatRow(),
+                const SizedBox(height: 24),
+                _buildFeedbackList(),
+                const SizedBox(height: 80),
+              ],
             ),
           ),
         ],
       ),
+      bottomNavigationBar: () {
+        if (Get.isRegistered<HomeController>()) {
+          final homeController = Get.find<HomeController>();
+          return Obx(
+            () => CustomBottomNavBar(
+              selectedIndex: homeController.selectedIndex.value,
+              onItemTapped: homeController.changeTabIndex,
+            ),
+          );
+        }
+        return null;
+      }(),
     );
   }
 

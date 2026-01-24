@@ -18,20 +18,24 @@ class CustomBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      borderRadius: BorderRadius.circular(50.w),
-      child: InkWell(
+    return Padding(
+      padding: EdgeInsets.only(left: 8.w),
+      child: Material(
+        color: backgroundColor ?? Colors.white,
         borderRadius: BorderRadius.circular(50.w),
-        onTap: onPressed ?? () => Get.back(),
-        child: Padding(
-          padding: EdgeInsets.zero,
-          child: SvgPicture.asset(
-            'assets/icons/Back.svg',
-            colorFilter: iconColor != null
-                ? ColorFilter.mode(iconColor!, BlendMode.srcIn)
-                : null,
-            width: 44.w,
-            height: 44.h,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(50.w),
+          onTap: onPressed ?? () => Get.back(),
+          child: Padding(
+            padding: EdgeInsets.zero,
+            child: SvgPicture.asset(
+              'assets/icons/Back.svg',
+              colorFilter: iconColor != null
+                  ? ColorFilter.mode(iconColor!, BlendMode.srcIn)
+                  : null,
+              width: 44.w,
+              height: 44.h,
+            ),
           ),
         ),
       ),

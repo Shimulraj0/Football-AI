@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/base_scaffold.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
@@ -189,12 +190,19 @@ class BillingView extends GetView<BillingController> {
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-            child: Icon(
-              Icons.notifications_none,
-              color: const Color(
-                0xFF00204A,
-              ), // Use design color if different? Design uses Stack with empty containers. Inspecting "Color(0xFFFEFEFE)" for bg. Icon color not specified clearly in snippet (it's a stack), but text color elsewhere is 0xFF575757 or 0xFF012355. I'll stick to navy or black.
-              size: 24.sp,
+            child: Center(
+              child: SvgPicture.asset(
+                "assets/icons/Notification.svg",
+                width: 24.w,
+                height: 24.w,
+                // Inherited color might be needed or SVG has its own color.
+                // Previous icon had Color(0xFF00204A).
+                // I will apply usage of ColorFilter if it's a mono icon.
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF00204A),
+                  BlendMode.srcIn,
+                ),
+              ),
             ),
           ),
         ],

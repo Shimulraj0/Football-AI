@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
-import '../../../../routes/app_routes.dart';
 import '../controllers/assigned_age_groups_controller.dart';
+import '../../../../global_widgets/custom_back_button.dart';
+import '../../home/controllers/home_controller.dart';
 
 class AssignedAgeGroupsView extends GetView<AssignedAgeGroupsController> {
   const AssignedAgeGroupsView({super.key});
@@ -11,51 +12,41 @@ class AssignedAgeGroupsView extends GetView<AssignedAgeGroupsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       // We removed global background override, so it uses theme default (AppColors.background)
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            children: [
-              _buildHeader(),
-              Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 20.0,
-                  ),
-                  itemCount: controller.ageGroups.length,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 12),
-                  itemBuilder: (context, index) {
-                    final group = controller.ageGroups[index];
-                    return _buildAgeGroupCard(group);
-                  },
-                ),
+          _buildHeader(),
+          Expanded(
+            child: ListView.separated(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 20.0,
               ),
-            ],
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: CustomBottomNavBar(
-              selectedIndex: 0,
-              onItemTapped: (index) {
-                switch (index) {
-                  case 0:
-                    Get.offNamed(AppRoutes.directorOfCoachingHome);
-                    break;
-                  case 1:
-                    Get.toNamed(AppRoutes.aiCommunication);
-                    break;
-                  case 2:
-                    Get.toNamed(AppRoutes.settings);
-                    break;
-                }
+              itemCount: controller.ageGroups.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 12),
+              itemBuilder: (context, index) {
+                final group = controller.ageGroups[index];
+                return _buildAgeGroupCard(group);
               },
             ),
           ),
         ],
       ),
+      bottomNavigationBar: () {
+        if (Get.isRegistered<HomeController>()) {
+          final homeController = Get.find<HomeController>();
+          // Set current route as home route for this navigation context - OPTIONAL but recommended if we want Home tab to return here
+          // But wait, if we are here, we are on a "Home" variant.
+          // homeController.currentHomeRoute.value = AppRoutes.assignedAgeGroups; // This might be better in Controller onInit
+
+          return Obx(
+            () => CustomBottomNavBar(
+              selectedIndex: homeController.selectedIndex.value,
+              onItemTapped: homeController.changeTabIndex,
+            ),
+          );
+        }
+        return null;
+      }(),
     );
   }
 
@@ -76,20 +67,10 @@ class AssignedAgeGroupsView extends GetView<AssignedAgeGroupsController> {
       ),
       child: Row(
         children: [
-          InkWell(
-            onTap: () => Get.back(),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.arrow_back,
-                color: Color(0xFF00204A),
-                size: 24,
-              ),
-            ),
+          CustomBackButton(
+            onPressed: () => Get.back(),
+            backgroundColor: Colors.white,
+            iconColor: const Color(0xFF00204A),
           ),
           Expanded(
             child: Center(

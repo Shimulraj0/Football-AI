@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../../routes/app_routes.dart';
 import '../controllers/communication_hub_controller.dart';
+import '../../../../global_widgets/custom_back_button.dart';
+import '../../home/controllers/home_controller.dart';
 
 class CommunicationHubView extends GetView<CommunicationHubController> {
   const CommunicationHubView({super.key});
@@ -10,59 +12,46 @@ class CommunicationHubView extends GetView<CommunicationHubController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            children: [
-              _buildHeader(),
-              Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 20.0,
-                  ),
-                  children: [
-                    _buildActionCard(
-                      title: "Communication Summary",
-                      subtitle: "You can see coach/parents/player feedback",
-                      icon: Icons.chat_bubble_outline,
-                      onTap: () => Get.toNamed(AppRoutes.communicationSummary),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildActionCard(
-                      title: "AI Communication",
-                      subtitle: "You can see AI Recommendation",
-                      icon: Icons.auto_awesome_outlined,
-                      onTap: () => Get.toNamed(AppRoutes.aiCommunicationHub),
-                    ),
-                  ],
-                ),
+          _buildHeader(),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 20.0,
               ),
-            ],
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: CustomBottomNavBar(
-              selectedIndex: 0,
-              onItemTapped: (index) {
-                switch (index) {
-                  case 0:
-                    Get.offNamed(AppRoutes.technicalDirectorHome);
-                    break;
-                  case 1:
-                    Get.toNamed(AppRoutes.aiCommunication);
-                    break;
-                  case 2:
-                    Get.toNamed(AppRoutes.settings);
-                    break;
-                }
-              },
+              children: [
+                _buildActionCard(
+                  title: "Communication Summary",
+                  subtitle: "You can see coach/parents/player feedback",
+                  icon: Icons.chat_bubble_outline,
+                  onTap: () => Get.toNamed(AppRoutes.communicationSummary),
+                ),
+                const SizedBox(height: 16),
+                _buildActionCard(
+                  title: "AI Communication",
+                  subtitle: "You can see AI Recommendation",
+                  icon: Icons.auto_awesome_outlined,
+                  onTap: () => Get.toNamed(AppRoutes.aiCommunicationHub),
+                ),
+              ],
             ),
           ),
         ],
       ),
+      bottomNavigationBar: () {
+        if (Get.isRegistered<HomeController>()) {
+          final homeController = Get.find<HomeController>();
+          return Obx(
+            () => CustomBottomNavBar(
+              selectedIndex: homeController.selectedIndex.value,
+              onItemTapped: homeController.changeTabIndex,
+            ),
+          );
+        }
+        return null;
+      }(),
     );
   }
 
@@ -83,20 +72,10 @@ class CommunicationHubView extends GetView<CommunicationHubController> {
       ),
       child: Row(
         children: [
-          InkWell(
-            onTap: () => Get.back(),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.arrow_back,
-                color: Color(0xFF00204A),
-                size: 24,
-              ),
-            ),
+          CustomBackButton(
+            onPressed: () => Get.back(),
+            backgroundColor: Colors.white,
+            iconColor: const Color(0xFF00204A),
           ),
           Expanded(
             child: Center(

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
-import '../../../../routes/app_routes.dart';
 import '../controllers/curriculum_adaptation_controller.dart';
+import '../../../../global_widgets/custom_back_button.dart';
+import '../../home/controllers/home_controller.dart';
 
 class CurriculumAdaptationView extends GetView<CurriculumAdaptationController> {
   const CurriculumAdaptationView({super.key});
@@ -10,105 +11,92 @@ class CurriculumAdaptationView extends GetView<CurriculumAdaptationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            children: [
-              _buildHeader(),
-              Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.all(20.0),
-                  children: [
-                    const Text(
-                      "Team Frequency change",
-                      style: TextStyle(
-                        color: Color(0xFF00204A),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    _buildFrequencyDropdown(),
-                    const SizedBox(height: 24),
-                    const Text(
-                      "AI Suggestion",
-                      style: TextStyle(
-                        color: Color(0xFF00204A),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    _buildAiSuggestionCard(),
-                    const SizedBox(height: 24),
-                    _buildDaySchedule("Monday", [
-                      _buildChip(
-                        "Passing Drills",
-                        Icons.sports_soccer,
-                        () => _handleChipTap("Passing Drills", "Monday"),
-                      ),
-                      _buildChip(
-                        "Shooting Session",
-                        Icons.sports_gymnastics,
-                        () => _handleChipTap("Shooting Session", "Monday"),
-                      ), // Using gymnastics as placeholder for active
-                    ]),
-                    const SizedBox(height: 20),
-                    _buildDaySchedule("Tuesday", [
-                      _buildChip(
-                        "Passing Drills",
-                        Icons.sports_soccer,
-                        () => _handleChipTap("Passing Drills", "Tuesday"),
-                      ),
-                      _buildChip(
-                        "Conditioning",
-                        Icons.fitness_center,
-                        () => _handleChipTap("Conditioning", "Tuesday"),
-                      ),
-                    ]),
-                    const SizedBox(height: 20),
-                    _buildDaySchedule("Wednesday", [
-                      // Correcting typo "Wensday" to Wednesday, but user might want raw. I'll use Wednesday.
-                      _buildChip(
-                        "Passing Drills",
-                        Icons.sports_soccer,
-                        () => _handleChipTap("Passing Drills", "Wednesday"),
-                      ),
-                      _buildChip(
-                        "Conditioning",
-                        Icons.fitness_center,
-                        () => _handleChipTap("Conditioning", "Wednesday"),
-                      ),
-                    ]),
-                    const SizedBox(height: 80),
-                  ],
+          _buildHeader(),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(20.0),
+              children: [
+                const Text(
+                  "Team Frequency change",
+                  style: TextStyle(
+                    color: Color(0xFF00204A),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: CustomBottomNavBar(
-              selectedIndex: 0,
-              onItemTapped: (index) {
-                switch (index) {
-                  case 0:
-                    Get.offNamed(AppRoutes.technicalDirectorHome);
-                    break;
-                  case 1:
-                    Get.toNamed(AppRoutes.aiCommunication);
-                    break;
-                  case 2:
-                    Get.toNamed(AppRoutes.settings);
-                    break;
-                }
-              },
+                const SizedBox(height: 12),
+                _buildFrequencyDropdown(),
+                const SizedBox(height: 24),
+                const Text(
+                  "AI Suggestion",
+                  style: TextStyle(
+                    color: Color(0xFF00204A),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                _buildAiSuggestionCard(),
+                const SizedBox(height: 24),
+                _buildDaySchedule("Monday", [
+                  _buildChip(
+                    "Passing Drills",
+                    Icons.sports_soccer,
+                    () => _handleChipTap("Passing Drills", "Monday"),
+                  ),
+                  _buildChip(
+                    "Shooting Session",
+                    Icons.sports_gymnastics,
+                    () => _handleChipTap("Shooting Session", "Monday"),
+                  ), // Using gymnastics as placeholder for active
+                ]),
+                const SizedBox(height: 20),
+                _buildDaySchedule("Tuesday", [
+                  _buildChip(
+                    "Passing Drills",
+                    Icons.sports_soccer,
+                    () => _handleChipTap("Passing Drills", "Tuesday"),
+                  ),
+                  _buildChip(
+                    "Conditioning",
+                    Icons.fitness_center,
+                    () => _handleChipTap("Conditioning", "Tuesday"),
+                  ),
+                ]),
+                const SizedBox(height: 20),
+                _buildDaySchedule("Wednesday", [
+                  // Correcting typo "Wensday" to Wednesday, but user might want raw. I'll use Wednesday.
+                  _buildChip(
+                    "Passing Drills",
+                    Icons.sports_soccer,
+                    () => _handleChipTap("Passing Drills", "Wednesday"),
+                  ),
+                  _buildChip(
+                    "Conditioning",
+                    Icons.fitness_center,
+                    () => _handleChipTap("Conditioning", "Wednesday"),
+                  ),
+                ]),
+                const SizedBox(height: 80),
+              ],
             ),
           ),
         ],
       ),
+      bottomNavigationBar: () {
+        if (Get.isRegistered<HomeController>()) {
+          final homeController = Get.find<HomeController>();
+          return Obx(
+            () => CustomBottomNavBar(
+              selectedIndex: homeController.selectedIndex.value,
+              onItemTapped: homeController.changeTabIndex,
+            ),
+          );
+        }
+        return null;
+      }(),
     );
   }
 
@@ -129,20 +117,10 @@ class CurriculumAdaptationView extends GetView<CurriculumAdaptationController> {
       ),
       child: Row(
         children: [
-          InkWell(
-            onTap: () => Get.back(),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.arrow_back,
-                color: Color(0xFF00204A),
-                size: 24,
-              ),
-            ),
+          CustomBackButton(
+            onPressed: () => Get.back(),
+            backgroundColor: Colors.white,
+            iconColor: const Color(0xFF00204A),
           ),
           Expanded(
             child: Center(

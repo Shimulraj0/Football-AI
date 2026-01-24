@@ -96,6 +96,10 @@ import '../modules/director_of_coaching_home/views/director_of_coaching_home_vie
 import '../modules/director_of_coaching_home/bindings/director_of_coaching_home_binding.dart';
 import '../modules/assigned_age_groups/views/assigned_age_groups_view.dart';
 import '../modules/assigned_age_groups/bindings/assigned_age_groups_binding.dart';
+import '../modules/specialty_director_home/views/specialty_director_home_view.dart';
+import '../modules/specialty_director_home/bindings/specialty_director_home_binding.dart';
+import '../modules/specialty_director_home/gk_director_home/views/gk_director_home_view.dart';
+import '../modules/specialty_director_home/gk_director_home/bindings/gk_director_home_binding.dart';
 
 class AppPages {
   static const initial = AppRoutes.splash;
@@ -387,6 +391,16 @@ class AppPages {
       name: AppRoutes.operationsAdminSelection,
       page: () => const OperationsAdminSelectionView(),
       binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.specialtyDirectorHome,
+      page: () => const SpecialtyDirectorHomeView(),
+      binding: SpecialtyDirectorHomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.gkDirectorHome,
+      page: () => const GkDirectorHomeView(),
+      binding: GkDirectorHomeBinding(),
     ),
   ];
 }
