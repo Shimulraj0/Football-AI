@@ -47,26 +47,7 @@ class AuthController extends GetxController {
       "Login with ${emailController.text} and role ${selectedRole.value}",
     );
 
-    // If we have a stored redirect route, go there
-    if (redirectRoute != null) {
-      Get.offAllNamed(redirectRoute!);
-      return;
-    }
-
-    // Otherwise navigate based on role
-    if (selectedRole.value == "Coach") {
-      Get.offAllNamed(AppRoutes.home);
-    } else if (selectedRole.value == "Player") {
-      Get.offAllNamed(AppRoutes.playerHome);
-    } else {
-      // Default to Dashboard or show error/placeholder for other roles
-      if (selectedRole.value.isNotEmpty) {
-        // Since we are now handling all dashboard items via login,
-        // if we fall through here it means no specific redirect was found
-        // or it's a role without a specific home page yet.
-        Get.snackbar("Success", "Logged in as ${selectedRole.value}");
-      }
-    }
+    _handleRedirection();
   }
 
   void signUp() {
@@ -75,22 +56,40 @@ class AuthController extends GetxController {
       "Sign up with ${emailController.text} and role ${selectedRole.value}",
     );
 
-    // If we have a stored redirect route, go there
-    if (redirectRoute != null) {
+    _handleRedirection();
+  }
+
+  void _handleRedirection() {
+    // 1. If we have a specific redirect route passed from Dashboard, use it.
+    if (redirectRoute != null && redirectRoute!.isNotEmpty) {
       Get.offAllNamed(redirectRoute!);
       return;
     }
 
-    // Otherwise navigate based on role
-    if (selectedRole.value == "Coach") {
-      Get.offAllNamed(AppRoutes.home);
-    } else if (selectedRole.value == "Player") {
-      Get.offAllNamed(AppRoutes.playerHome);
-    } else {
-      // Default fallback
-      if (selectedRole.value.isNotEmpty) {
-        Get.snackbar("Success", "Signed up as ${selectedRole.value}");
-      }
+    // 2. Fallback based on Role if no specific route found (legacy support)
+    switch (selectedRole.value) {
+      case "Coach":
+        Get.offAllNamed(AppRoutes.home);
+        break;
+      case "Player":
+        Get.offAllNamed(AppRoutes.playerHome);
+        break;
+      case "Technical Director":
+        Get.offAllNamed(
+          AppRoutes.technicalDirectorHome,
+        ); // Ensure this route exists
+        break;
+      case "Director of Coaching":
+        Get.offAllNamed(
+          AppRoutes.directorOfCoachingHome,
+        ); // Ensure this route exists
+        break;
+      default:
+        // Default fallback
+        if (selectedRole.value.isNotEmpty) {
+          Get.snackbar("Success", "Logged in as ${selectedRole.value}");
+          // Ideally redirect to a generic dashboard or show error
+        }
     }
   }
 

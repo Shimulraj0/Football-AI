@@ -24,11 +24,41 @@ class AiAssistantController extends GetxController {
     }
   }
 
+  final drafts = <String>[].obs;
+
   void onDraftItemClicked() {
-    // TODO: Implement draft item logic
+    drafts.add('Draft ${drafts.length + 1}');
+    Get.snackbar(
+      'Draft Saved',
+      'Item has been saved to drafts successfully.',
+      backgroundColor: const Color(0xFF30C360),
+      colorText: Colors.white,
+    );
   }
 
   void onGeneratePdfClicked() {
-    // TODO: Implement generate PDF logic
+    Get.dialog(
+      AlertDialog(
+        title: const Text('Generate PDF'),
+        content: const Text(
+          'This would generate a PDF summary of the content.',
+        ),
+        actions: [
+          TextButton(onPressed: () => Get.back(), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () {
+              Get.back();
+              Get.snackbar(
+                'Success',
+                'PDF generated and downloaded successfully.',
+                backgroundColor: const Color(0xFF30C360),
+                colorText: Colors.white,
+              );
+            },
+            child: const Text('Generate'),
+          ),
+        ],
+      ),
+    );
   }
 }

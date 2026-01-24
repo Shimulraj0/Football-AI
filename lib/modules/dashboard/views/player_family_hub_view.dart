@@ -107,17 +107,18 @@ class PlayerFamilyHubView extends GetView<DashboardController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Icon
-              Container(
-                padding: EdgeInsets.all(12.w),
-                decoration: BoxDecoration(
-                  border: Border.all(color: contentColor, width: 1.5),
-                ),
-                child: Image.asset(
-                  iconPath,
-                  width: 24.w,
-                  height: 24.w,
-                  color: contentColor,
-                ),
+              Image.asset(
+                iconPath,
+                width: 48
+                    .w, // Increased size slightly as padding is gone, or keep 24.w? Let's check design intent. Usually if border is gone, icon might need to be bigger or same. I will keep it same but maybe adjust if needed.
+                // Wait, the previous container had padding 12.w and child 24.w. So total box was 24 + 12*2 = 48.
+                // If I just show 24.w icon it might look small.
+                // I will set it to 48.w or maybe just remove the border.
+                // "remove the rectangle shape".
+                // I'll stick to 24.w first (or slightly larger 40.w?)
+                // Let's assume just removing the border is key. I'll use 40.w to be safe visually.
+                height: 40.w,
+                color: contentColor,
               ),
               SizedBox(height: 12.h),
               Text(

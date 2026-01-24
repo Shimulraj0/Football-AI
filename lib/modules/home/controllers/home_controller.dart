@@ -4,6 +4,7 @@ import '../../../routes/app_routes.dart';
 class HomeController extends GetxController {
   final count = 0.obs;
   final selectedIndex = 0.obs;
+  final RxString currentHomeRoute = AppRoutes.home.obs;
 
   void increment() => count.value++;
 
@@ -15,8 +16,8 @@ class HomeController extends GetxController {
     // If the same tab is clicked
     if (index == selectedIndex.value) {
       // If we are not on the main HomeView (e.g., inside a sub-page), pop to HomeView
-      if (Get.currentRoute != AppRoutes.home) {
-        Get.offNamedUntil(AppRoutes.home, (route) => false);
+      if (Get.currentRoute != currentHomeRoute.value) {
+        Get.offNamedUntil(currentHomeRoute.value, (route) => false);
       }
       return;
     }
@@ -24,11 +25,17 @@ class HomeController extends GetxController {
     // Update the selected index
     selectedIndex.value = index;
 
-    // Logic to ensure we are on the HomeView (root of navigation for tabs)
-    // If we are currently on a sub-page (like settings sub-page or team management),
-    // we need to clear the stack and go back to HomeView so the body updates correctly.
-    if (Get.currentRoute != AppRoutes.home) {
-      Get.offNamedUntil(AppRoutes.home, (route) => false);
+    if (index == 0) {
+      // Home Tab
+      if (Get.currentRoute != currentHomeRoute.value) {
+        Get.offNamedUntil(currentHomeRoute.value, (route) => false);
+      }
+    } else if (index == 1) {
+      // Coach AI
+      Get.toNamed(AppRoutes.aiCommunication);
+    } else if (index == 2) {
+      // Settings
+      Get.toNamed(AppRoutes.settings);
     }
   }
 }

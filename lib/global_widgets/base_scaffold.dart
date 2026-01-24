@@ -73,7 +73,7 @@ class BaseScaffold extends StatelessWidget {
             // Persistent Header - Now handles its own status bar padding/height
             if (showHeader)
               PersistentHeader(
-                height: headerHeight ?? 140.h,
+                height: headerHeight ?? 124.h,
                 child: headerContent ?? _buildDefaultHeader(),
               ),
 

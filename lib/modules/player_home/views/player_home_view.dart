@@ -11,12 +11,18 @@ import '../../../global_widgets/custom_back_button.dart';
 import '../../../core/values/app_colors.dart';
 import 'package:football_ai/modules/player_home/views/player_ai_chat_view.dart'; // Import correct view
 import '../../../global_widgets/base_scaffold.dart';
+import '../../home/controllers/home_controller.dart';
+import '../../../../routes/app_routes.dart';
 
 class PlayerHomeView extends GetView<PlayerHomeController> {
   const PlayerHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    if (Get.isRegistered<HomeController>()) {
+      Get.find<HomeController>().currentHomeRoute.value = AppRoutes.playerHome;
+    }
+
     return BaseScaffold(
       backgroundColor: AppColors.background,
       headerContent: Obx(() {
@@ -74,7 +80,7 @@ class PlayerHomeView extends GetView<PlayerHomeController> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ProfileImage(
-              imagePath: 'assets/icons/Ellipse 13.png', // Or player specific
+              imagePath: 'assets/icons/Ellipse13.png', // Or player specific
               onTap: () {
                 // Handle profile tap
               },

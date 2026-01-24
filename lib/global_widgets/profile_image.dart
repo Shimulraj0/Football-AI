@@ -9,7 +9,7 @@ class ProfileImage extends StatelessWidget {
   const ProfileImage({
     super.key,
     required this.imagePath,
-    this.size = 60,
+    this.size = 51,
     this.onTap,
   });
 

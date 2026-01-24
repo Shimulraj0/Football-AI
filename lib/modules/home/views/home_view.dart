@@ -29,6 +29,7 @@ class HomeView extends GetView<HomeController> {
       // For other tabs (e.g. Coach AI, Settings), usage existing structure:
       return BaseScaffold(
         backgroundColor: AppColors.background,
+        headerHeight: 124.h,
         headerContent: _buildHeaderContent(),
         body: _buildBody(),
       );

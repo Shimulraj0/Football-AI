@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../../routes/app_routes.dart';
 import '../controllers/technical_director_home_controller.dart';
+import '../../../../global_widgets/base_scaffold.dart';
+import '../../../../global_widgets/profile_image.dart';
+import '../../home/controllers/home_controller.dart';
 
 class TechnicalDirectorHomeView
     extends GetView<TechnicalDirectorHomeController> {
@@ -10,61 +12,43 @@ class TechnicalDirectorHomeView
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
+    // Ensure HomeController knows this is the current home
+    if (Get.isRegistered<HomeController>()) {
+      Get.find<HomeController>().currentHomeRoute.value =
+          AppRoutes.technicalDirectorHome;
+    }
+
+    return BaseScaffold(
+      headerContent: _buildHeader(),
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
         children: [
-          Column(
-            children: [
-              _buildHeader(),
-              Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 20.0,
-                  ),
-                  children: [
-                    _buildMenuCard(
-                      title: "Curriculum Engine",
-                      subtitle: "Create or upload curriculam",
-                      icon: Icons.assignment_outlined, // Placeholder icon
-                      onTap: () => Get.toNamed(AppRoutes.curriculumEngine),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildMenuCard(
-                      title: "Analytics & Insights",
-                      subtitle: "See the analytics & AI insights",
-                      icon: Icons.bar_chart_outlined, // Placeholder icon
-                      onTap: () => Get.toNamed(AppRoutes.analyticsInsights),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildMenuCard(
-                      title: "Curriculum Adaptation",
-                      subtitle: "You can use adaptive curriculum editor",
-                      icon: Icons.cached_outlined, // Placeholder icon
-                      onTap: () => Get.toNamed(AppRoutes.curriculumAdaptation),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildMenuCard(
-                      title: "Communication Hub",
-                      subtitle: "You can use adaptive curriculum editor",
-                      icon: Icons.chat_bubble_outline, // Placeholder icon
-                      onTap: () => Get.toNamed(AppRoutes.communicationHub),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          _buildMenuCard(
+            title: "Curriculum Engine",
+            subtitle: "Create or upload curriculam",
+            icon: Icons.assignment_outlined,
+            onTap: () => Get.toNamed(AppRoutes.curriculumEngine),
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Obx(
-              () => CustomBottomNavBar(
-                selectedIndex: controller.selectedIndex.value,
-                onItemTapped: controller.changeTabIndex,
-              ),
-            ),
+          const SizedBox(height: 16),
+          _buildMenuCard(
+            title: "Analytics & Insights",
+            subtitle: "See the analytics & AI insights",
+            icon: Icons.bar_chart_outlined,
+            onTap: () => Get.toNamed(AppRoutes.analyticsInsights),
+          ),
+          const SizedBox(height: 16),
+          _buildMenuCard(
+            title: "Curriculum Adaptation",
+            subtitle: "You can use adaptive curriculum editor",
+            icon: Icons.cached_outlined,
+            onTap: () => Get.toNamed(AppRoutes.curriculumAdaptation),
+          ),
+          const SizedBox(height: 16),
+          _buildMenuCard(
+            title: "Communication Hub",
+            subtitle: "You can use adaptive curriculum editor",
+            icon: Icons.chat_bubble_outline,
+            onTap: () => Get.toNamed(AppRoutes.communicationHub),
           ),
         ],
       ),
@@ -72,67 +56,47 @@ class TechnicalDirectorHomeView
   }
 
   Widget _buildHeader() {
-    return Container(
-      padding: const EdgeInsets.only(
-        top: 60.0,
-        left: 20.0,
-        right: 20.0,
-        bottom: 30.0,
-      ),
-      decoration: const BoxDecoration(
-        color: Color(0xFF00204A), // Dark blue
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
+    return Row(
+      children: [
+        ProfileImage(imagePath: 'assets/icons/Ellipse13.png', size: 51),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Welcome Back",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                "Technical Director",
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.8),
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      child: Row(
-        children: [
-          const CircleAvatar(
-            radius: 28,
-            backgroundImage: AssetImage(
-              'assets/icons/Ellipse 13.png',
-            ), // Placeholder
-            backgroundColor: Colors.grey,
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Welcome Back",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  "Tecnical Director",
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.8),
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
+          child: const Icon(
+            Icons.notifications_outlined,
+            color: Color(0xFF00204A),
+            size: 24,
           ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.notifications_outlined,
-              color: Color(0xFF00204A),
-              size: 24,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

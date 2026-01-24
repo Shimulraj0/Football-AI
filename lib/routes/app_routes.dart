@@ -7,6 +7,7 @@ abstract class AppRoutes {
   static const forgotPassword = '/forgot-password';
   static const otp = '/otp';
   static const resetPassword = '/reset-password';
+
   static const home = '/home';
   static const teamManagement = '/team-management';
   static const playerHome = '/player-home';
@@ -61,4 +62,5 @@ abstract class AppRoutes {
   static const staffWorkspace = '/staff-workspace';
   static const clubCommandCenter = '/club-command-center';
   static const operationsAdmin = '/operations-admin';
+  static const operationsAdminSelection = '/operations-admin-selection';
 }

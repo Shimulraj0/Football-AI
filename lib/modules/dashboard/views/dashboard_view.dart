@@ -4,7 +4,6 @@ import '../controllers/dashboard_controller.dart';
 import '../widgets/dashboard_card.dart';
 import '../../../core/values/app_colors.dart';
 
-import '../../home/controllers/home_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../routes/app_routes.dart';
 import '../../../core/utils/size_utils.dart';
@@ -64,7 +63,8 @@ class DashboardView extends GetView<DashboardController> {
                   child: DashboardCard(
                     title: 'Operations & Admin',
                     icon: SvgPicture.asset('assets/icons/Settings.svg'),
-                    onTap: () => Get.toNamed(AppRoutes.operationsAdmin),
+                    onTap: () =>
+                        Get.toNamed(AppRoutes.operationsAdminSelection),
                   ),
                 ),
 

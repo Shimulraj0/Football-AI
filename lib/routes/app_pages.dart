@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../modules/dashboard/views/operations_admin_selection_view.dart';
 import 'app_routes.dart';
 import '../modules/onboarding/views/splash_view.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
@@ -380,6 +381,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.operationsAdmin,
       page: () => const OperationsAdminView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.operationsAdminSelection,
+      page: () => const OperationsAdminSelectionView(),
       binding: DashboardBinding(),
     ),
   ];
