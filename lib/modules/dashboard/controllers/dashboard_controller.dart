@@ -31,7 +31,7 @@ class DashboardController extends GetxController {
       id: "Age Group Coordinator",
       title: "Age Group\nCoordinator",
       assetPath: 'assets/icons/ic_single_role.png',
-      route: AppRoutes.assignedAgeGroups,
+      route: AppRoutes.ageGroupCoordinatorHome,
     ),
     RoleModel(
       id: "Coach",

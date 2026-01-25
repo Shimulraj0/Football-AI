@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../routes/app_routes.dart';
-import '../../../../core/values/app_padding.dart';
 import '../controllers/player_home_controller.dart';
 import '../../home/widgets/home_action_card.dart';
+
+import '../../../../core/utils/size_utils.dart';
 
 class PlayerMenuSection extends StatelessWidget {
   const PlayerMenuSection({super.key});
@@ -15,7 +16,7 @@ class PlayerMenuSection extends StatelessWidget {
     // Using a list for data to keep build method clean
     // Define the menu items directly to handle specific styling
     return ListView(
-      padding: AppPadding.pagePadding,
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
       children: [
         // 1. Daily Mindset Tip (Gradient)
         HomeActionCard(

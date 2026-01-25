@@ -101,6 +101,9 @@ import '../modules/specialty_director_home/bindings/specialty_director_home_bind
 import '../modules/specialty_director_home/gk_director_home/views/gk_director_home_view.dart';
 import '../modules/specialty_director_home/gk_director_home/bindings/gk_director_home_binding.dart';
 
+import '../modules/age_group_coordinator_home/views/age_group_coordinator_home_view.dart';
+import '../modules/age_group_coordinator_home/bindings/age_group_coordinator_home_binding.dart';
+
 class AppPages {
   static const initial = AppRoutes.splash;
 
@@ -401,6 +404,16 @@ class AppPages {
       name: AppRoutes.gkDirectorHome,
       page: () => const GkDirectorHomeView(),
       binding: GkDirectorHomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.gkDirectorHome,
+      page: () => const GkDirectorHomeView(),
+      binding: GkDirectorHomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.ageGroupCoordinatorHome,
+      page: () => const AgeGroupCoordinatorHomeView(),
+      binding: AgeGroupCoordinatorHomeBinding(),
     ),
   ];
 }

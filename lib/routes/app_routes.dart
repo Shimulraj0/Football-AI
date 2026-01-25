@@ -57,6 +57,7 @@ abstract class AppRoutes {
   static const communicationSummary = '/communication-summary';
   static const aiCommunicationHub = '/ai-communication-hub';
   static const directorOfCoachingHome = '/director-of-coaching-home';
+  static const ageGroupCoordinatorHome = '/age-group-coordinator-home';
   static const assignedAgeGroups = '/assigned-age-groups';
   static const playerFamilyHub = '/player-family-hub';
   static const staffWorkspace = '/staff-workspace';

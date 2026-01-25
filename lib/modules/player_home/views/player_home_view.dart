@@ -14,6 +14,8 @@ import '../../../global_widgets/base_scaffold.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../../../routes/app_routes.dart';
 
+import '../../../core/utils/size_utils.dart'; // Add size_utils import
+
 class PlayerHomeView extends GetView<PlayerHomeController> {
   const PlayerHomeView({super.key});
 
@@ -36,19 +38,19 @@ class PlayerHomeView extends GetView<PlayerHomeController> {
                 backgroundColor: Colors.white,
                 iconColor: const Color(0xFF00204A),
               ),
-              const Expanded(
+              Expanded(
                 child: Text(
                   "Talk to Player AI", // Updated Title
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               // Balance the back button spacing
-              const SizedBox(width: 40),
+              SizedBox(width: 40.w),
             ],
           );
         } else if (controller.selectedIndex.value == 2) {
@@ -60,13 +62,13 @@ class PlayerHomeView extends GetView<PlayerHomeController> {
                 backgroundColor: Colors.white,
                 iconColor: const Color(0xFF00204A),
               ),
-              const SizedBox(width: 16),
-              const Text(
+              SizedBox(width: 16.w),
+              Text(
                 "Settings",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Color.fromARGB(255, 250, 249, 249),
-                  fontSize: 20,
+                  color: const Color.fromARGB(255, 250, 249, 249),
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -85,26 +87,26 @@ class PlayerHomeView extends GetView<PlayerHomeController> {
                 // Handle profile tap
               },
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 16.w),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     "Welcome Back",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 19,
+                      fontSize: 19.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   Text(
                     "Player Dashboard",
                     style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 12,
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      fontSize: 12.sp,
                     ),
                   ),
                 ],
@@ -119,8 +121,12 @@ class PlayerHomeView extends GetView<PlayerHomeController> {
                 },
                 customBorder: const CircleBorder(),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SvgPicture.asset("assets/icons/Notification.svg"),
+                  padding: EdgeInsets.all(8.w),
+                  child: SvgPicture.asset(
+                    "assets/icons/Notification.svg",
+                    width: 24.w,
+                    height: 24.w,
+                  ),
                 ),
               ),
             ),
