@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../global_widgets/custom_back_button.dart';
 import '../../../global_widgets/base_scaffold.dart';
 import '../../../core/utils/size_utils.dart';
 import '../controllers/dashboard_controller.dart';
@@ -34,21 +33,7 @@ class StaffWorkspaceView extends GetView<DashboardController> {
         child: Column(
           children: [
             // Header
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: Row(
-                children: [
-                  const CustomBackButton(),
-                  const Spacer(),
-                  const Text(
-                    "Staff Workspace",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const Spacer(),
-                  const SizedBox(width: 48), // Balance back button
-                ],
-              ),
-            ),
+            // Header removed to avoid duplication with BaseScaffold title
 
             // Grid of Roles
             Expanded(

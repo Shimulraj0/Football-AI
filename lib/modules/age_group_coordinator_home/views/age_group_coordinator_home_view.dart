@@ -52,7 +52,7 @@ class AgeGroupCoordinatorHomeView
             textColor: const Color(0xFF012355),
             iconBackgroundColor: Colors.white,
             onTap: () {
-              // Navigation for session observations not specified yet
+              Get.toNamed(AppRoutes.sessionObservations);
             },
           ),
         ],

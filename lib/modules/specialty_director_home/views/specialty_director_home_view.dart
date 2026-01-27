@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../../../../core/utils/size_utils.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../global_widgets/base_scaffold.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
 import '../controllers/specialty_director_home_controller.dart';
@@ -15,47 +14,35 @@ class SpecialtyDirectorHomeView
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      // The BaseScaffold likely handles some SafeArea/background, but user requested specific structure.
-      // We will embed their Column into the body.
-      // User's code has a Header + 3 Cards. 3 Cards are wrapped in containers.
-      // We need to adapt their fixed widths (375, 335) to our responsive design (w/h).
-      showHeader: true, // User provided their own header design in the column
-      headerHeight: 120.h,
       headerContent: _buildHeaderContent(),
       body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         child: Column(
           children: [
-            // _buildCustomHeader(),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-              child: Column(
-                children: [
-                  _buildInfoCard(
-                    title: "GK Director",
-                    lines: [
-                      "Shot stopping & footwork",
-                      "Distribution under pressure",
-                    ],
-                    icon:
-                        Icons.sports_soccer, // Placeholder until asset is known
-                    onTap: () => Get.toNamed(AppRoutes.gkDirectorHome),
-                  ),
-                  SizedBox(height: 16.h),
-                  _buildInfoCard(
-                    title: "A&C Director",
-                    lines: ["Balance & reaction", "Change of director"],
-                    icon: Icons.directions_run,
-                  ),
-                  SizedBox(height: 16.h),
-                  _buildInfoCard(
-                    title: "S&C Director",
-                    lines: ["Load management", "Recovery work"],
-                    icon: Icons.fitness_center,
-                  ),
-                  SizedBox(height: 100.h), // Space for bottom nav
-                ],
-              ),
+            _buildInfoCard(
+              title: "GK Director",
+              lines: [
+                "Shot stopping & footwork",
+                "Distribution under pressure",
+              ],
+              icon: Icons.sports_soccer,
+              onTap: () => Get.toNamed(AppRoutes.gkDirectorHome),
             ),
+            SizedBox(height: 16.h),
+            _buildInfoCard(
+              title: "A&C Director",
+              lines: ["Balance & reaction", "Change of director"],
+              icon: Icons.directions_run,
+              onTap: () => Get.toNamed(AppRoutes.acDirectorHome),
+            ),
+            SizedBox(height: 16.h),
+            _buildInfoCard(
+              title: "S&C Director",
+              lines: ["Load management", "Recovery work"],
+              icon: Icons.fitness_center,
+              onTap: () => Get.toNamed(AppRoutes.scDirectorHome),
+            ),
+            SizedBox(height: 100.h), // Space for bottom nav
           ],
         ),
       ),
@@ -75,123 +62,96 @@ class SpecialtyDirectorHomeView
   }
 
   Widget _buildHeaderContent() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Row(
+      children: [
+        Container(
+          width: 51.w,
+          height: 51.w,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.white, width: 1.w),
+            image: const DecorationImage(
+              image: AssetImage("assets/icons/Ellipse13.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(width: 16.w),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                children: [
-                  Container(
-                    width: 51.w,
-                    height: 51.w,
-                    decoration: ShapeDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/icons/Ellipse13.png"),
-                        fit: BoxFit.cover,
-                      ),
-                      shape: const OvalBorder(
-                        side: BorderSide(width: 1, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 8.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Welcome Back',
-                        style: TextStyle(
-                          color: const Color(0xFFFEFEFE),
-                          fontSize: 18.sp,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        'Specialty Director',
-                        style: TextStyle(
-                          color: const Color(0xFFFEFEFE),
-                          fontSize: 12.sp,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Container(
-                width: 38.w,
-                height: 38.w,
-                decoration: ShapeDecoration(
-                  color: const Color(0xFFFEFEFE),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+              Text(
+                'Welcome Back',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.sp,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
                 ),
-                child: Center(
-                  child: SvgPicture.asset(
-                    "assets/icons/Notification.svg",
-                    width: 24.w,
-                    height: 24.w,
-                    colorFilter: const ColorFilter.mode(
-                      Color(0xFF00204A),
-                      BlendMode.srcIn,
-                    ),
-                  ),
+              ),
+              SizedBox(height: 4.h),
+              Text(
+                'Specialty Director',
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.8),
+                  fontSize: 12.sp,
+                  fontFamily: 'Inter',
                 ),
               ),
             ],
           ),
-        ],
-      ),
+        ),
+        Container(
+          padding: EdgeInsets.all(8.w),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            Icons.notifications_outlined,
+            color: const Color(0xFF00204A),
+            size: 24.w,
+          ),
+        ),
+      ],
     );
   }
 
   Widget _buildInfoCard({
     required String title,
     required List<String> lines,
-    required IconData icon, // Placeholder for specific icon asset
-    VoidCallback? onTap, // Added optional callback
+    required IconData icon,
+    VoidCallback? onTap,
   }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 335.w,
+        // width: 335.w, // Removed fixed width
         padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 20.h),
-        decoration: ShapeDecoration(
+        decoration: BoxDecoration(
           color: const Color(0xFFEAF2FD),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          shadows: [
+          borderRadius: BorderRadius.circular(16.w),
+          boxShadow: [
             BoxShadow(
               color: const Color(0x1E000000),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-              spreadRadius: 0,
+              blurRadius: 10.w,
+              offset: Offset(0, 4.h),
             ),
           ],
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start, // Align to top
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: 48.w,
               height: 48.w,
-              decoration: ShapeDecoration(
-                color: const Color(0xFFFEFEFE),
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(width: 1, color: Colors.white),
-                  borderRadius: BorderRadius.circular(8),
-                ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12.w),
               ),
-              child: Icon(icon, color: const Color(0xFF012355)),
-              // User code had a Stack with a placeholder box.
-              // Using Icon until asset path is clear.
+              child: Icon(icon, color: const Color(0xFF012355), size: 24.w),
             ),
             SizedBox(width: 13.w),
             Expanded(
@@ -212,7 +172,7 @@ class SpecialtyDirectorHomeView
                     (line) => Text(
                       line,
                       style: TextStyle(
-                        color: const Color(0xFF012355),
+                        color: const Color(0xFF012355).withOpacity(0.8),
                         fontSize: 12.sp,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w400,

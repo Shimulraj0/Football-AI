@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../global_widgets/base_scaffold.dart';
-import '../../../../global_widgets/profile_image.dart';
+import '../../../../core/utils/size_utils.dart'; // Ensure size utils
 import '../../home/controllers/home_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../controllers/director_of_coaching_home_controller.dart';
@@ -19,8 +19,9 @@ class DirectorOfCoachingHomeView
 
     return BaseScaffold(
       headerContent: _buildHeader(),
+      showBottomNav: true,
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         children: [
           _buildMenuCard(
             title: "Assigned Age groups",
@@ -30,14 +31,14 @@ class DirectorOfCoachingHomeView
               Get.toNamed(AppRoutes.assignedAgeGroups);
             },
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           _buildMenuCard(
             title: "Coaches Oversight",
             subtitle: "See through coaches Oversight",
             icon: Icons.alt_route,
             onTap: () {},
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           _buildMenuCard(
             title: "Curriculum Alignment",
             subtitle: "Adjust curriculum alignment",
@@ -52,42 +53,55 @@ class DirectorOfCoachingHomeView
   Widget _buildHeader() {
     return Row(
       children: [
-        ProfileImage(imagePath: 'assets/icons/Ellipse13.png', size: 51),
-        const SizedBox(width: 16),
+        Container(
+          width: 51.w,
+          height: 51.w,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.white, width: 1.w),
+            image: const DecorationImage(
+              image: AssetImage('assets/icons/Ellipse13.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(width: 16.w),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 "Welcome Back",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Inter',
                 ),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4.h),
               Text(
                 "Director of Coaching (DOC)",
                 style: TextStyle(
                   color: Colors.white.withOpacity(0.8),
-                  fontSize: 14,
+                  fontSize: 12.sp,
+                  fontFamily: 'Inter',
                 ),
               ),
             ],
           ),
         ),
         Container(
-          padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(8.w),
           decoration: const BoxDecoration(
             color: Colors.white,
             shape: BoxShape.circle,
           ),
-          child: const Icon(
+          child: Icon(
             Icons.notifications_outlined,
-            color: Color(0xFF00204A),
-            size: 24,
+            color: const Color(0xFF00204A),
+            size: 24.w,
           ),
         ),
       ],
@@ -100,59 +114,60 @@ class DirectorOfCoachingHomeView
     required IconData icon,
     required VoidCallback onTap,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(16),
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF8F9FB),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Icon(icon, color: Colors.grey[700], size: 28),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          color: Color(0xFF00204A),
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        subtitle,
-                        style: TextStyle(color: Colors.grey[600], fontSize: 13),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 20.h),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.w), // Matches standard
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10.w,
+              offset: Offset(0, 4.h),
             ),
-          ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 48.w,
+              height: 48.w,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF8F9FB),
+                borderRadius: BorderRadius.circular(12.w), // Matches standard
+              ),
+              child: Icon(icon, color: Colors.grey[700], size: 24.w),
+            ),
+            SizedBox(width: 13.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: const Color(0xFF00204A),
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                  SizedBox(height: 6.h),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

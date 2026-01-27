@@ -66,4 +66,9 @@ abstract class AppRoutes {
   static const clubCommandCenter = '/club-command-center';
   static const operationsAdmin = '/operations-admin';
   static const operationsAdminSelection = '/operations-admin-selection';
+  static const sessionObservations = '/session-observations';
+  static const addObservationNotes = '/add-observation-notes';
+  static const fieldSchedulingDirector = '/field-scheduling-director';
+  static const acDirectorHome = '/ac-director-home';
+  static const scDirectorHome = '/sc-director-home';
 }

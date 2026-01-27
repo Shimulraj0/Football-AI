@@ -103,6 +103,10 @@ import '../modules/specialty_director_home/gk_director_home/bindings/gk_director
 
 import '../modules/age_group_coordinator_home/views/age_group_coordinator_home_view.dart';
 import '../modules/age_group_coordinator_home/bindings/age_group_coordinator_home_binding.dart';
+import '../modules/session_observations/views/session_observations_view.dart';
+import '../modules/session_observations/bindings/add_observation_notes_binding.dart';
+import '../modules/session_observations/views/add_observation_notes_view.dart';
+import '../modules/session_observations/bindings/session_observations_binding.dart';
 
 class AppPages {
   static const initial = AppRoutes.splash;
@@ -405,15 +409,37 @@ class AppPages {
       page: () => const GkDirectorHomeView(),
       binding: GkDirectorHomeBinding(),
     ),
-    GetPage(
-      name: AppRoutes.gkDirectorHome,
-      page: () => const GkDirectorHomeView(),
-      binding: GkDirectorHomeBinding(),
-    ),
+
     GetPage(
       name: AppRoutes.ageGroupCoordinatorHome,
       page: () => const AgeGroupCoordinatorHomeView(),
       binding: AgeGroupCoordinatorHomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.sessionObservations,
+      page: () => const SessionObservationsView(),
+      binding: SessionObservationsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.addObservationNotes,
+      page: () => AddObservationNotesView(),
+      binding: AddObservationNotesBinding(),
+    ),
+    // Placeholder routes for new directors
+    GetPage(
+      name: AppRoutes.fieldSchedulingDirector,
+      page: () => const GkDirectorHomeView(), // Placeholder
+      binding: GkDirectorHomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.acDirectorHome,
+      page: () => const GkDirectorHomeView(), // Placeholder
+      binding: GkDirectorHomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.scDirectorHome,
+      page: () => const GkDirectorHomeView(), // Placeholder
+      binding: GkDirectorHomeBinding(),
     ),
   ];
 }

@@ -22,9 +22,15 @@ class DashboardController extends GetxController {
       route: AppRoutes.directorOfCoachingHome,
     ),
     RoleModel(
+      id: "Field Scheduling Director",
+      title: "Field Scheduling\nDirector",
+      assetPath: 'assets/icons/ic_single_role.png',
+      route: AppRoutes.fieldSchedulingDirector,
+    ),
+    RoleModel(
       id: "Specialty Director", // Matched with StaffWorkspaceView list
       title: "Specialty\nDirector",
-      assetPath: 'assets/icons/ic_speciality_director.png',
+      assetPath: 'assets/icons/ic_single_role.png',
       route: AppRoutes.specialtyDirectorHome,
     ),
     RoleModel(
