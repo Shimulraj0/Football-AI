@@ -233,7 +233,7 @@ class AddObservationNotesView extends GetView<AddObservationNotesController> {
             decoration: InputDecoration(
               hintText: 'Enter observation notes here...',
               hintStyle: TextStyle(
-                color: const Color(0xFF012356).withOpacity(0.5),
+                color: const Color(0xFF012356).withValues(alpha: 0.5),
                 fontSize: 14.sp,
                 fontFamily: 'Inter',
               ),

@@ -95,7 +95,7 @@ class SpecialtyDirectorHomeView
               Text(
                 'Specialty Director',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 12.sp,
                   fontFamily: 'Inter',
                 ),
@@ -172,7 +172,7 @@ class SpecialtyDirectorHomeView
                     (line) => Text(
                       line,
                       style: TextStyle(
-                        color: const Color(0xFF012355).withOpacity(0.8),
+                        color: const Color(0xFF012355).withValues(alpha: 0.8),
                         fontSize: 12.sp,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w400,

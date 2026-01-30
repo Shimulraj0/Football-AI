@@ -81,12 +81,44 @@ class StaffWorkspaceView extends GetView<DashboardController> {
     required String roleId,
     required VoidCallback onTap,
   }) {
+    return _StaffRoleCard(title: title, iconPath: iconPath, onTap: onTap);
+  }
+}
+
+class _StaffRoleCard extends StatefulWidget {
+  final String title;
+  final String iconPath;
+  final VoidCallback onTap;
+
+  const _StaffRoleCard({
+    required this.title,
+    required this.iconPath,
+    required this.onTap,
+  });
+
+  @override
+  State<_StaffRoleCard> createState() => _StaffRoleCardState();
+}
+
+class _StaffRoleCardState extends State<_StaffRoleCard> {
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    const pressedColor = Color(0xFF012356);
+    const defaultColor = Colors.white;
+    const pressedTextColor = Colors.white;
+    const defaultTextColor = Color(0xFF031945);
+
     return GestureDetector(
-      onTap: onTap,
+      onTapDown: (_) => setState(() => _isPressed = true),
+      onTapUp: (_) => setState(() => _isPressed = false),
+      onTapCancel: () => setState(() => _isPressed = false),
+      onTap: widget.onTap,
       child: Container(
         height: 120.h,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: _isPressed ? pressedColor : defaultColor,
           borderRadius: BorderRadius.circular(10.w),
           border: Border.all(color: const Color(0xFF031945), width: 1),
           boxShadow: [
@@ -100,18 +132,22 @@ class StaffWorkspaceView extends GetView<DashboardController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Icon
-            Image.asset(iconPath, width: 36.w, height: 36.w),
+            Image.asset(
+              widget.iconPath,
+              width: 36.w,
+              height: 36.w,
+              color: _isPressed ? Colors.white : null,
+            ),
             SizedBox(height: 12.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: Text(
-                title,
+                widget.title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF031945),
+                  color: _isPressed ? pressedTextColor : defaultTextColor,
                 ),
               ),
             ),

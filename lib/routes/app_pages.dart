@@ -96,6 +96,9 @@ import '../modules/director_of_coaching_home/views/director_of_coaching_home_vie
 import '../modules/director_of_coaching_home/bindings/director_of_coaching_home_binding.dart';
 import '../modules/assigned_age_groups/views/assigned_age_groups_view.dart';
 import '../modules/assigned_age_groups/bindings/assigned_age_groups_binding.dart';
+import '../modules/director_of_coaching_home/views/coaches_oversight_view.dart';
+import '../modules/director_of_coaching_home/views/evaluation_details_view.dart';
+import '../modules/director_of_coaching_home/views/curriculum_alignment_view.dart';
 import '../modules/specialty_director_home/views/specialty_director_home_view.dart';
 import '../modules/specialty_director_home/bindings/specialty_director_home_binding.dart';
 import '../modules/specialty_director_home/gk_director_home/views/gk_director_home_view.dart';
@@ -440,6 +443,18 @@ class AppPages {
       name: AppRoutes.scDirectorHome,
       page: () => const GkDirectorHomeView(), // Placeholder
       binding: GkDirectorHomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.coachesOversight,
+      page: () => const CoachesOversightView(),
+    ),
+    GetPage(
+      name: AppRoutes.evaluationDetails,
+      page: () => const EvaluationDetailsView(),
+    ),
+    GetPage(
+      name: AppRoutes.curriculumAlignment,
+      page: () => const CurriculumAlignmentView(),
     ),
   ];
 }

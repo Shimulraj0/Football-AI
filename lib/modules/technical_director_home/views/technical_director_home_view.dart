@@ -90,7 +90,7 @@ class TechnicalDirectorHomeView
               Text(
                 "Technical Director",
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 12.sp,
                   fontFamily: 'Inter',
                 ),
@@ -129,7 +129,7 @@ class TechnicalDirectorHomeView
           borderRadius: BorderRadius.circular(16.w),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10.w,
               offset: Offset(0, 4.h),
             ),

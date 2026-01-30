@@ -54,11 +54,11 @@ class AddObservationNotesController extends GetxController {
 
   void saveObservation() {
     // Implement save logic here (e.g., API call)
-    print('Saving Observation:');
-    print('Focus Areas: $selectedFocusAreas');
-    print('Notes: ${observationNotesController.text}');
-    print('Strengths: $strengths');
-    print('Areas to Improve: $areasToImprove');
+    debugPrint('Saving Observation:');
+    debugPrint('Focus Areas: $selectedFocusAreas');
+    debugPrint('Notes: ${observationNotesController.text}');
+    debugPrint('Strengths: $strengths');
+    debugPrint('Areas to Improve: $areasToImprove');
     Get.back();
     Get.snackbar(
       'Success',

@@ -71,4 +71,7 @@ abstract class AppRoutes {
   static const fieldSchedulingDirector = '/field-scheduling-director';
   static const acDirectorHome = '/ac-director-home';
   static const scDirectorHome = '/sc-director-home';
+  static const coachesOversight = '/coaches-oversight';
+  static const evaluationDetails = '/evaluation-details';
+  static const curriculumAlignment = '/curriculum-alignment';
 }

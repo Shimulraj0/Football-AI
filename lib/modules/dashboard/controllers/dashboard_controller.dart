@@ -1,7 +1,6 @@
 import '../../../routes/app_routes.dart';
 import '../models/role_model.dart';
 import 'package:get/get.dart';
-import '../../home/controllers/home_controller.dart';
 
 class DashboardController extends GetxController {
   final RxString selectedRole = 'Coach'.obs;
@@ -77,45 +76,60 @@ class DashboardController extends GetxController {
     // Check for route navigation first
     final role = roles.firstWhereOrNull((r) => r.id == roleId);
     if (role != null && role.route != null) {
-      // Update HomeController's current route so bottom nav Home button knows where to go
-      if (Get.isRegistered<HomeController>()) {
-        Get.find<HomeController>().currentHomeRoute.value = role.route!;
-        Get.find<HomeController>().selectedIndex.value = 0; // Reset tab to Home
-      }
-
-      Get.toNamed(role.route!);
+      // Navigate to Login with redirect arguments
+      Get.toNamed(
+        AppRoutes.login,
+        arguments: {'role': role.title, 'redirect': role.route},
+      );
     }
   }
 
   // Restoring missing methods based on usage in other views
   void selectClubRole(String roleId) {
+    String? redirect;
     switch (roleId) {
       case 'Technical Director':
-        Get.toNamed(AppRoutes.technicalDirectorHome);
+        redirect = AppRoutes.technicalDirectorHome;
         break;
       case 'Director of Coaching':
-        Get.toNamed(AppRoutes.directorOfCoachingHome);
+        redirect = AppRoutes.directorOfCoachingHome;
         break;
       case 'Permissions':
-        Get.toNamed(AppRoutes.permissions);
+        redirect = AppRoutes.permissions;
         break;
       case 'Club Setup':
+        // Keep snackbar for now
         Get.snackbar(
           'Coming Soon',
           'Club Setup & Governance is under development',
         );
-        break;
+        return;
+    }
+
+    if (redirect != null) {
+      Get.toNamed(
+        AppRoutes.login,
+        arguments: {'role': roleId, 'redirect': redirect},
+      );
     }
   }
 
   void selectFamilyHubRole(String roleId) {
+    String? redirect;
     switch (roleId) {
       case 'Parent':
-        Get.toNamed(AppRoutes.parentPlayerPortal);
+        redirect = AppRoutes.parentPlayerPortal;
         break;
       case 'Player':
-        Get.toNamed(AppRoutes.playerHome);
+        redirect = AppRoutes.playerHome;
         break;
+    }
+
+    if (redirect != null) {
+      Get.toNamed(
+        AppRoutes.login,
+        arguments: {'role': roleId, 'redirect': redirect},
+      );
     }
   }
 }

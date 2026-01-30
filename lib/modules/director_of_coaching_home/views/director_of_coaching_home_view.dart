@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../global_widgets/base_scaffold.dart';
-import '../../../../core/utils/size_utils.dart'; // Ensure size utils
+import '../../../global_widgets/base_scaffold.dart';
+import '../../../core/utils/size_utils.dart'; // Ensure size utils
 import '../../home/controllers/home_controller.dart';
-import '../../../../routes/app_routes.dart';
+import '../../../routes/app_routes.dart';
 import '../controllers/director_of_coaching_home_controller.dart';
 
 class DirectorOfCoachingHomeView
@@ -36,14 +36,18 @@ class DirectorOfCoachingHomeView
             title: "Coaches Oversight",
             subtitle: "See through coaches Oversight",
             icon: Icons.alt_route,
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(AppRoutes.coachesOversight);
+            },
           ),
           SizedBox(height: 16.h),
           _buildMenuCard(
             title: "Curriculum Alignment",
             subtitle: "Adjust curriculum alignment",
             icon: Icons.assessment_outlined,
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(AppRoutes.curriculumAlignment);
+            },
           ),
         ],
       ),
@@ -84,7 +88,7 @@ class DirectorOfCoachingHomeView
               Text(
                 "Director of Coaching (DOC)",
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 12.sp,
                   fontFamily: 'Inter',
                 ),
@@ -123,7 +127,7 @@ class DirectorOfCoachingHomeView
           borderRadius: BorderRadius.circular(16.w), // Matches standard
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10.w,
               offset: Offset(0, 4.h),
             ),

@@ -116,7 +116,7 @@ class AssignedAgeGroupsView extends GetView<AssignedAgeGroupsController> {
         children: [
           Icon(
             Icons.search,
-            color: const Color(0xFF012356).withOpacity(0.5),
+            color: const Color(0xFF012356).withValues(alpha: 0.5),
             size: 20.w,
           ),
           SizedBox(width: 12.w),
@@ -319,7 +319,7 @@ class AssignedAgeGroupsView extends GetView<AssignedAgeGroupsController> {
                 ),
                 Icon(
                   Icons.chevron_right,
-                  color: const Color(0xFF012356).withOpacity(0.5),
+                  color: const Color(0xFF012356).withValues(alpha: 0.5),
                   size: 24.w,
                 ),
               ],

@@ -96,7 +96,7 @@ class AgeGroupCoordinatorHomeView
               Text(
                 "Age Group Coordination (AGC)",
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 12.sp,
                   fontFamily: 'Inter',
                 ),
@@ -166,8 +166,8 @@ class AgeGroupCoordinatorHomeView
                   Text(
                     subtitle,
                     style: TextStyle(
-                      color: textColor.withOpacity(
-                        0.8,
+                      color: textColor.withValues(
+                        alpha: 0.8,
                       ), // Slightly transparent for subtitle
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
