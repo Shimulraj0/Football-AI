@@ -57,41 +57,68 @@ class BaseScaffold extends StatelessWidget {
       }
     }
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: showHeader
-          ? SystemUiOverlayStyle.light.copyWith(
-              statusBarColor:
-                  Colors.transparent, // Let header color show through
-              statusBarIconBrightness: Brightness.light, // White icons
-              statusBarBrightness: Brightness.dark, // White text on iOS
-            )
-          : SystemUiOverlayStyle.dark, // Default to dark for no header
-      child: Scaffold(
-        backgroundColor: backgroundColor,
-        body: Column(
-          children: [
-            // Persistent Header - Now handles its own status bar padding/height
-            if (showHeader)
-              PersistentHeader(
-                height: headerHeight ?? 124.h,
-                child: headerContent ?? _buildDefaultHeader(),
-              ),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        if (didPop) {
+          return;
+        }
 
-            // Main Content
-            Expanded(
-              child: SafeArea(
-                top:
-                    !showHeader, // Only apply top SafeArea if there is NO header
-                bottom: true, // Always respect bottom (home indicator)
-                child: body,
+        if (Get.isRegistered<HomeController>()) {
+          final homeController = Get.find<HomeController>();
+          // If we are on a non-home tab, switch to home tab (index 0)
+          if (homeController.selectedIndex.value != 0) {
+            homeController.changeTabIndex(0);
+            return;
+          }
+        }
+
+        // If we let it pop, checks if we can pop
+        if (Navigator.of(context).canPop()) {
+          Navigator.of(context).pop(result);
+        } else {
+          // Maybe exit app logic if needed, or let system handle
+          // But since canPop is false, we must manually handle if we want to exit or pop.
+          // However, Get.back() usually handles this well.
+          Get.back(result: result);
+        }
+      },
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: showHeader
+            ? SystemUiOverlayStyle.light.copyWith(
+                statusBarColor:
+                    Colors.transparent, // Let header color show through
+                statusBarIconBrightness: Brightness.light, // White icons
+                statusBarBrightness: Brightness.dark, // White text on iOS
+              )
+            : SystemUiOverlayStyle.dark, // Default to dark for no header
+        child: Scaffold(
+          backgroundColor: backgroundColor,
+          body: Column(
+            children: [
+              // Persistent Header - Now handles its own status bar padding/height
+              if (showHeader)
+                PersistentHeader(
+                  height: headerHeight ?? 124.h,
+                  child: headerContent ?? _buildDefaultHeader(),
+                ),
+
+              // Main Content
+              Expanded(
+                child: SafeArea(
+                  top:
+                      !showHeader, // Only apply top SafeArea if there is NO header
+                  bottom: true, // Always respect bottom (home indicator)
+                  child: body,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
+          // Hide bottom nav bar when keyboard is open to prevent "big space"
+          bottomNavigationBar: isKeyboardOpen
+              ? null
+              : effectiveBottomNavigationBar,
         ),
-        // Hide bottom nav bar when keyboard is open to prevent "big space"
-        bottomNavigationBar: isKeyboardOpen
-            ? null
-            : effectiveBottomNavigationBar,
       ),
     );
   }
@@ -101,7 +128,18 @@ class BaseScaffold extends StatelessWidget {
       children: [
         if (showBackButton)
           CustomBackButton(
-            onPressed: onBackPress ?? () => Get.back(),
+            onPressed:
+                onBackPress ??
+                () {
+                  if (Get.isRegistered<HomeController>()) {
+                    final homeController = Get.find<HomeController>();
+                    if (homeController.selectedIndex.value != 0) {
+                      homeController.changeTabIndex(0);
+                      return;
+                    }
+                  }
+                  Get.back();
+                },
             backgroundColor: Colors.white,
             iconColor: const Color(0xFF00204A),
           ),

@@ -13,29 +13,43 @@ class HomeController extends GetxController {
   }
 
   void changeTabIndex(int index) {
-    // If the same tab is clicked
+    // Prevent reloading the same page if tapped again (except Home which might reset)
     if (index == selectedIndex.value) {
-      // If we are not on the main HomeView (e.g., inside a sub-page), pop to HomeView
-      if (Get.currentRoute != currentHomeRoute.value) {
-        Get.offNamedUntil(currentHomeRoute.value, (route) => false);
+      if (index == 0) {
+        // If on Home tab and not at root of Home, go back to root
+        if (Get.currentRoute != currentHomeRoute.value) {
+          Get.offNamedUntil(currentHomeRoute.value, (route) => false);
+        }
       }
       return;
     }
 
-    // Update the selected index
+    int previousIndex = selectedIndex.value;
     selectedIndex.value = index;
 
     if (index == 0) {
-      // Home Tab
+      // Going back to Home
       if (Get.currentRoute != currentHomeRoute.value) {
         Get.offNamedUntil(currentHomeRoute.value, (route) => false);
       }
-    } else if (index == 1) {
-      // Coach AI
-      Get.toNamed(AppRoutes.aiCommunication);
-    } else if (index == 2) {
-      // Settings
-      Get.toNamed(AppRoutes.settings);
+    } else {
+      // Going to other tabs
+      String targetRoute;
+      if (index == 1) {
+        targetRoute = AppRoutes.aiCommunication;
+      } else if (index == 2) {
+        targetRoute = AppRoutes.settings;
+      } else {
+        return;
+      }
+
+      // If coming from Home (0), push the new route so we can go back to Home
+      // If coming from another tab (!= 0), replace the current route
+      if (previousIndex == 0) {
+        Get.toNamed(targetRoute);
+      } else {
+        Get.offNamed(targetRoute);
+      }
     }
   }
 }

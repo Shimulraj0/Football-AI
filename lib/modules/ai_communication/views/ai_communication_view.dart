@@ -11,41 +11,68 @@ class AiCommunicationView extends GetView<AiCommunicationController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // Using Scaffold directly for custom header design or wrapping body
-      backgroundColor: const Color(
-        0xFFF3F7FF,
-      ), // Light blue background from image
-      body: Column(
-        children: [
-          _buildCustomHeader(),
-          Expanded(
-            child: Obx(
-              () => ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                itemCount: controller.messages.length,
-                itemBuilder: (context, index) {
-                  final message = controller.messages[index];
-                  return _buildMessageBubble(message);
-                },
-              ),
-            ),
-          ),
-          _buildInputArea(context),
-        ],
-      ),
-      bottomNavigationBar: () {
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        if (didPop) {
+          return;
+        }
+
+        // Handle navigation state sync
         if (Get.isRegistered<HomeController>()) {
           final homeController = Get.find<HomeController>();
-          return Obx(
-            () => CustomBottomNavBar(
-              selectedIndex: homeController.selectedIndex.value,
-              onItemTapped: homeController.changeTabIndex,
-            ),
-          );
+          // If coming from another tab, switch back to home
+          if (homeController.selectedIndex.value != 0) {
+            homeController.changeTabIndex(0);
+            return;
+          }
         }
-        return null;
-      }(),
+
+        if (Navigator.of(context).canPop()) {
+          Navigator.of(context).pop(result);
+        } else {
+          Get.back(result: result);
+        }
+      },
+      child: Scaffold(
+        // Using Scaffold directly for custom header design or wrapping body
+        backgroundColor: const Color(
+          0xFFF3F7FF,
+        ), // Light blue background from image
+        body: Column(
+          children: [
+            _buildCustomHeader(),
+            Expanded(
+              child: Obx(
+                () => ListView.builder(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 20.h,
+                  ),
+                  itemCount: controller.messages.length,
+                  itemBuilder: (context, index) {
+                    final message = controller.messages[index];
+                    return _buildMessageBubble(message);
+                  },
+                ),
+              ),
+            ),
+            _buildInputArea(context),
+          ],
+        ),
+        bottomNavigationBar: () {
+          if (Get.isRegistered<HomeController>()) {
+            final homeController = Get.find<HomeController>();
+            return Obx(
+              () => CustomBottomNavBar(
+                selectedIndex: homeController.selectedIndex.value,
+                onItemTapped: homeController.changeTabIndex,
+              ),
+            );
+          }
+          return null;
+        }(),
+      ),
     );
   }
 
@@ -67,7 +94,16 @@ class AiCommunicationView extends GetView<AiCommunicationController> {
           CustomBackButton(
             backgroundColor: Colors.white,
             iconColor: const Color(0xFF012355),
-            onPressed: () => Get.back(),
+            onPressed: () {
+              if (Get.isRegistered<HomeController>()) {
+                final homeController = Get.find<HomeController>();
+                if (homeController.selectedIndex.value != 0) {
+                  homeController.changeTabIndex(0);
+                  return;
+                }
+              }
+              Get.back();
+            },
           ),
           Expanded(
             child: Center(

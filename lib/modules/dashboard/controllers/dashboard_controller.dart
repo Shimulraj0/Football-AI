@@ -84,6 +84,33 @@ class DashboardController extends GetxController {
     }
   }
 
+  void handleCommandCenterAction(String action) {
+    // Placeholder navigation or logic for new menu items
+    switch (action) {
+      case "Club Info":
+        // Navigate or show bottom sheet
+        Get.snackbar("Club Info", "Navigating to Club Info...");
+        break;
+      case "Full Club Hierarchy":
+        Get.snackbar("Full Club Hierarchy", "Showing Club Hierarchy...");
+        break;
+      case "Team Tiers":
+        Get.snackbar("Team Tiers", "Managing Team Tiers...");
+        break;
+      case "Training Frequency Setup":
+        Get.snackbar("Training Frequency", "Setup Training Frequency...");
+        break;
+      case "Methodology Upload":
+        Get.snackbar("Methodology", "Upload Methodology...");
+        break;
+      case "Seasonal Planing":
+        Get.snackbar("Seasonal Planning", "Opening Seasonal Planning...");
+        break;
+      default:
+        Get.snackbar("Action", "Selected: $action");
+    }
+  }
+
   // Restoring missing methods based on usage in other views
   void selectClubRole(String roleId) {
     String? redirect;
