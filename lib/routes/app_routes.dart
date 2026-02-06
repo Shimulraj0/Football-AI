@@ -64,6 +64,10 @@ abstract class AppRoutes {
   static const specialtyDirectorHome = '/specialty-director-home';
   static const gkDirectorHome = '/gk-director-home';
   static const clubCommandCenter = '/club-command-center';
+  static const clubSetupGovernance = '/club_setup_governance';
+  static const clubInfo = '/club_info';
+  static const clubHierarchy = '/club-hierarchy';
+  static const teamTiers = '/team-tiers';
   static const operationsAdmin = '/operations-admin';
   static const operationsAdminSelection = '/operations-admin-selection';
   static const sessionObservations = '/session-observations';

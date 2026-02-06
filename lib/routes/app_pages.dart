@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import '../modules/dashboard/views/operations_admin_selection_view.dart';
+import '../modules/dashboard/views/team_tiers_view.dart';
 import 'app_routes.dart';
 import '../modules/onboarding/views/splash_view.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
@@ -8,6 +9,9 @@ import '../modules/dashboard/views/player_family_hub_view.dart';
 import '../modules/dashboard/views/staff_workspace_view.dart';
 import '../modules/dashboard/views/club_command_center_view.dart';
 import '../modules/dashboard/views/operations_admin_view.dart';
+import '../modules/dashboard/views/club_setup_governance_view.dart';
+import '../modules/dashboard/views/club_info_view.dart';
+import '../modules/dashboard/views/club_hierarchy_view.dart';
 import '../modules/onboarding/auth/views/sign_in_view.dart';
 import '../modules/onboarding/auth/views/sign_up_view.dart';
 import '../modules/onboarding/auth/views/forgot_password_view.dart';
@@ -390,6 +394,26 @@ class AppPages {
     GetPage(
       name: AppRoutes.clubCommandCenter,
       page: () => const ClubCommandCenterView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.clubSetupGovernance,
+      page: () => const ClubSetupGovernanceView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.clubHierarchy,
+      page: () => const ClubHierarchyView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.teamTiers,
+      page: () => const TeamTiersView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.clubInfo,
+      page: () => const ClubInfoView(),
       binding: DashboardBinding(),
     ),
     GetPage(

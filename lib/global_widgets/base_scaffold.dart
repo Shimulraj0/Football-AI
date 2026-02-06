@@ -124,41 +124,53 @@ class BaseScaffold extends StatelessWidget {
   }
 
   Widget _buildDefaultHeader() {
-    return Row(
-      children: [
-        if (showBackButton)
-          CustomBackButton(
-            onPressed:
-                onBackPress ??
-                () {
-                  if (Get.isRegistered<HomeController>()) {
-                    final homeController = Get.find<HomeController>();
-                    if (homeController.selectedIndex.value != 0) {
-                      homeController.changeTabIndex(0);
-                      return;
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          if (showBackButton)
+            CustomBackButton(
+              onPressed:
+                  onBackPress ??
+                  () {
+                    if (Get.isRegistered<HomeController>()) {
+                      final homeController = Get.find<HomeController>();
+                      if (homeController.selectedIndex.value != 0) {
+                        homeController.changeTabIndex(0);
+                        return;
+                      }
                     }
-                  }
-                  Get.back();
-                },
-            backgroundColor: Colors.white,
-            iconColor: const Color(0xFF00204A),
-          ),
-        if (title != null) ...[
-          if (showBackButton) SizedBox(width: 16.w),
-          Expanded(
-            child: Text(
-              title!,
-              textAlign: showBackButton ? TextAlign.left : TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.bold,
+                    Get.back();
+                  },
+              backgroundColor: const Color(0xFFE8F3FF),
+              iconColor: const Color(0xFF00204A),
+            ),
+          if (title != null) ...[
+            // Remove Expanded to avoid centering issues if we want "SpaceBetween" or specific layout
+            // But usually title is centered.
+            // Let's keep existing logic but adjust for padding.
+            // Actually, ClubHierarchyView used MainAxisAlignment.spaceBetween.
+            // Let's use Expanded for centering title, but handle the right side balance.
+            Expanded(
+              child: Text(
+                title!,
+                textAlign:
+                    TextAlign.center, // Always center for now as per design
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize:
+                      16.sp, // Reduced to 16.sp to match ClubHierarchyView
+                  fontWeight: FontWeight.w600, // Reduced weight to match
+                  fontFamily: 'Inter',
+                ),
               ),
             ),
-          ),
-          if (showBackButton) SizedBox(width: 40.w), // Balance back button
+            if (showBackButton)
+              SizedBox(width: 44.w), // Balance back button size (usually 44ish)
+          ],
         ],
-      ],
+      ),
     );
   }
 }

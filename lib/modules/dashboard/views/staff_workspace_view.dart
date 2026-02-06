@@ -27,7 +27,7 @@ class StaffWorkspaceView extends GetView<DashboardController> {
       title: "Staff Workspace",
       showBackButton: true,
       backgroundColor: const Color(0xFFEEF5FF),
-      showBottomNav: true,
+      showBottomNav: false,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

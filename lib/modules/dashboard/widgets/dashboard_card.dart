@@ -67,42 +67,41 @@ class DashboardCard extends StatelessWidget {
 
               // Bottom "Select to use" area
               if (showAction)
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: onTap,
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 2.h,
+                  ),
+                  child: Material(
+                    color: const Color(0xFFEFEFEF),
                     borderRadius: BorderRadius.circular(8.w),
-                    child: Container(
-                      width: double.infinity,
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 12.w,
-                        vertical: 2.h,
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12.w,
-                        vertical: 4.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFEFEFEF),
-                        borderRadius: BorderRadius.circular(8.w),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Select to use",
-                            style: TextStyle(
-                              color: const Color(0xFF031945),
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
+                    child: InkWell(
+                      onTap: onTap,
+                      borderRadius: BorderRadius.circular(8.w),
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 4.h,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Select to use",
+                              style: TextStyle(
+                                color: const Color(0xFF031945),
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                          const Spacer(),
-                          Icon(
-                            Icons.chevron_right,
-                            color: const Color(0xFF031945),
-                            size: 16.sp,
-                          ),
-                        ],
+                            const Spacer(),
+                            Icon(
+                              Icons.chevron_right,
+                              color: const Color(0xFF031945),
+                              size: 16.sp,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

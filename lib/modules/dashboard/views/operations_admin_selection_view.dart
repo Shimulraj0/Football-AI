@@ -12,6 +12,7 @@ class OperationsAdminSelectionView extends StatelessWidget {
     return BaseScaffold(
       title: "Operations & Admin",
       showBackButton: true,
+      showBottomNav: false,
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         child: Column(
