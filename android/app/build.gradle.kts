@@ -15,6 +15,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    configurations.all {
+        resolutionStrategy {
+            force("androidx.core:core-ktx:1.13.1")
+            force("androidx.core:core:1.13.1")
+            force("androidx.activity:activity-ktx:1.9.3")
+            force("androidx.activity:activity:1.9.3")
+        }
+    }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
