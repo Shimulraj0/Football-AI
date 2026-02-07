@@ -52,7 +52,7 @@ class ClubInfoView extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -67,7 +67,7 @@ class ClubInfoView extends StatelessWidget {
               color: const Color(0xFFF9F9F9),
               borderRadius: BorderRadius.circular(8.r),
               border: Border.all(
-                color: const Color(0xFF0260ED).withOpacity(0.3),
+                color: const Color(0xFF0260ED).withValues(alpha: 0.3),
               ),
             ),
             child: Center(
@@ -131,7 +131,7 @@ class ClubInfoView extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.r),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 4,
                   offset: const Offset(0, 2),
                 ),
@@ -141,7 +141,7 @@ class ClubInfoView extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: hint,
                 hintStyle: TextStyle(
-                  color: const Color(0xFF012355).withOpacity(0.4),
+                  color: const Color(0xFF012355).withValues(alpha: 0.4),
                   fontSize: 14.sp,
                   fontFamily: 'Inter',
                 ),

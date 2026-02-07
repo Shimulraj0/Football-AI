@@ -124,7 +124,7 @@ class ClubHierarchyView extends GetView<DashboardController> {
             child: Icon(
               Icons.search,
               size: 24.w,
-              color: const Color(0xFF012356).withOpacity(0.4),
+              color: const Color(0xFF012356).withValues(alpha: 0.4),
             ),
           ),
           SizedBox(width: 4.w),
@@ -160,7 +160,7 @@ class ClubHierarchyView extends GetView<DashboardController> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               width: 24.w,
               height: 24.w,
               child: Icon(Icons.add, size: 24.w, color: Colors.white),

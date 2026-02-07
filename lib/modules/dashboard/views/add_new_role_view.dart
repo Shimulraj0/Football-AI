@@ -41,7 +41,7 @@ class AddNewRoleView extends GetView<DashboardController> {
                     hintText: 'Assign member via email',
                     prefixIcon: Icon(
                       Icons.search,
-                      color: Color(0xFF012356).withOpacity(0.4),
+                      color: Color(0xFF012356).withValues(alpha: 0.4),
                     ),
                   ),
                   SizedBox(height: 20.h),
@@ -196,7 +196,7 @@ class AddNewRoleView extends GetView<DashboardController> {
           ),
           icon: Icon(
             Icons.keyboard_arrow_down,
-            color: const Color(0xFF012356).withOpacity(0.4),
+            color: const Color(0xFF012356).withValues(alpha: 0.4),
           ),
           dropdownColor: Colors.white,
           elevation: 2,
@@ -275,7 +275,7 @@ class AddNewRoleView extends GetView<DashboardController> {
           width: 40.w,
           child: Switch(
             value: value,
-            activeColor: Colors.white,
+            activeThumbColor: Colors.white,
             activeTrackColor: const Color(0xFF0260ED),
             onChanged: (val) {},
           ),
