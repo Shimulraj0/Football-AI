@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../global_widgets/base_scaffold.dart';
 import '../../../../core/utils/size_utils.dart';
+import 'add_new_tier_view.dart';
 
 class TeamTiersView extends StatelessWidget {
   const TeamTiersView({super.key});
@@ -86,8 +88,6 @@ class TeamTiersView extends StatelessWidget {
               ),
               color: Colors.grey.shade300,
             ),
-            // Placeholder if asset doesn't exist
-            child: const Icon(Icons.shield, color: Colors.grey),
           ),
           SizedBox(width: 12.w),
           Expanded(
@@ -140,7 +140,7 @@ class TeamTiersView extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            // Add new tier logic
+            Get.to(() => const AddNewTierView());
           },
           borderRadius: BorderRadius.circular(8.r),
           child: Row(

@@ -13,7 +13,7 @@ class AiAssistantView extends GetView<AiAssistantController> {
       showHeader: true,
       title: 'AI Assistant',
       showBackButton: true,
-      headerHeight: 127.h,
+      headerHeight: 124.h,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),

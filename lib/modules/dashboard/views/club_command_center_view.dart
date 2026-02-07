@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../global_widgets/base_scaffold.dart';
+import '../../../../global_widgets/custom_back_button.dart';
 
 import '../../../../core/utils/size_utils.dart';
 
@@ -102,16 +103,7 @@ class ClubCommandCenterView extends GetView<DashboardController> {
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
       child: Row(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Color(0xFF012356)),
-              onPressed: () => Get.back(),
-            ),
-          ),
+          CustomBackButton(onPressed: () => Get.back()),
           Expanded(
             child: Text(
               "Club Command Center",

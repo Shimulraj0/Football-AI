@@ -27,13 +27,13 @@ class OperationsAdminView extends GetView<DashboardController> {
     // Looking at the code: "onTap: () => Get.offAllNamed(AppRoutes.dashboard)" taking user back to Role Selection.
     // So let's set currentHomeRoute to AppRoutes.dashboard for now as per previous behavior.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      homeController.currentHomeRoute.value = AppRoutes.dashboard;
+      homeController.currentHomeRoute.value = AppRoutes.operationsAdmin;
       homeController.selectedIndex.value = 0; // Ensure Home tab is selected
     });
 
     return BaseScaffold(
       showHeader: true,
-      headerHeight: 120.h,
+      headerHeight: 124.h,
       headerContent: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

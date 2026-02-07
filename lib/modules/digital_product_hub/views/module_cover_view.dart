@@ -13,7 +13,7 @@ class ModuleCoverView extends GetView<ModuleCoverController> {
       showHeader: true,
       title: 'Module Cover', // Corrected typo from "Moduel Cover"
       showBackButton: true,
-      headerHeight: 120.h,
+      headerHeight: 124.h,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),

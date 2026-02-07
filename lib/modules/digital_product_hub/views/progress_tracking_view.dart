@@ -13,7 +13,7 @@ class ProgressTrackingView extends GetView<ProgressTrackingController> {
       showHeader: true,
       title: 'Progress Tracking',
       showBackButton: true,
-      headerHeight: 127.h,
+      headerHeight: 124.h,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),

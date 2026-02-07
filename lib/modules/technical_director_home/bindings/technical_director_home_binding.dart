@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import '../controllers/technical_director_home_controller.dart';
+import '../../home/controllers/home_controller.dart';
 
 class TechnicalDirectorHomeBinding extends Bindings {
   @override
@@ -7,5 +8,6 @@ class TechnicalDirectorHomeBinding extends Bindings {
     Get.lazyPut<TechnicalDirectorHomeController>(
       () => TechnicalDirectorHomeController(),
     );
+    Get.lazyPut<HomeController>(() => HomeController());
   }
 }
