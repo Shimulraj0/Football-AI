@@ -12,7 +12,7 @@ class DigitalProductHubView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       showHeader: true,
-      headerHeight: 127.h, // Fixed height standard
+      headerHeight: 124.h, // Fixed height standard
       headerContent: _buildHeaderContent(), // Custom header content
       body: SingleChildScrollView(
         child: Padding(

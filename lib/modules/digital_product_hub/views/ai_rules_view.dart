@@ -13,7 +13,7 @@ class AiRulesView extends GetView<AiRulesController> {
       showHeader: true,
       title: 'AI Rules',
       showBackButton: true,
-      headerHeight: 127.h,
+      headerHeight: 124.h,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),

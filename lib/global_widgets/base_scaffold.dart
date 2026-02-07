@@ -57,75 +57,85 @@ class BaseScaffold extends StatelessWidget {
       }
     }
 
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (bool didPop, Object? result) async {
-        if (didPop) {
-          return;
-        }
-
-        if (Get.isRegistered<HomeController>()) {
-          final homeController = Get.find<HomeController>();
-          // If we are on a non-home tab, switch to home tab (index 0)
-          if (homeController.selectedIndex.value != 0) {
-            homeController.changeTabIndex(0);
-            return;
-          }
-        }
-
-        // If we let it pop, checks if we can pop
-        if (Navigator.of(context).canPop()) {
-          Navigator.of(context).pop(result);
-        } else {
-          // Maybe exit app logic if needed, or let system handle
-          // But since canPop is false, we must manually handle if we want to exit or pop.
-          // However, Get.back() usually handles this well.
-          Get.back(result: result);
-        }
-      },
-      child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: showHeader
-            ? SystemUiOverlayStyle.light.copyWith(
-                statusBarColor:
-                    Colors.transparent, // Let header color show through
-                statusBarIconBrightness: Brightness.light, // White icons
-                statusBarBrightness: Brightness.dark, // White text on iOS
-              )
-            : SystemUiOverlayStyle.dark, // Default to dark for no header
-        child: Scaffold(
-          backgroundColor: backgroundColor,
-          body: Column(
-            children: [
-              // Persistent Header - Now handles its own status bar padding/height
-              if (showHeader)
-                PersistentHeader(
-                  height: headerHeight ?? 124.h,
-                  child: headerContent ?? _buildDefaultHeader(),
-                ),
-
-              // Main Content
-              Expanded(
-                child: SafeArea(
-                  top:
-                      !showHeader, // Only apply top SafeArea if there is NO header
-                  bottom: true, // Always respect bottom (home indicator)
-                  child: body,
-                ),
+    Widget scaffoldContent = AnnotatedRegion<SystemUiOverlayStyle>(
+      value: showHeader
+          ? SystemUiOverlayStyle.light.copyWith(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.light,
+              statusBarBrightness: Brightness.dark,
+            )
+          : SystemUiOverlayStyle.dark,
+      child: Scaffold(
+        backgroundColor: backgroundColor,
+        body: Column(
+          children: [
+            if (showHeader)
+              PersistentHeader(
+                height: headerHeight ?? 124.h,
+                child: headerContent ?? _buildDefaultHeader(),
               ),
-            ],
-          ),
-          // Hide bottom nav bar when keyboard is open to prevent "big space"
-          bottomNavigationBar: isKeyboardOpen
-              ? null
-              : effectiveBottomNavigationBar,
+            Expanded(
+              child: SafeArea(top: !showHeader, bottom: true, child: body),
+            ),
+          ],
         ),
+        bottomNavigationBar: isKeyboardOpen
+            ? null
+            : effectiveBottomNavigationBar,
       ),
     );
+
+    if (Get.isRegistered<HomeController>()) {
+      return Obx(() {
+        final homeController = Get.find<HomeController>();
+        final bool canPopStack = Navigator.of(context).canPop();
+        final bool isNotHomeTab = homeController.selectedIndex.value != 0;
+        final bool hasCustomAction = onBackPress != null;
+
+        // We block pop if:
+        // 1. User has a custom handler (we let them handle it)
+        // 2. OR We are at root AND need to switch to home tab
+        final bool shouldBlock =
+            hasCustomAction || (!canPopStack && isNotHomeTab);
+
+        return PopScope(
+          canPop: !shouldBlock,
+          onPopInvokedWithResult: (bool didPop, Object? result) async {
+            if (didPop) return;
+
+            if (hasCustomAction) {
+              onBackPress!();
+            } else if (!canPopStack && isNotHomeTab) {
+              homeController.changeTabIndex(0);
+            } else {
+              // Fallback default
+              Get.back(result: result);
+            }
+          },
+          child: scaffoldContent,
+        );
+      });
+    } else {
+      // Logic for screens without HomeController (e.g. Auth)
+      return PopScope(
+        canPop: onBackPress == null,
+        onPopInvokedWithResult: (bool didPop, Object? result) async {
+          if (didPop) return;
+          if (onBackPress != null) {
+            onBackPress!();
+          } else {
+            Get.back(result: result);
+          }
+        },
+        child: scaffoldContent,
+      );
+    }
   }
 
   Widget _buildDefaultHeader() {
-    return Padding(
+    return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
+      alignment: Alignment.center,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -134,13 +144,8 @@ class BaseScaffold extends StatelessWidget {
               onPressed:
                   onBackPress ??
                   () {
-                    if (Get.isRegistered<HomeController>()) {
-                      final homeController = Get.find<HomeController>();
-                      if (homeController.selectedIndex.value != 0) {
-                        homeController.changeTabIndex(0);
-                        return;
-                      }
-                    }
+                    // Default behavior: just pop. The PopScope will handle the rest (stack vs tab)
+                    // IF we want the button to strictly pop current view first (standard behavior)
                     Get.back();
                   },
               backgroundColor: const Color(0xFFE8F3FF),

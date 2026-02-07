@@ -14,7 +14,7 @@ class GkDirectorHomeView extends GetView<GkDirectorHomeController> {
   Widget build(BuildContext context) {
     return BaseScaffold(
       showHeader: true, // Use persistent header
-      headerHeight: 120.h, // visual height
+      headerHeight: 124.h, // visual height
       headerContent: _buildHeaderContent(context),
       body: SingleChildScrollView(
         child: Column(

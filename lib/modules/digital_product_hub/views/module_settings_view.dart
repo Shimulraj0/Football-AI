@@ -14,7 +14,7 @@ class ModuleSettingsView extends GetView<ModuleSettingsController> {
       title:
           'Module Setting', // Kept as requested in screenshot title, though likely "Settings"
       showBackButton: true,
-      headerHeight: 127.h,
+      headerHeight: 124.h,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),

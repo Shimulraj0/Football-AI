@@ -275,7 +275,7 @@ class AddNewRoleView extends GetView<DashboardController> {
           width: 40.w,
           child: Switch(
             value: value,
-            activeColor: Colors.white,
+            activeThumbColor: Colors.white,
             activeTrackColor: const Color(0xFF0260ED),
             onChanged: (val) {},
           ),

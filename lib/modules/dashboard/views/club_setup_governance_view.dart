@@ -6,6 +6,9 @@ import '../../../../core/utils/size_utils.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../controllers/dashboard_controller.dart';
+import 'training_frequency_setup_view.dart';
+import 'methodology_upload_view.dart';
+import 'seasonal_planning_view.dart';
 
 class ClubSetupGovernanceView extends GetView<DashboardController> {
   const ClubSetupGovernanceView({super.key});
@@ -48,17 +51,18 @@ class ClubSetupGovernanceView extends GetView<DashboardController> {
                     _buildMenuTile(
                       label: "Training Frequency Setup",
                       icon: Icons.timer_outlined,
-                      onTap: () {},
+                      onTap: () =>
+                          Get.to(() => const TrainingFrequencySetupView()),
                     ),
                     _buildMenuTile(
                       label: "Methodology Upload",
                       icon: Icons.upload_file_outlined,
-                      onTap: () {},
+                      onTap: () => Get.to(() => const MethodologyUploadView()),
                     ),
                     _buildMenuTile(
                       label: "Seasonal Planing",
                       icon: Icons.account_tree_outlined,
-                      onTap: () {},
+                      onTap: () => Get.to(() => const SeasonalPlanningView()),
                     ),
                   ],
                 ),

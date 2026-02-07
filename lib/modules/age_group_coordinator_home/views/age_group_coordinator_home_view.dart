@@ -6,12 +6,19 @@ import '../../../../routes/app_routes.dart';
 import '../controllers/age_group_coordinator_home_controller.dart';
 import '../../assigned_age_groups/views/age_group_detail_view.dart';
 
+import '../../home/controllers/home_controller.dart';
+
 class AgeGroupCoordinatorHomeView
     extends GetView<AgeGroupCoordinatorHomeController> {
   const AgeGroupCoordinatorHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    if (Get.isRegistered<HomeController>()) {
+      Get.find<HomeController>().currentHomeRoute.value =
+          AppRoutes.ageGroupCoordinatorHome;
+    }
+
     return BaseScaffold(
       headerContent: _buildHeader(),
       showBottomNav: true,

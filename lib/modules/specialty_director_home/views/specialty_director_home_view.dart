@@ -13,6 +13,11 @@ class SpecialtyDirectorHomeView
 
   @override
   Widget build(BuildContext context) {
+    if (Get.isRegistered<HomeController>()) {
+      Get.find<HomeController>().currentHomeRoute.value =
+          AppRoutes.specialtyDirectorHome;
+    }
+
     return BaseScaffold(
       headerContent: _buildHeaderContent(),
       body: SingleChildScrollView(

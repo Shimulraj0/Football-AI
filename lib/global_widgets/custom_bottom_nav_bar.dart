@@ -38,18 +38,21 @@ class CustomBottomNavBar extends StatelessWidget {
                   _buildNavItem(
                     imagePath: 'assets/images/home.png',
                     label: "Home",
+                    itemWidth: 40,
                     isSelected: selectedIndex == 0,
                     onTap: () => onItemTapped(0),
                   ),
                   _buildNavItem(
                     imagePath: 'assets/images/bubble-chat.png',
                     label: "Coach AI",
+                    itemWidth: 52,
                     isSelected: selectedIndex == 1,
                     onTap: () => onItemTapped(1),
                   ),
                   _buildNavItem(
                     imagePath: 'assets/images/settings.png',
                     label: "Settings",
+                    itemWidth: 52,
                     isSelected: selectedIndex == 2,
                     onTap: () => onItemTapped(2),
                   ),
@@ -81,14 +84,15 @@ class CustomBottomNavBar extends StatelessWidget {
   Widget _buildNavItem({
     String? imagePath,
     required String label,
+    required double itemWidth,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: SizedBox(
+        width: itemWidth,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
