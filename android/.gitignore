@@ -12,3 +12,7 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+
+# Ignore local JDK and tarball
+jdk-*/
+openjdk*.tar.gz
