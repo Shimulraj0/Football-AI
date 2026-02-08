@@ -126,7 +126,6 @@ class _AddNewTierViewState extends State<AddNewTierView> {
   Widget _buildColorPicker() {
     return Row(
       children: _colors.asMap().entries.map((entry) {
-        final index = entry.key;
         final color = entry.value;
         final isSelected = color == _selectedColor;
 
