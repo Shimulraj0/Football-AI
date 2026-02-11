@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../controllers/permissions_controller.dart';
 import '../../../routes/app_routes.dart';
 import '../../../global_widgets/base_scaffold.dart';
-import 'role_assignment_view.dart';
+
 import '../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../../../core/utils/size_utils.dart';
@@ -38,7 +38,7 @@ class PermissionsView extends GetView<PermissionsController> {
                     subtitle: "Plan session & drills",
                     icon: Icons.manage_accounts_outlined, // Placeholder icon
                     onTap: () {
-                      Get.to(() => const RoleAssignmentView());
+                      Get.toNamed(AppRoutes.roleAssignment);
                     },
                   ),
                   SizedBox(height: 16.h),

@@ -10,6 +10,9 @@ class HomeMenuSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!Get.isRegistered<HomeController>()) {
+      return const SizedBox.shrink();
+    }
     final controller = Get.find<HomeController>();
 
     // Using a list for data to keep build method clean

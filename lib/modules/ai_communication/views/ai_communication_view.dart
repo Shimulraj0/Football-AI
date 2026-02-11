@@ -110,7 +110,11 @@ class AiCommunicationView extends GetView<AiCommunicationController> {
               child: Padding(
                 padding: EdgeInsets.only(right: 40.w), // Balance back button
                 child: Text(
-                  'Coach AI',
+                  Get.arguments != null &&
+                          Get.arguments is Map &&
+                          Get.arguments.containsKey('title')
+                      ? Get.arguments['title']
+                      : 'Coach AI',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 22.sp,
@@ -194,49 +198,90 @@ class AiCommunicationView extends GetView<AiCommunicationController> {
           ),
         ],
       ),
-      child: Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: const Color(0xFFE0E0E0)),
+          Obx(() {
+            if (controller.suggestedQuestions.isEmpty) {
+              return const SizedBox.shrink();
+            }
+            return Container(
+              height: 40.h,
+              margin: EdgeInsets.only(bottom: 12.h),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: controller.suggestedQuestions.length,
+                itemBuilder: (context, index) {
+                  final question = controller.suggestedQuestions[index];
+                  return Padding(
+                    padding: EdgeInsets.only(right: 8.w),
+                    child: ActionChip(
+                      label: Text(
+                        question,
+                        style: TextStyle(
+                          color: const Color(0xFF012355),
+                          fontSize: 12.sp,
+                          fontFamily: 'Inter',
+                        ),
+                      ),
+                      backgroundColor: const Color(0xFFEAF2FD),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        side: BorderSide.none,
+                      ),
+                      onPressed: () {
+                        controller.sendSuggestedQuestion(question);
+                      },
+                    ),
+                  );
+                },
               ),
-              child: TextField(
-                controller: controller.messageController,
-                decoration: InputDecoration(
-                  hintText: 'Type your message...',
-                  hintStyle: TextStyle(
-                    color: const Color(0xFF888888),
-                    fontSize: 14.sp,
+            );
+          }),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: const Color(0xFFE0E0E0)),
                   ),
-                  border: InputBorder.none,
+                  child: TextField(
+                    controller: controller.messageController,
+                    decoration: InputDecoration(
+                      hintText: 'Type your message...',
+                      hintStyle: TextStyle(
+                        color: const Color(0xFF888888),
+                        fontSize: 14.sp,
+                      ),
+                      border: InputBorder.none,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          SizedBox(width: 12.w),
-          GestureDetector(
-            onTap: controller.sendMessage,
-            child: Container(
-              width: 48.w,
-              height: 48.w,
-              decoration: BoxDecoration(
-                color: const Color(0xFF012355),
-                borderRadius: BorderRadius.circular(
-                  12,
-                ), // Rounded square as per image
-              ),
-              child: Center(
-                child: Icon(
-                  Icons.send_rounded,
-                  color: Colors.white,
-                  size: 20.w,
+              SizedBox(width: 12.w),
+              GestureDetector(
+                onTap: controller.sendMessage,
+                child: Container(
+                  width: 48.w,
+                  height: 48.w,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF012355),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.send_rounded,
+                      color: Colors.white,
+                      size: 20.w,
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ],
       ),

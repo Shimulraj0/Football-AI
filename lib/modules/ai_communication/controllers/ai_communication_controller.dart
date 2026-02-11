@@ -13,9 +13,25 @@ class AiCommunicationController extends GetxController {
   final TextEditingController messageController = TextEditingController();
   final RxList<ChatMessage> messages = <ChatMessage>[].obs;
 
+  final RxList<String> suggestedQuestions = <String>[].obs;
+
   @override
   void onInit() {
     super.onInit();
+
+    // Check for arguments to populate suggested questions
+    if (Get.arguments != null && Get.arguments is Map) {
+      final args = Get.arguments as Map;
+      if (args.containsKey('mode') && args['mode'] == 'coach_message') {
+        suggestedQuestions.addAll([
+          "How is my child progressing?",
+          "Any tips for home practice?",
+          "Playing time concerns?",
+          "What are their main strengths?",
+        ]);
+      }
+    }
+
     // Add initial welcome message
     messages.add(
       ChatMessage(
@@ -25,6 +41,11 @@ class AiCommunicationController extends GetxController {
             "11:47 PM", // Dynamic time would be better but static for now matches design
       ),
     );
+  }
+
+  void sendSuggestedQuestion(String question) {
+    messageController.text = question;
+    sendMessage();
   }
 
   void sendMessage() {

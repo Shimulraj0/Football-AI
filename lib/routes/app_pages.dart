@@ -64,6 +64,7 @@ import '../modules/digital_product_hub/views/ai_rules_view.dart';
 import '../modules/digital_product_hub/bindings/ai_rules_binding.dart';
 import '../modules/ai_communication/views/ai_communication_view.dart';
 import '../modules/permissions/views/permissions_view.dart';
+import '../modules/permissions/views/role_assignment_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/billing/bindings/billing_binding.dart';
 import '../modules/tryouts/bindings/tryouts_binding.dart';
@@ -300,6 +301,10 @@ class AppPages {
       name: AppRoutes.permissions,
       page: () => const PermissionsView(),
       binding: PermissionsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.roleAssignment,
+      page: () => const RoleAssignmentView(),
     ),
     GetPage(
       name: AppRoutes.trainingStrategy,

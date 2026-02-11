@@ -203,28 +203,30 @@ class _RoleAssignmentViewState extends State<RoleAssignmentView> {
   }
 
   Widget _buildAssignRoleButton() {
-    return Container(
-      width: double.infinity,
-      height: 48.h,
-      decoration: BoxDecoration(
-        color: const Color(0xFF3064AB),
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.add, color: Colors.white, size: 24.w),
-          SizedBox(width: 8.w),
-          Text(
-            "Assign Role",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.sp,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w600,
+    return Center(
+      child: Container(
+        width: 240.w,
+        height: 44.h,
+        decoration: BoxDecoration(
+          color: const Color(0xFF3064AB),
+          borderRadius: BorderRadius.circular(8.r),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.add, color: Colors.white, size: 24.w),
+            SizedBox(width: 8.w),
+            Text(
+              "Assign Role",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.sp,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
