@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:get/get.dart';
 import '../core/utils/size_utils.dart';
+
+import '../routes/app_routes.dart';
 
 class CustomBackButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -25,7 +26,15 @@ class CustomBackButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(50.w),
         child: InkWell(
           borderRadius: BorderRadius.circular(50.w),
-          onTap: onPressed ?? () => Get.back(),
+          onTap:
+              onPressed ??
+              () {
+                if (Navigator.of(context).canPop()) {
+                  Get.back();
+                } else {
+                  Get.offAllNamed(AppRoutes.dashboard);
+                }
+              },
           child: Padding(
             padding: EdgeInsets.zero,
             child: SvgPicture.asset(

@@ -56,6 +56,7 @@ class PlayerHomeView extends GetView<PlayerHomeController> {
         } else if (controller.selectedIndex.value == 2) {
           // Settings Header Content
           return Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CustomBackButton(
                 onPressed: () => controller.changeTabIndex(0),

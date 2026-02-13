@@ -18,18 +18,14 @@ class OperationsAdminView extends GetView<DashboardController> {
     // Initialize Home Route for this persona
     // We can do this here or in onInit if we bind a controller specific to this view.
     // Since we are using DashboardBinding which now provides HomeController, let's use it.
-    final homeController = Get.find<HomeController>();
-    // Set the "Home" for this view context to be this view itself, effectively.
-    // But wait, if we are ALREADY here, we want "Home" button to keep us here or reset state.
-    // The previous logic was: onTap: () => Get.offAllNamed(AppRoutes.dashboard) for Home button.
-    // But OperationsAdminView IS the "Home" for this persona.
-    // So usually we want 'Home' to mean 'Dashboard' (Persona Selection) or 'This View'.
-    // Looking at the code: "onTap: () => Get.offAllNamed(AppRoutes.dashboard)" taking user back to Role Selection.
-    // So let's set currentHomeRoute to AppRoutes.dashboard for now as per previous behavior.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      homeController.currentHomeRoute.value = AppRoutes.operationsAdmin;
-      homeController.selectedIndex.value = 0; // Ensure Home tab is selected
-    });
+    // Check if HomeController is registered before using it
+    if (Get.isRegistered<HomeController>()) {
+      final homeController = Get.find<HomeController>();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        homeController.currentHomeRoute.value = AppRoutes.operationsAdmin;
+        homeController.selectedIndex.value = 0; // Ensure Home tab is selected
+      });
+    }
 
     return BaseScaffold(
       showHeader: true,
@@ -200,12 +196,14 @@ class OperationsAdminView extends GetView<DashboardController> {
           ],
         ),
       ),
-      bottomNavigationBar: Obx(
-        () => CustomBottomNavBar(
-          selectedIndex: homeController.selectedIndex.value,
-          onItemTapped: homeController.changeTabIndex,
-        ),
-      ),
+      bottomNavigationBar: Get.isRegistered<HomeController>()
+          ? Obx(
+              () => CustomBottomNavBar(
+                selectedIndex: Get.find<HomeController>().selectedIndex.value,
+                onItemTapped: Get.find<HomeController>().changeTabIndex,
+              ),
+            )
+          : null,
     );
   }
 

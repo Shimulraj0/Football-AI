@@ -11,6 +11,8 @@ import '../modules/home/controllers/home_controller.dart';
 class BaseScaffold extends StatelessWidget {
   final Widget body;
   final String? title;
+  final String? subtitle;
+  final Widget? headerImage;
   final Widget? headerContent;
   final Widget? bottomNavigationBar;
   final Color backgroundColor;
@@ -19,15 +21,21 @@ class BaseScaffold extends StatelessWidget {
   final bool showHeader;
   final double? headerHeight;
   final bool showBottomNav;
+  final Widget? leading;
+  final List<Widget>? actions;
 
   const BaseScaffold({
     super.key,
     required this.body,
     this.title,
+    this.subtitle,
+    this.headerImage,
     this.headerContent,
     this.bottomNavigationBar,
     this.backgroundColor = AppColors.background,
     this.showBackButton = true,
+    this.leading,
+    this.actions,
     this.showHeader = true,
     this.onBackPress,
     this.headerHeight,
@@ -71,8 +79,12 @@ class BaseScaffold extends StatelessWidget {
           children: [
             if (showHeader)
               PersistentHeader(
-                height: headerHeight ?? 124.h,
-                child: headerContent ?? _buildDefaultHeader(),
+                height:
+                    headerHeight ??
+                    (subtitle != null || headerContent != null
+                        ? 100.h
+                        : 80.h), // Adjust height for subtitle or custom content
+                child: headerContent ?? _buildDefaultHeader(context),
               ),
             Expanded(
               child: SafeArea(top: !showHeader, bottom: true, child: body),
@@ -100,7 +112,7 @@ class BaseScaffold extends StatelessWidget {
 
         return PopScope(
           canPop: !shouldBlock,
-          onPopInvokedWithResult: (bool didPop, Object? result) async {
+          onPopInvokedWithResult: (bool didPop, dynamic result) {
             if (didPop) return;
 
             if (hasCustomAction) {
@@ -109,7 +121,7 @@ class BaseScaffold extends StatelessWidget {
               homeController.changeTabIndex(0);
             } else {
               // Fallback default
-              Get.back(result: result);
+              Get.back();
             }
           },
           child: scaffoldContent,
@@ -119,12 +131,12 @@ class BaseScaffold extends StatelessWidget {
       // Logic for screens without HomeController (e.g. Auth)
       return PopScope(
         canPop: onBackPress == null,
-        onPopInvokedWithResult: (bool didPop, Object? result) async {
+        onPopInvokedWithResult: (bool didPop, dynamic result) {
           if (didPop) return;
           if (onBackPress != null) {
             onBackPress!();
           } else {
-            Get.back(result: result);
+            Get.back();
           }
         },
         child: scaffoldContent,
@@ -132,47 +144,103 @@ class BaseScaffold extends StatelessWidget {
     }
   }
 
-  Widget _buildDefaultHeader() {
+  Widget _buildDefaultHeader(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 10.h),
+      // Alignment bottom centered to match design padding
+      alignment: Alignment.bottomCenter,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          if (showBackButton)
-            CustomBackButton(
-              onPressed:
-                  onBackPress ??
-                  () {
-                    // Default behavior: just pop. The PopScope will handle the rest (stack vs tab)
-                    // IF we want the button to strictly pop current view first (standard behavior)
-                    Get.back();
-                  },
-              backgroundColor: const Color(0xFFE8F3FF),
-              iconColor: const Color(0xFF00204A),
-            ),
+          // Top Row: Leading (Back) & Actions
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Leading / Back Button
+              if (leading != null)
+                leading!
+              else if (showBackButton)
+                CustomBackButton(
+                  onPressed: onBackPress ?? () => Get.back(),
+                  backgroundColor:
+                      Colors.transparent, // Default to transparent on blue
+                  iconColor: Colors.white, // White icon on blue
+                )
+              else
+                SizedBox(
+                  width: 44.w,
+                ), // Placeholder to balance if needed, or just zero
+              // Actions (Right side)
+              if (actions != null)
+                Row(mainAxisSize: MainAxisSize.min, children: actions!)
+              else
+                SizedBox(
+                  width: showBackButton ? 44.w : 0,
+                ), // Balance back button
+            ],
+          ),
+
+          // Title / Subtitle Area
           if (title != null) ...[
-            // Remove Expanded to avoid centering issues if we want "SpaceBetween" or specific layout
-            // But usually title is centered.
-            // Let's keep existing logic but adjust for padding.
-            // Actually, ClubHierarchyView used MainAxisAlignment.spaceBetween.
-            // Let's use Expanded for centering title, but handle the right side balance.
-            Expanded(
-              child: Text(
-                title!,
-                textAlign:
-                    TextAlign.center, // Always center for now as per design
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize:
-                      16.sp, // Reduced to 16.sp to match ClubHierarchyView
-                  fontWeight: FontWeight.w600, // Reduced weight to match
-                  fontFamily: 'Inter',
-                ),
-              ),
+            SizedBox(height: subtitle != null ? 24.h : 10.h),
+            Row(
+              mainAxisAlignment: subtitle != null
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.center,
+              children: [
+                if (headerImage != null) ...[
+                  headerImage!,
+                  SizedBox(width: 8.w),
+                ],
+                if (subtitle != null)
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                        SizedBox(height: 6.h),
+                        Text(
+                          subtitle!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                else
+                  Flexible(
+                    child: Text(
+                      title!,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Inter',
+                      ),
+                    ),
+                  ),
+              ],
             ),
-            if (showBackButton)
-              SizedBox(width: 44.w), // Balance back button size (usually 44ish)
           ],
         ],
       ),

@@ -4,6 +4,8 @@ import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/base_scaffold.dart';
 import '../../../../global_widgets/custom_back_button.dart';
 
+import '../../../../global_widgets/coach_floating_button.dart';
+
 class ProCurriculumView extends StatelessWidget {
   const ProCurriculumView({super.key});
 
@@ -13,34 +15,39 @@ class ProCurriculumView extends StatelessWidget {
       showHeader: true,
       headerHeight: 124.h,
       headerContent: _buildHeaderContent(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 24.h),
-              _buildBanner(),
-              SizedBox(height: 32.h),
-              _buildFeatureItem(
-                title: 'Weekly Plan Generator',
-                description:
-                    'AI creates detailed, age-appropriate weekly blocks',
-                icon: Icons.calendar_today_outlined,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 24.h),
+                  _buildBanner(),
+                  SizedBox(height: 32.h),
+                  _buildFeatureItem(
+                    title: 'Weekly Plan Generator',
+                    description:
+                        'AI creates detailed, age-appropriate weekly blocks',
+                    icon: Icons.calendar_today_outlined,
+                  ),
+                  SizedBox(height: 16.h),
+                  _buildFeatureItem(
+                    title: 'Customize to Team Style',
+                    description:
+                        'Align training sessions with your club’s style of play.',
+                    icon: Icons.tune,
+                  ),
+                  SizedBox(height: 32.h),
+                  _buildUpgradeButton(),
+                  SizedBox(height: 32.h),
+                ],
               ),
-              SizedBox(height: 16.h),
-              _buildFeatureItem(
-                title: 'Customize to Team Style',
-                description:
-                    'Align training sessions with your club’s style of play.',
-                icon: Icons.tune,
-              ),
-              SizedBox(height: 32.h),
-              _buildUpgradeButton(),
-              SizedBox(height: 32.h),
-            ],
+            ),
           ),
-        ),
+          const Positioned(right: 0, bottom: 0, child: CoachFloatingButton()),
+        ],
       ),
     );
   }

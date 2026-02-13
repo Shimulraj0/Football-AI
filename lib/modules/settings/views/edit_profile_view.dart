@@ -4,6 +4,7 @@ import '../../../../global_widgets/custom_back_button.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../../global_widgets/persistent_header.dart';
 import '../../home/controllers/home_controller.dart';
+import '../../../../core/utils/size_utils.dart';
 
 import '../controllers/edit_profile_controller.dart';
 
@@ -31,21 +32,24 @@ class EditProfileView extends GetView<EditProfileController> {
                       top: 10,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const CustomBackButton(
+                        CustomBackButton(
+                          onPressed: () => Get.back(),
                           backgroundColor: Colors.white,
-                          iconColor: Color(0xFF00204A),
+                          iconColor: const Color(0xFF00204A),
                         ),
-                        const Text(
+                        SizedBox(width: 16.w),
+                        Text(
                           "Edit Profile",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(width: 44),
+                        const Spacer(),
                       ],
                     ),
                   ),

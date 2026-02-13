@@ -6,6 +6,8 @@ import '../../home/controllers/home_controller.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../../global_widgets/custom_back_button.dart';
 
+import '../../../../global_widgets/coach_floating_button.dart';
+
 class SessionExplanationView extends StatelessWidget {
   const SessionExplanationView({super.key});
 
@@ -59,7 +61,7 @@ class SessionExplanationView extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(right: 0, bottom: 20.h, child: _buildCoachMessageButton()),
+          const Positioned(right: 0, bottom: 0, child: CoachFloatingButton()),
         ],
       ),
       bottomNavigationBar: () {
@@ -156,90 +158,6 @@ class SessionExplanationView extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCoachMessageButton() {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 20.h, right: 20.w),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: 160.w,
-            padding: EdgeInsets.all(12.w),
-            decoration: ShapeDecoration(
-              color: const Color(0xFF40D0BC),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.r),
-                  bottomLeft: Radius.circular(20.r),
-                  bottomRight: Radius.circular(20.r),
-                ),
-              ),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 146.w,
-                  child: Text(
-                    'Wanted to know how you child doing? message the coach',
-                    style: TextStyle(
-                      color: const Color(0xFF012356),
-                      fontSize: 8.sp,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 1.50,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(width: 8.w),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                width: 42.36.w,
-                height: 42.87.w,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      left: 0,
-                      top: 3.34.h,
-                      child: Container(
-                        width: 35.62.w,
-                        height: 35.62.w,
-                        decoration: const ShapeDecoration(
-                          color: Color(0xFF012356),
-                          shape: OvalBorder(),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Coach',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 8.sp,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
           ),
         ],
       ),

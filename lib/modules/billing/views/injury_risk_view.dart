@@ -4,6 +4,8 @@ import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/base_scaffold.dart';
 import '../../../../global_widgets/custom_back_button.dart';
 
+import '../../../../global_widgets/coach_floating_button.dart';
+
 class InjuryRiskView extends StatelessWidget {
   const InjuryRiskView({super.key});
 
@@ -13,34 +15,39 @@ class InjuryRiskView extends StatelessWidget {
       showHeader: true,
       headerHeight: 124.h,
       headerContent: _buildHeaderContent(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 24.h),
-              _buildBanner(),
-              SizedBox(height: 32.h),
-              _buildFeatureItem(
-                title: 'Predict Overuse Injuries',
-                description:
-                    'AI analyzes player load and flags high risk for strains.', // Corrected from snippet "AI analyacs player call..."
-                icon: Icons.health_and_safety_outlined,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 24.h),
+                  _buildBanner(),
+                  SizedBox(height: 32.h),
+                  _buildFeatureItem(
+                    title: 'Predict Overuse Injuries',
+                    description:
+                        'AI analyzes player load and flags high risk for strains.', // Corrected from snippet "AI analyacs player call..."
+                    icon: Icons.health_and_safety_outlined,
+                  ),
+                  SizedBox(height: 16.h),
+                  _buildFeatureItem(
+                    title: 'Adjust Weekly Workload',
+                    description:
+                        'Monitor exertion levels and suggest deload days.', // Corrected from snippet "Monitor examinor levels..."
+                    icon: Icons.calendar_month_outlined,
+                  ),
+                  SizedBox(height: 32.h),
+                  _buildUpgradeButton(),
+                  SizedBox(height: 32.h),
+                ],
               ),
-              SizedBox(height: 16.h),
-              _buildFeatureItem(
-                title: 'Adjust Weekly Workload',
-                description:
-                    'Monitor exertion levels and suggest deload days.', // Corrected from snippet "Monitor examinor levels..."
-                icon: Icons.calendar_month_outlined,
-              ),
-              SizedBox(height: 32.h),
-              _buildUpgradeButton(),
-              SizedBox(height: 32.h),
-            ],
+            ),
           ),
-        ),
+          const Positioned(right: 0, bottom: 0, child: CoachFloatingButton()),
+        ],
       ),
     );
   }

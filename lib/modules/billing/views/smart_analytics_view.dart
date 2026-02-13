@@ -7,6 +7,8 @@ import '../../../../global_widgets/custom_back_button.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
 
+import '../../../../global_widgets/coach_floating_button.dart';
+
 class SmartAnalyticsView extends StatelessWidget {
   const SmartAnalyticsView({super.key});
 
@@ -16,42 +18,47 @@ class SmartAnalyticsView extends StatelessWidget {
       showHeader: true,
       headerHeight: 124.h,
       headerContent: _buildHeaderContent(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 16.h),
-              _buildGradientBanner(),
-              SizedBox(height: 16.h),
-              Text(
-                'Unlock detailed metrics that go beyound basic stats, offering true performance analysis',
-                style: TextStyle(
-                  color: const Color(0xFF012356),
-                  fontSize: 14.sp,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w500,
-                ),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 16.h),
+                  _buildGradientBanner(),
+                  SizedBox(height: 16.h),
+                  Text(
+                    'Unlock detailed metrics that go beyound basic stats, offering true performance analysis',
+                    style: TextStyle(
+                      color: const Color(0xFF012356),
+                      fontSize: 14.sp,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(height: 24.h),
+                  _buildFeatureItem(
+                    title: 'In-Depth Stats Across All Level',
+                    description:
+                        'Individual and team starts down to tactical and physical attributes',
+                  ),
+                  SizedBox(height: 24.h),
+                  _buildFeatureItem(
+                    title: 'Trend & Progress Reports',
+                    description:
+                        'Track development trends within the season and year',
+                  ),
+                  SizedBox(height: 32.h),
+                  _buildUpgradeButton(),
+                  SizedBox(height: 20.h),
+                ],
               ),
-              SizedBox(height: 24.h),
-              _buildFeatureItem(
-                title: 'In-Depth Stats Across All Level',
-                description:
-                    'Individual and team starts down to tactical and physical attributes',
-              ),
-              SizedBox(height: 24.h),
-              _buildFeatureItem(
-                title: 'Trend & Progress Reports',
-                description:
-                    'Track development trends within the season and year',
-              ),
-              SizedBox(height: 32.h),
-              _buildUpgradeButton(),
-              SizedBox(height: 20.h),
-            ],
+            ),
           ),
-        ),
+          const Positioned(right: 0, bottom: 0, child: CoachFloatingButton()),
+        ],
       ),
       bottomNavigationBar: () {
         if (Get.isRegistered<HomeController>()) {

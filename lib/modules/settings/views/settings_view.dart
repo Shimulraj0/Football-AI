@@ -7,6 +7,9 @@ import '../../../../global_widgets/base_scaffold.dart';
 import '../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
 
+import '../../../../core/utils/size_utils.dart'; // For .w .sp
+import '../../../../global_widgets/custom_back_button.dart';
+
 class SettingsView extends GetView<SettingsController> {
   final bool isEmbedded;
   const SettingsView({super.key, this.isEmbedded = false});
@@ -17,7 +20,27 @@ class SettingsView extends GetView<SettingsController> {
       return _buildSettingsContent();
     }
     return BaseScaffold(
-      title: "Coach AI",
+      headerContent: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CustomBackButton(
+            onPressed: () => Get.back(),
+            backgroundColor: Colors.white,
+            iconColor: const Color(0xFF00204A),
+          ),
+          SizedBox(width: 16.w),
+          Text(
+            "Settings",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: const Color.fromARGB(255, 250, 249, 249),
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const Spacer(),
+        ],
+      ),
       body: _buildSettingsContent(),
       bottomNavigationBar: () {
         if (Get.isRegistered<HomeController>()) {

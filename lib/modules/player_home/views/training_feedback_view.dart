@@ -16,119 +16,228 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
     return BaseScaffold(
       title: "Training Feedback",
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
         child: Column(
           children: [
-            // Summary Card
+            // Header / Summary Card
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: const Color(0xFF00204A),
-                borderRadius: BorderRadius.circular(16),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
+              decoration: ShapeDecoration(
+                color: const Color(0xFF012355),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Training Feedback",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Training Feedback',
+                          style: TextStyle(
+                            color: Color(0xFFFEFEFE),
+                            fontSize: 16,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(height: 6),
+                        Text(
+                          "Reflect on today's training session",
+                          style: TextStyle(
+                            color: Color(0xFFFEFEFE),
+                            fontSize: 12,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    "Reflect on today's training session",
-                    style: TextStyle(color: Colors.white70, fontSize: 14),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-
+            const SizedBox(height: 16),
             // Form Container
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: const Color(0xFF2196F3), // Blue border
-                  width: 1.5,
+              padding: const EdgeInsets.all(12),
+              decoration: ShapeDecoration(
+                color: const Color(0xFFFEFEFE),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
+                shadows: const [
+                  BoxShadow(
+                    color: Color(0x14000000),
+                    blurRadius: 19.80,
+                    offset: Offset(0, 4),
+                    spreadRadius: 0,
+                  ),
+                ],
               ),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 1. Passing Field
-                  _buildQuestionLabel(
-                    "How did you feel about your passing today?",
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: controller.passingController,
-                    maxLines: 3,
-                    decoration: InputDecoration(
-                      hintText:
-                          "I felt confident with short passes but struggled with long balls...",
-                      hintStyle: TextStyle(color: Colors.grey[400]),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey[300]!),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey[300]!),
-                      ),
-                      contentPadding: const EdgeInsets.all(12),
+                  // Passing Feedback Section
+                  SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          width: 311,
+                          child: Text(
+                            'How did you feel about your passing today?',
+                            style: TextStyle(
+                              color: Color(0xFF374151),
+                              fontSize: 14,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 11),
+                        TextField(
+                          controller: controller.passingController,
+                          maxLines: 3,
+                          style: const TextStyle(
+                            color: Color(0xFF575757),
+                            fontSize: 12,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
+                          ),
+                          decoration: InputDecoration(
+                            hintText:
+                                'I felt confident with short passes but struggled with long balls...',
+                            hintStyle: TextStyle(
+                              color: const Color(0xFF575757).withAlpha(128),
+                              fontSize: 12,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                            ),
+                            contentPadding: const EdgeInsets.all(10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: Color(0xFFE0E0E0),
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: Color(0xFF012355),
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 20),
-
-                  // 2. Focus Level Slider
-                  _buildSliderSection(
-                    "Rate your focus level (1-10):",
-                    controller.focusLevel,
-                    "Low Focus",
-                    "High Focus",
+                  const SizedBox(height: 23),
+                  // Sliders Section
+                  SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildSliderSection(
+                          "Rate your focus level (1-10): ",
+                          controller.focusLevel,
+                          "Low Focus",
+                          "High Focus",
+                        ),
+                        const SizedBox(height: 15),
+                        _buildSliderSection(
+                          "Rate your energy level (1-10): ",
+                          controller.energyLevel,
+                          "Low Energy",
+                          "High Energy",
+                        ),
+                        const SizedBox(height: 15),
+                        _buildSliderSection(
+                          "Rate your confidence level (1-10): ",
+                          controller.confidenceLevel,
+                          "Low Confidence",
+                          "High Confidence",
+                        ),
+                      ],
+                    ),
                   ),
-
-                  // 3. Energy Level Slider
-                  _buildSliderSection(
-                    "Rate your energy level (1-10):",
-                    controller.energyLevel,
-                    "Low Energy",
-                    "High Energy",
-                  ), // Typo in design 'engry', fixing to 'energy'
-                  // 4. Confidence Level Slider
-                  _buildSliderSection(
-                    "Rate your confidence level (1-10):",
-                    controller.confidenceLevel,
-                    "Low Confidence",
-                    "High Confidence",
-                  ),
-
-                  // 5. Additional Notes
-                  _buildQuestionLabel("Additional notes (optional)"),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: controller.notesController,
-                    maxLines: 3,
-                    decoration: InputDecoration(
-                      hintText: "Any other thoughts about today's session...",
-                      hintStyle: TextStyle(color: Colors.grey[400]),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey[300]!),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey[300]!),
-                      ),
-                      contentPadding: const EdgeInsets.all(12),
+                  const SizedBox(height: 23),
+                  // Additional Notes Section
+                  SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          width: 311,
+                          child: Text(
+                            'Additional notes (optional)',
+                            style: TextStyle(
+                              color: Color(0xFF374151),
+                              fontSize: 14,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 11),
+                        TextField(
+                          controller: controller.notesController,
+                          maxLines: 3,
+                          style: const TextStyle(
+                            color: Color(0xFF575757),
+                            fontSize: 12,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
+                          ),
+                          decoration: InputDecoration(
+                            hintText:
+                                'Any other thoughts about today\'s session...',
+                            hintStyle: TextStyle(
+                              color: const Color(0xFF575757).withAlpha(128),
+                              fontSize: 12,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                            ),
+                            contentPadding: const EdgeInsets.all(10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: Color(0xFFE0E0E0),
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: Color(0xFF012355),
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -151,87 +260,94 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
     );
   }
 
-  Widget _buildQuestionLabel(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        color: Color(0xFF00204A),
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-      ),
-    );
-  }
-
   Widget _buildSliderSection(
-    String question,
+    String label,
     RxDouble value,
     String lowLabel,
     String highLabel,
   ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Obx(
-          () => Row(
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                question,
-                style: const TextStyle(
-                  color: Color(0xFF00204A),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Text(
-                value.value.toInt().toString(),
-                style: const TextStyle(
-                  color: Color(0xFF00204A),
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                children: [
+                  Text(
+                    label,
+                    style: const TextStyle(
+                      color: Color(0xFF202020),
+                      fontSize: 12,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Obx(
+                    () => Text(
+                      value.value.toInt().toString(),
+                      style: const TextStyle(
+                        color: Color(0xFF202020),
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ),
-        Obx(
-          () => SliderTheme(
-            data: SliderTheme.of(Get.context!).copyWith(
-              activeTrackColor: const Color(0xFF00204A),
-              inactiveTrackColor: Colors.grey[300],
-              thumbColor: const Color(0xFF00204A),
-              overlayColor: const Color(0xFF00204A).withAlpha(32),
-              trackHeight: 4.0,
-            ),
-            child: Slider(
-              value: value.value,
-              min: 1,
-              max: 10,
-              divisions: 9,
-              onChanged: (val) {
-                value.value = val;
-              },
+          Obx(
+            () => SliderTheme(
+              data: SliderTheme.of(Get.context!).copyWith(
+                activeTrackColor: const Color(0xFF012355),
+                inactiveTrackColor: const Color(0xFFE0E0E0),
+                thumbColor: const Color(0xFF012355),
+                overlayColor: const Color(0xFF012355).withAlpha(128),
+                trackHeight: 2.0,
+                thumbShape: const RoundSliderThumbShape(
+                  enabledThumbRadius: 6.0,
+                ),
+              ),
+              child: Slider(
+                value: value.value,
+                min: 1,
+                max: 10,
+                divisions: 9,
+                onChanged: (val) {
+                  value.value = val;
+                },
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 lowLabel,
-                style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                style: const TextStyle(
+                  color: Color(0xFF575757),
+                  fontSize: 12,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w400,
+                ),
               ),
               Text(
                 highLabel,
-                style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                style: const TextStyle(
+                  color: Color(0xFF575757),
+                  fontSize: 12,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ],
           ),
-        ),
-        const SizedBox(height: 20),
-      ],
+        ],
+      ),
     );
   }
 }
