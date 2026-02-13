@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/base_scaffold.dart';
-import '../../../../global_widgets/custom_back_button.dart';
+
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
 
@@ -16,8 +16,9 @@ class SmartAnalyticsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       showHeader: true,
-      headerHeight: 124.h,
-      headerContent: _buildHeaderContent(),
+      title: "Smart Analytics",
+      // headerHeight: 124.h,
+      // headerContent: _buildHeaderContent(),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -82,33 +83,6 @@ class SmartAnalyticsView extends StatelessWidget {
           );
         }
       }(),
-    );
-  }
-
-  Widget _buildHeaderContent() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Stack(
-        alignment: Alignment.centerLeft,
-        children: [
-          CustomBackButton(
-            onPressed: () => Get.back(),
-            backgroundColor: Colors.white,
-            iconColor: const Color(0xFF00204A),
-          ),
-          Center(
-            child: Text(
-              'Smart Analysis',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.sp,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 

@@ -4,7 +4,6 @@ import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/base_scaffold.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
-import '../../../../global_widgets/custom_back_button.dart';
 
 import '../../../../global_widgets/coach_floating_button.dart';
 
@@ -15,8 +14,9 @@ class ChildDevelopmentSummaryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       showHeader: true,
-      headerHeight: 120.h,
-      headerContent: _buildHeaderContent(),
+      title: "Child Development Summary",
+      // headerHeight: 120.h,
+      // headerContent: _buildHeaderContent(),
       backgroundColor: const Color(0xFFF9F9F9),
       body: Stack(
         children: [
@@ -60,31 +60,6 @@ class ChildDevelopmentSummaryView extends StatelessWidget {
           return null;
         }
       }(),
-    );
-  }
-
-  Widget _buildHeaderContent() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-      child: Row(
-        children: [
-          CustomBackButton(
-            onPressed: () => Get.back(),
-            backgroundColor: Colors.white,
-            iconColor: Colors.black,
-          ),
-          SizedBox(width: 16.w),
-          Text(
-            'Child Development Summary',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.sp,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
     );
   }
 

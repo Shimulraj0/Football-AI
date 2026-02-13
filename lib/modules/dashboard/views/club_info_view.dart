@@ -18,94 +18,110 @@ class ClubInfoView extends StatelessWidget {
       showBackButton: true,
       showHeader: true,
       showBottomNav: true,
+      backButtonBackgroundColor: const Color(0xFFE8F3FF),
+      backButtonIconColor: const Color(0xFF012355),
       backgroundColor: const Color(0xFFEDF5FF),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildLogoSection(),
-              SizedBox(height: 24.h),
-              _buildTextField("Club Name", "write club name"),
-              _buildTextField("Year Founded", "write founded year"),
-              _buildTextField("Primary Contact", "write primary contact"),
-              _buildTextField("Email Address", "write email address"),
-              _buildTextField("Phone Number", "write phone number"),
-              _buildTextField("Website", "Give website link"),
-              _buildTextField("Home Ground", "Write home ground"),
-              SizedBox(height: 32.h),
-              Center(child: _buildUpdateButton()),
-              SizedBox(height: 40.h),
-            ],
-          ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildLogoSection(),
+            SizedBox(height: 24.h),
+            _buildTextField("Club Name", "write club name"),
+            _buildTextField("Year Founded", "write founded year"),
+            _buildTextField("Primary Contact", "write primary contact"),
+            _buildTextField("Email Address", "write email address"),
+            _buildTextField("Phone Number", "write phone number"),
+            _buildTextField("Website", "Give website link"),
+            _buildTextField("Home Ground", "Write home ground"),
+            SizedBox(height: 32.h),
+            Center(child: _buildUpdateButton()),
+            SizedBox(height: 40.h),
+          ],
         ),
       ),
     );
   }
 
   Widget _buildLogoSection() {
-    return Container(
-      padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 80.w,
-            height: 80.w,
-            decoration: BoxDecoration(
-              color: const Color(0xFFF9F9F9),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: double.infinity,
+          height: 88.h,
+          decoration: ShapeDecoration(
+            color: const Color(0xFFFEFEFE),
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(
-                color: const Color(0xFF0260ED).withValues(alpha: 0.3),
-              ),
             ),
-            child: Center(
-              child: Icon(
-                Icons.camera_alt_outlined,
-                color: const Color(0xFF012355),
-                size: 24.w,
-              ),
-            ),
-          ),
-          SizedBox(width: 16.w),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Club Logo",
-                style: TextStyle(
-                  color: const Color(0xFF012355),
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'Inter',
-                ),
-              ),
-              SizedBox(height: 4.h),
-              Text(
-                "Edit logo",
-                style: TextStyle(
-                  color: const Color(0xFF012355),
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Inter',
-                  decoration: TextDecoration.underline,
-                ),
+            shadows: [
+              BoxShadow(
+                color: const Color(0x28000000),
+                blurRadius: 6,
+                offset: const Offset(0, 3),
+                spreadRadius: 0,
               ),
             ],
           ),
-        ],
-      ),
+          child: Row(
+            children: [
+              Container(
+                width: 82.w,
+                height: 88.h,
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(width: 1, color: Color(0xFF0260ED)),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8.r),
+                      bottomLeft: Radius.circular(8.r),
+                    ),
+                  ),
+                ),
+                child: Center(
+                  child: SizedBox(
+                    width: 24.w,
+                    height: 24.w,
+                    // Placeholder for camera icon or image
+                    child: Icon(
+                      Icons.camera_alt_outlined,
+                      color: const Color(0xFF012355),
+                      size: 24.w,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 16.w),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Club Logo',
+                    style: TextStyle(
+                      color: const Color(0xFF012355),
+                      fontSize: 16.sp,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    'Edit logo',
+                    style: TextStyle(
+                      color: const Color(0xFF012355),
+                      fontSize: 12.sp,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -126,14 +142,18 @@ class ClubInfoView extends StatelessWidget {
           ),
           SizedBox(height: 8.h),
           Container(
-            decoration: BoxDecoration(
+            padding: EdgeInsets.all(8.w),
+            decoration: ShapeDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(8.r),
-              boxShadow: [
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              shadows: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
+                  color: const Color(0x28000000),
+                  blurRadius: 6,
+                  offset: const Offset(0, 3),
+                  spreadRadius: 0,
                 ),
               ],
             ),
@@ -141,15 +161,15 @@ class ClubInfoView extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: hint,
                 hintStyle: TextStyle(
-                  color: const Color(0xFF012355).withValues(alpha: 0.4),
+                  color: const Color(0x66012356),
                   fontSize: 14.sp,
                   fontFamily: 'Inter',
+                  fontWeight: FontWeight.w400,
+                  height: 1.10,
                 ),
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 16.w,
-                  vertical: 14.h,
-                ),
+                contentPadding: EdgeInsets.symmetric(horizontal: 8.w),
+                isDense: true,
               ),
               style: TextStyle(
                 color: const Color(0xFF012355),
@@ -165,18 +185,11 @@ class ClubInfoView extends StatelessWidget {
 
   Widget _buildUpdateButton() {
     return Container(
-      width: double.infinity,
-      height: 48.h,
+      width: 240.w,
+      height: 44.h, // Adjusted based on standard button height in design
       decoration: BoxDecoration(
         color: const Color(0xFF3064AB),
         borderRadius: BorderRadius.circular(8.r),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x3D3064AB),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
       ),
       child: Material(
         color: Colors.transparent,

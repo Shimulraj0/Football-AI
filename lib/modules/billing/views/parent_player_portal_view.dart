@@ -22,8 +22,9 @@ class ParentPlayerPortalView extends GetView<ParentPlayerPortalController> {
 
     return BaseScaffold(
       showHeader: true,
-      headerHeight: 127.h,
-      headerContent: _buildHeaderContent(),
+      title: "Parent Player Portal",
+      // headerHeight: 127.h,
+      // headerContent: _buildHeaderContent(),
       backgroundColor: const Color(0xFFFEFEFE), // White background per snippet
       body: Stack(
         children: [
@@ -92,75 +93,6 @@ class ParentPlayerPortalView extends GetView<ParentPlayerPortalController> {
           return null;
         }
       }(),
-    );
-  }
-
-  Widget _buildHeaderContent() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 51.w,
-                height: 51.w,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 1),
-                  image: const DecorationImage(
-                    image: AssetImage(
-                      "assets/icons/Ellipse13.png",
-                    ), // Placeholder or asset
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              SizedBox(width: 8.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Welcome Back',
-                    style: TextStyle(
-                      color: const Color(0xFFFEFEFE),
-                      fontSize: 18.sp,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    'Danialvez',
-                    style: TextStyle(
-                      color: const Color(0xFFFEFEFE),
-                      fontSize: 12.sp,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Container(
-            width: 38.w,
-            height: 38.w,
-            decoration: const BoxDecoration(
-              color: Color(0xFFFEFEFE),
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Icon(
-                Icons.notifications_none,
-                color: const Color(0xFF012355),
-                size: 24.w,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 

@@ -15,7 +15,14 @@ class DashboardCard extends StatelessWidget {
     required this.onTap,
     this.isHighlighted = false,
     this.showAction = true,
+    this.backgroundColor,
+    this.textColor,
+    this.iconSize,
   });
+
+  final Color? backgroundColor;
+  final Color? textColor;
+  final double? iconSize;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +36,7 @@ class DashboardCard extends StatelessWidget {
         padding: EdgeInsets.all(3.w),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.w)),
         child: Material(
-          color: const Color(0xFF031945),
+          color: backgroundColor ?? const Color(0xFF012356),
           borderRadius: BorderRadius.circular(12.w),
           clipBehavior: Clip.antiAlias,
           child: Column(
@@ -37,14 +44,18 @@ class DashboardCard extends StatelessWidget {
             children: [
               // Icon
               if (showAction) ...[
-                SizedBox(height: 24.h, width: 24.w, child: icon),
+                SizedBox(
+                  height: iconSize ?? 24.h,
+                  width: iconSize ?? 24.w,
+                  child: icon,
+                ),
                 SizedBox(height: 2.h),
                 // Title
                 Text(
                   title,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: textColor ?? const Color(0xFFFFFFFF),
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -52,13 +63,17 @@ class DashboardCard extends StatelessWidget {
                 SizedBox(height: 4.h),
               ] else ...[
                 // Centered layout for cards without action bar
-                SizedBox(height: 24.h, width: 24.w, child: icon),
+                SizedBox(
+                  height: iconSize ?? 24.h,
+                  width: iconSize ?? 24.w,
+                  child: icon,
+                ),
                 SizedBox(height: 6.h),
                 Text(
                   title,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: textColor ?? Colors.white,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
                   ),

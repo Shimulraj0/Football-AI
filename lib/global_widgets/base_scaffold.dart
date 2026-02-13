@@ -23,6 +23,8 @@ class BaseScaffold extends StatelessWidget {
   final bool showBottomNav;
   final Widget? leading;
   final List<Widget>? actions;
+  final Color? backButtonBackgroundColor;
+  final Color? backButtonIconColor;
 
   const BaseScaffold({
     super.key,
@@ -40,6 +42,8 @@ class BaseScaffold extends StatelessWidget {
     this.onBackPress,
     this.headerHeight,
     this.showBottomNav = true,
+    this.backButtonBackgroundColor,
+    this.backButtonIconColor,
   });
 
   @override
@@ -100,15 +104,15 @@ class BaseScaffold extends StatelessWidget {
     if (Get.isRegistered<HomeController>()) {
       return Obx(() {
         final homeController = Get.find<HomeController>();
-        final bool canPopStack = Navigator.of(context).canPop();
+
         final bool isNotHomeTab = homeController.selectedIndex.value != 0;
         final bool hasCustomAction = onBackPress != null;
 
         // We block pop if:
         // 1. User has a custom handler (we let them handle it)
-        // 2. OR We are at root AND need to switch to home tab
+        // 2. OR We are at root of a non-home tab (we want to go to home)
         final bool shouldBlock =
-            hasCustomAction || (!canPopStack && isNotHomeTab);
+            hasCustomAction || (isNotHomeTab && homeController.isAtTabRoot);
 
         return PopScope(
           canPop: !shouldBlock,
@@ -117,7 +121,8 @@ class BaseScaffold extends StatelessWidget {
 
             if (hasCustomAction) {
               onBackPress!();
-            } else if (!canPopStack && isNotHomeTab) {
+            } else if (shouldBlock) {
+              // If we blocked because we are at tab root, go to home
               homeController.changeTabIndex(0);
             } else {
               // Fallback default
@@ -146,7 +151,7 @@ class BaseScaffold extends StatelessWidget {
 
   Widget _buildDefaultHeader(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 10.h),
+      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 13.h),
       // Alignment bottom centered to match design padding
       alignment: Alignment.bottomCenter,
       child: Column(
@@ -162,15 +167,42 @@ class BaseScaffold extends StatelessWidget {
                 leading!
               else if (showBackButton)
                 CustomBackButton(
-                  onPressed: onBackPress ?? () => Get.back(),
+                  onPressed:
+                      onBackPress ??
+                      () {
+                        if (Get.isRegistered<HomeController>()) {
+                          Get.find<HomeController>().onBack();
+                        } else {
+                          Get.back();
+                        }
+                      },
                   backgroundColor:
-                      Colors.transparent, // Default to transparent on blue
-                  iconColor: Colors.white, // White icon on blue
+                      backButtonBackgroundColor ??
+                      const Color(0xFFE8F3FF), // Default to Light Blue Circle
+                  iconColor:
+                      backButtonIconColor ??
+                      const Color(0xFF012355), // Default to Deep Blue Icon
                 )
               else
                 SizedBox(
                   width: 44.w,
                 ), // Placeholder to balance if needed, or just zero
+
+              Flexible(
+                child: Text(
+                  title!,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+              ),
+
               // Actions (Right side)
               if (actions != null)
                 Row(mainAxisSize: MainAxisSize.min, children: actions!)
@@ -182,63 +214,45 @@ class BaseScaffold extends StatelessWidget {
           ),
 
           // Title / Subtitle Area
-          if (title != null) ...[
-            SizedBox(height: subtitle != null ? 24.h : 10.h),
+          if (title != null && subtitle != null) ...[
+            SizedBox(height: 24.h),
             Row(
-              mainAxisAlignment: subtitle != null
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 if (headerImage != null) ...[
                   headerImage!,
                   SizedBox(width: 8.w),
                 ],
-                if (subtitle != null)
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          title!,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'Inter',
-                          ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Inter',
                         ),
-                        SizedBox(height: 6.h),
-                        Text(
-                          subtitle!,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'Inter',
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                else
-                  Flexible(
-                    child: Text(
-                      title!,
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Inter',
                       ),
-                    ),
+                      SizedBox(height: 6.h),
+                      Text(
+                        subtitle!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Inter',
+                        ),
+                      ),
+                    ],
                   ),
+                ),
               ],
             ),
           ],

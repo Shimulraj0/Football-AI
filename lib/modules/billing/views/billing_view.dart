@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/base_scaffold.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
@@ -18,8 +17,9 @@ class BillingView extends GetView<BillingController> {
     return BaseScaffold(
       // We'll provide our own header content via headerContent param
       showHeader: true,
-      headerHeight: 124.h, // Custom height as per design
-      headerContent: _buildHeaderContent(),
+      title: "Billing",
+      // headerHeight: 124.h, // Custom height as per design
+      // headerContent: _buildHeaderContent(),
       body: Column(
         children: [
           SizedBox(height: 16.h), // Reduced top spacing
@@ -122,91 +122,6 @@ class BillingView extends GetView<BillingController> {
           );
         }
       }(),
-    );
-  }
-
-  Widget _buildHeaderContent() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Container(
-                  width: 51.w,
-                  height: 51.w,
-                  decoration: ShapeDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/icons/Ellipse13.png"),
-                      fit: BoxFit.cover,
-                    ),
-                    shape: OvalBorder(
-                      side: BorderSide(width: 1, color: Colors.white),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 8.w),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Welcome Back',
-                        style: TextStyle(
-                          color: const Color(0xFFFEFEFE),
-                          fontSize: 18.sp,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w600,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 6.h),
-                      Text(
-                        ' TD AI — SOFTWARE ADD-ON BILLING',
-                        style: TextStyle(
-                          color: const Color(0xFFFEFEFE),
-                          fontSize: 12.sp,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Notification Bell
-          Container(
-            width: 38.w,
-            height: 38.w,
-            decoration: ShapeDecoration(
-              color: const Color(0xFFFEFEFE),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
-            child: Center(
-              child: SvgPicture.asset(
-                "assets/icons/Notification.svg",
-                width: 24.w,
-                height: 24.w,
-                // Inherited color might be needed or SVG has its own color.
-                // Previous icon had Color(0xFF00204A).
-                // I will apply usage of ColorFilter if it's a mono icon.
-                colorFilter: const ColorFilter.mode(
-                  Color(0xFF00204A),
-                  BlendMode.srcIn,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 

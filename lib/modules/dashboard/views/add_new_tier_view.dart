@@ -34,6 +34,8 @@ class _AddNewTierViewState extends State<AddNewTierView> {
     return BaseScaffold(
       title: "Add New Tier",
       showBackButton: true,
+      backButtonBackgroundColor: Colors.white,
+      backButtonIconColor: const Color(0xFF012356),
       backgroundColor: const Color(0xFFEDF5FF),
       body: SingleChildScrollView(
         child: Padding(

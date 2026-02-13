@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/base_scaffold.dart';
-import '../../../../global_widgets/custom_back_button.dart';
 
 import '../../../../global_widgets/coach_floating_button.dart';
 
@@ -13,8 +12,9 @@ class InjuryRiskView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       showHeader: true,
-      headerHeight: 124.h,
-      headerContent: _buildHeaderContent(),
+      title: "Injury Risk AI Alerts",
+      // headerHeight: 124.h,
+      // headerContent: _buildHeaderContent(),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -47,33 +47,6 @@ class InjuryRiskView extends StatelessWidget {
             ),
           ),
           const Positioned(right: 0, bottom: 0, child: CoachFloatingButton()),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeaderContent() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Stack(
-        alignment: Alignment.centerLeft,
-        children: [
-          CustomBackButton(
-            onPressed: () => Get.back(),
-            backgroundColor: Colors.white,
-            iconColor: const Color(0xFF00204A),
-          ),
-          Center(
-            child: Text(
-              'Injury Risk AI Alerts',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.sp,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
         ],
       ),
     );

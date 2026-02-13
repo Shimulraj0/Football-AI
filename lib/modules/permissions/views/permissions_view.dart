@@ -7,6 +7,9 @@ import '../../../global_widgets/base_scaffold.dart';
 import '../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../../../core/utils/size_utils.dart';
+import 'team_assignment_view.dart';
+import 'age_group_assignment_view.dart';
+import 'parent_child_linking_view.dart';
 
 class PermissionsView extends GetView<PermissionsController> {
   const PermissionsView({super.key});
@@ -19,8 +22,9 @@ class PermissionsView extends GetView<PermissionsController> {
 
     return BaseScaffold(
       showHeader: true,
-      headerHeight: 124.h,
-      headerContent: _buildCustomHeaderContent(),
+      title: "Permissions",
+      // headerHeight: 124.h,
+      // headerContent: _buildCustomHeaderContent(),
       backgroundColor: const Color(0xFFF9F9F9),
       body: Column(
         children: [
@@ -46,21 +50,27 @@ class PermissionsView extends GetView<PermissionsController> {
                     title: "Team Assignment",
                     subtitle: "Personalized feedback",
                     icon: Icons.groups_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(() => const TeamAssignmentView());
+                    },
                   ),
                   SizedBox(height: 16.h),
                   _buildMenuCard(
                     title: "Age Group Assignment",
                     subtitle: "Updates & logistics",
                     icon: Icons.category_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(() => const AgeGroupAssignmentView());
+                    },
                   ),
                   SizedBox(height: 16.h),
                   _buildMenuCard(
                     title: "Parent-Child Linking",
                     subtitle: "Club methodology & strategy",
                     icon: Icons.family_restroom_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(() => const ParentChildLinkingView());
+                    },
                   ),
                 ],
               ),
@@ -81,81 +91,6 @@ class PermissionsView extends GetView<PermissionsController> {
           return null;
         }
       }(),
-    );
-  }
-
-  Widget _buildCustomHeaderContent() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Top Row (Time/Status bar mock not needed, handled by system)
-          // Profile Row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 51.w,
-                    height: 51.w,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 1),
-                      image: const DecorationImage(
-                        image: AssetImage("assets/icons/Ellipse13.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Welcome Back',
-                        style: TextStyle(
-                          color: const Color(0xFFFEFEFE),
-                          fontSize: 18.sp,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: 4.h),
-                      Text(
-                        'PERMISSIONS & ROLE ASSIGNMENT',
-                        style: TextStyle(
-                          color: const Color(0xFFFEFEFE),
-                          fontSize: 12.sp,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Container(
-                width: 38.w,
-                height: 38.w,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFFEFEFE),
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.notifications_none,
-                    color: const Color(0xFF012355),
-                    size: 24.w,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 

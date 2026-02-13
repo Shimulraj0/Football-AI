@@ -72,11 +72,16 @@ class DashboardView extends GetView<DashboardController> {
                   padding: EdgeInsets.only(bottom: 10.h),
                   child: DashboardCard(
                     title: 'AI Communication',
-                    icon: SvgPicture.asset(
-                      'assets/icons/Virtual Assistant.svg',
+                    icon: Image.asset(
+                      'assets/images/Virtual assistant.png',
+                      height: 24
+                          .h, // Assuming similar size constraint or let it size itself if DashboardCard handles it
                     ),
                     onTap: () => Get.toNamed(AppRoutes.aiCommunicationHub),
                     showAction: false,
+                    backgroundColor: const Color(0xFF012356),
+                    textColor: Colors.white,
+                    iconSize: 48.w,
                   ),
                 ),
               ],

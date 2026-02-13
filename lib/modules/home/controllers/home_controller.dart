@@ -36,7 +36,7 @@ class HomeController extends GetxController {
       // Going to other tabs
       String targetRoute;
       if (index == 1) {
-        targetRoute = AppRoutes.aiCommunication;
+        targetRoute = AppRoutes.aiCommunicationHub;
       } else if (index == 2) {
         targetRoute = AppRoutes.settings;
       } else {
@@ -50,6 +50,30 @@ class HomeController extends GetxController {
       } else {
         Get.offNamed(targetRoute);
       }
+    }
+  }
+
+  bool get isAtTabRoot {
+    if (selectedIndex.value == 0) return true; // Home is always root
+    if (selectedIndex.value == 1 &&
+        Get.currentRoute == AppRoutes.aiCommunicationHub) {
+      return true;
+    }
+    if (selectedIndex.value == 2 && Get.currentRoute == AppRoutes.settings) {
+      return true;
+    }
+    return false;
+  }
+
+  void onBack() {
+    // Logic to handle back navigation:
+    // If not on Home tab, and at the root of the tab, go back to Home (0).
+    // Otherwise, just pop.
+
+    if (selectedIndex.value != 0 && isAtTabRoot) {
+      changeTabIndex(0);
+    } else {
+      Get.back();
     }
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../global_widgets/base_scaffold.dart';
 import '../../../global_widgets/custom_bottom_nav_bar.dart';
+import '../../../global_widgets/custom_back_button.dart';
+import '../../../core/utils/size_utils.dart'; // Ensure size utils are imported
 import '../controllers/player_home_controller.dart';
 import '../controllers/training_feedback_controller.dart';
 
@@ -14,72 +16,97 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
     final playerHomeController = Get.find<PlayerHomeController>();
 
     return BaseScaffold(
-      title: "Training Feedback",
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      // We use a custom header content that spans the width and height we need
+      // BaseScaffold usually provides a header slot. We will put our custom blue header there.
+      // Note: BaseScaffold might have its own background color. We set it to match the body background or white.
+      backgroundColor: const Color(0xFFF5F9FF), // Light background for contrast
+      showHeader: true,
+      headerHeight: 180.h, // Adjusted height for the custom header content
+      headerContent: Container(
+        width: double.infinity,
+        padding: EdgeInsets.only(
+          bottom: 24.h,
+          left: 20.w,
+          right: 20.w,
+          // Top padding handled by BaseScaffold/SafeArea usually, but let's be safe
+        ),
+        decoration: ShapeDecoration(
+          color: const Color(0xFF012355),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(32.r),
+              bottomRight: Radius.circular(32.r),
+            ),
+          ),
+          shadows: [
+            BoxShadow(
+              color: const Color(0x1E000000),
+              blurRadius: 10.10.r,
+              offset: Offset(0, 4.h),
+              spreadRadius: 0,
+            ),
+          ],
+        ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header / Summary Card
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
-              decoration: ShapeDecoration(
-                color: const Color(0xFF012355),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+            // Custom Back Button Row
+            Row(
+              children: [
+                CustomBackButton(
+                  onPressed: () => Get.back(),
+                  backgroundColor: Colors.white,
+                  iconColor: const Color(0xFF012355),
                 ),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'Training Feedback',
-                          style: TextStyle(
-                            color: Color(0xFFFEFEFE),
-                            fontSize: 16,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(height: 6),
-                        Text(
-                          "Reflect on today's training session",
-                          style: TextStyle(
-                            color: Color(0xFFFEFEFE),
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              ],
+            ),
+            SizedBox(height: 20.h),
+            // Title and Subtitle
+            Text(
+              'Training Feedback',
+              style: TextStyle(
+                color: const Color(0xFFFEFEFE),
+                fontSize:
+                    24.sp, // Larger title as per visual hierarchy often seen
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 8.h),
+            Text(
+              "Reflect on today's training session",
+              style: TextStyle(
+                color: const Color(0xFFFEFEFE).withValues(alpha: 0.8),
+                fontSize: 14.sp,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            SizedBox(height: 10.h), // Bottom spacing
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+        child: Column(
+          children: [
             // Form Container
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(
+                16.w,
+              ), // 12 in snippet, usually 16 feels better
               decoration: ShapeDecoration(
                 color: const Color(0xFFFEFEFE),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
-                shadows: const [
+                shadows: [
                   BoxShadow(
-                    color: Color(0x14000000),
-                    blurRadius: 19.80,
-                    offset: Offset(0, 4),
+                    color: const Color(0x14000000),
+                    blurRadius: 19.80.r,
+                    offset: Offset(0, 4.h),
                     spreadRadius: 0,
                   ),
                 ],
@@ -97,25 +124,25 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          width: 311,
+                        SizedBox(
+                          width: 311.w,
                           child: Text(
                             'How did you feel about your passing today?',
                             style: TextStyle(
-                              color: Color(0xFF374151),
-                              fontSize: 14,
+                              color: const Color(0xFF374151),
+                              fontSize: 14.sp,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 11),
+                        SizedBox(height: 11.h),
                         TextField(
                           controller: controller.passingController,
                           maxLines: 3,
-                          style: const TextStyle(
-                            color: Color(0xFF575757),
-                            fontSize: 12,
+                          style: TextStyle(
+                            color: const Color(0xFF575757),
+                            fontSize: 12.sp,
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w400,
                           ),
@@ -123,32 +150,34 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                             hintText:
                                 'I felt confident with short passes but struggled with long balls...',
                             hintStyle: TextStyle(
-                              color: const Color(0xFF575757).withAlpha(128),
-                              fontSize: 12,
+                              color: const Color(
+                                0xFF575757,
+                              ).withValues(alpha: 0.5),
+                              fontSize: 12.sp,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w400,
                             ),
-                            contentPadding: const EdgeInsets.all(10),
+                            contentPadding: EdgeInsets.all(10.w),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 width: 1,
-                                color: Color(0xFFE0E0E0),
+                                color: const Color(0xFFE0E0E0),
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.r),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 width: 1,
-                                color: Color(0xFF012355),
+                                color: const Color(0xFF012355),
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.r),
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 23),
+                  SizedBox(height: 23.h),
                   // Sliders Section
                   SizedBox(
                     width: double.infinity,
@@ -163,14 +192,14 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                           "Low Focus",
                           "High Focus",
                         ),
-                        const SizedBox(height: 15),
+                        SizedBox(height: 15.h),
                         _buildSliderSection(
                           "Rate your energy level (1-10): ",
                           controller.energyLevel,
                           "Low Energy",
                           "High Energy",
                         ),
-                        const SizedBox(height: 15),
+                        SizedBox(height: 15.h),
                         _buildSliderSection(
                           "Rate your confidence level (1-10): ",
                           controller.confidenceLevel,
@@ -180,7 +209,7 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 23),
+                  SizedBox(height: 23.h),
                   // Additional Notes Section
                   SizedBox(
                     width: double.infinity,
@@ -189,25 +218,25 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          width: 311,
+                        SizedBox(
+                          width: 311.w,
                           child: Text(
                             'Additional notes (optional)',
                             style: TextStyle(
-                              color: Color(0xFF374151),
-                              fontSize: 14,
+                              color: const Color(0xFF374151),
+                              fontSize: 14.sp,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 11),
+                        SizedBox(height: 11.h),
                         TextField(
                           controller: controller.notesController,
                           maxLines: 3,
-                          style: const TextStyle(
-                            color: Color(0xFF575757),
-                            fontSize: 12,
+                          style: TextStyle(
+                            color: const Color(0xFF575757),
+                            fontSize: 12.sp,
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w400,
                           ),
@@ -215,25 +244,27 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                             hintText:
                                 'Any other thoughts about today\'s session...',
                             hintStyle: TextStyle(
-                              color: const Color(0xFF575757).withAlpha(128),
-                              fontSize: 12,
+                              color: const Color(
+                                0xFF575757,
+                              ).withValues(alpha: 0.5),
+                              fontSize: 12.sp,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w400,
                             ),
-                            contentPadding: const EdgeInsets.all(10),
+                            contentPadding: EdgeInsets.all(10.w),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 width: 1,
-                                color: Color(0xFFE0E0E0),
+                                color: const Color(0xFFE0E0E0),
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.r),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 width: 1,
-                                color: Color(0xFF012355),
+                                color: const Color(0xFF012355),
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.r),
                             ),
                           ),
                         ),
@@ -278,9 +309,9 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                 children: [
                   Text(
                     label,
-                    style: const TextStyle(
-                      color: Color(0xFF202020),
-                      fontSize: 12,
+                    style: TextStyle(
+                      color: const Color(0xFF202020),
+                      fontSize: 12.sp,
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w500,
                     ),
@@ -288,9 +319,9 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                   Obx(
                     () => Text(
                       value.value.toInt().toString(),
-                      style: const TextStyle(
-                        color: Color(0xFF202020),
-                        fontSize: 12,
+                      style: TextStyle(
+                        color: const Color(0xFF202020),
+                        fontSize: 12.sp,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w500,
                       ),
@@ -306,7 +337,7 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                 activeTrackColor: const Color(0xFF012355),
                 inactiveTrackColor: const Color(0xFFE0E0E0),
                 thumbColor: const Color(0xFF012355),
-                overlayColor: const Color(0xFF012355).withAlpha(128),
+                overlayColor: const Color(0xFF012355).withValues(alpha: 0.1),
                 trackHeight: 2.0,
                 thumbShape: const RoundSliderThumbShape(
                   enabledThumbRadius: 6.0,
@@ -328,18 +359,18 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
             children: [
               Text(
                 lowLabel,
-                style: const TextStyle(
-                  color: Color(0xFF575757),
-                  fontSize: 12,
+                style: TextStyle(
+                  color: const Color(0xFF575757),
+                  fontSize: 12.sp,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,
                 ),
               ),
               Text(
                 highLabel,
-                style: const TextStyle(
-                  color: Color(0xFF575757),
-                  fontSize: 12,
+                style: TextStyle(
+                  color: const Color(0xFF575757),
+                  fontSize: 12.sp,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,
                 ),

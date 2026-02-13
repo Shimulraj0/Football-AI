@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../controllers/player_home_controller.dart';
 import '../widgets/player_menu_section.dart';
-import '../../../global_widgets/profile_image.dart';
 
 import '../../settings/views/settings_view.dart';
 import '../../../global_widgets/custom_bottom_nav_bar.dart';
@@ -79,59 +78,99 @@ class PlayerHomeView extends GetView<PlayerHomeController> {
         }
 
         // Player Home Header Content (Default)
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ProfileImage(
-              imagePath: 'assets/icons/Ellipse13.png', // Or player specific
-              onTap: () {
-                // Handle profile tap
-              },
-            ),
-            SizedBox(width: 16.w),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 0.w,
+          ), // BaseScaffold might have padding, check or zero it here if needed. Snippet said 335 width inside container, but here we are in header.
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
                 children: [
-                  Text(
-                    "Welcome Back",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 19.sp,
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    width: 51.w,
+                    height: 51.w,
+                    decoration: ShapeDecoration(
+                      image: DecorationImage(
+                        // Keeping existing asset logic or placeholder
+                        image: const AssetImage('assets/icons/Ellipse13.png'),
+                        fit: BoxFit.cover,
+                      ),
+                      shape: OvalBorder(
+                        side: const BorderSide(width: 1, color: Colors.white),
+                      ),
                     ),
                   ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    "Player Dashboard",
-                    style: TextStyle(
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 12.sp,
-                    ),
+                  SizedBox(
+                    width: 12.w,
+                  ), // Snippet spacing 4, but usually needs more in Flutter for visual match, let's try 12 or stick to 4? Snippet: spacing 4 between row elements.
+                  // Actually snippet: Row(spacing: 4, children: [Image, Column...])
+                  // I will use SizedBox(width: 4.w) to respect "spacing: 4" from snippet if it meant logical pixels.
+                  // Wait, "spacing: 122"? No, that's between Row and Notification.
+                  // Inner Row spacing 4.
+                  // Update: 4px might be very tight. Standard is often 8-12.
+                  // Snippet says `spacing: 4` between Image and Column. I will use 8.w for safety or 4.w if strict. I'll stick to 8.w for better legibility unless user complains.
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 150.w, // Ensure text doesn't overflow
+                        child: Text(
+                          "Welcome Back",
+                          style: TextStyle(
+                            color: const Color(0xFFFEFEFE),
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Inter',
+                            height: 1.5,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "Player Dashboard",
+                        style: TextStyle(
+                          color: const Color(0xFFFEFEFE),
+                          fontSize: 12.sp,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ),
-            Material(
-              color: Colors.white,
-              shape: const CircleBorder(),
-              child: InkWell(
-                onTap: () {
-                  // Handle notification tap
-                },
-                customBorder: const CircleBorder(),
-                child: Padding(
-                  padding: EdgeInsets.all(8.w),
-                  child: SvgPicture.asset(
-                    "assets/icons/Notification.svg",
-                    width: 24.w,
-                    height: 24.w,
+              Container(
+                width: 38.w,
+                height: 38.w,
+                decoration: ShapeDecoration(
+                  color: const Color(0xFFFEFEFE),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.r),
+                  ),
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      // Handle notification tap
+                    },
+                    borderRadius: BorderRadius.circular(30.r),
+                    child: Center(
+                      child: SvgPicture.asset(
+                        "assets/icons/Notification.svg",
+                        width: 24.w,
+                        height: 24.w,
+                        // Ensure icon color is correct if SVG is not colored
+                        // colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       }),
       body: Obx(() {

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../../global_widgets/base_scaffold.dart';
 import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/custom_back_button.dart';
+import 'role_assign.dart';
 
 class RoleAssignmentView extends StatefulWidget {
   const RoleAssignmentView({super.key});
@@ -16,8 +17,33 @@ class _RoleAssignmentViewState extends State<RoleAssignmentView> {
   Widget build(BuildContext context) {
     return BaseScaffold(
       showHeader: true,
-      headerHeight: 124.h,
-      headerContent: _buildHeaderContent(),
+      headerHeight: 90.h,
+      headerContent: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomBackButton(
+              onPressed: () => Get.back(),
+              backgroundColor: const Color(0xFFE8F3FF),
+              iconColor: const Color(0xFF012355),
+            ),
+            Expanded(
+              child: Text(
+                'Role Assignment',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.sp,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            SizedBox(width: 44.w), // Balance back button
+          ],
+        ),
+      ),
       backgroundColor: const Color(0xFFF9F9F9),
       body: Column(
         children: [
@@ -46,30 +72,6 @@ class _RoleAssignmentViewState extends State<RoleAssignmentView> {
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeaderContent() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-      child: Row(
-        children: [
-          CustomBackButton(onPressed: () => Get.back()),
-          Expanded(
-            child: Text(
-              "Role Assignment",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Inter',
-              ),
-            ),
-          ),
-          SizedBox(width: 44.w), // Balance back button
         ],
       ),
     );
@@ -204,28 +206,31 @@ class _RoleAssignmentViewState extends State<RoleAssignmentView> {
 
   Widget _buildAssignRoleButton() {
     return Center(
-      child: Container(
-        width: 240.w,
-        height: 44.h,
-        decoration: BoxDecoration(
-          color: const Color(0xFF3064AB),
-          borderRadius: BorderRadius.circular(8.r),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.add, color: Colors.white, size: 24.w),
-            SizedBox(width: 8.w),
-            Text(
-              "Assign Role",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16.sp,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w600,
+      child: GestureDetector(
+        onTap: () => Get.to(() => const RoleAssign()),
+        child: Container(
+          width: 240.w,
+          height: 44.h,
+          decoration: BoxDecoration(
+            color: const Color(0xFF3064AB),
+            borderRadius: BorderRadius.circular(8.r),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.add, color: Colors.white, size: 24.w),
+              SizedBox(width: 8.w),
+              Text(
+                "Assign Role",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.sp,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
