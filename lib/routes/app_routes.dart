@@ -23,6 +23,12 @@ abstract class AppRoutes {
   static const termsCondition = '/terms-condition';
   static const billing = '/billing';
   static const tryouts = '/tryouts';
+  static const tryoutSetup = '/tryout-setup';
+  static const tryoutEvalEntry = '/tryout-eval-entry';
+  static const tryoutScoring = '/tryout-scoring';
+  static const tryoutPlacement = '/tryout-placement';
+  static const placementList = '/placement-list';
+  static const tryoutInvites = '/tryout-invites';
   static const clinics = '/clinics';
   static const evaluation = '/evaluation';
   static const surveys = '/surveys';

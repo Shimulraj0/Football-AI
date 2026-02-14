@@ -110,33 +110,33 @@ class TryoutsView extends GetView<TryoutsController> {
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
           child: Column(
             children: [
-              _buildMenuCard(
+              TryoutMenuCard(
                 title: 'Tryout Setup',
-                icon: Icons.settings_outlined,
+                imagePath: 'assets/images/setup.png',
                 onTap: controller.navigateToSetup,
               ),
               SizedBox(height: 16.h),
-              _buildMenuCard(
+              TryoutMenuCard(
                 title: 'Tryout Eval Entry',
-                icon: Icons.input_rounded,
+                imagePath: 'assets/images/Eval_Entry.png',
                 onTap: controller.navigateToEvalEntry,
               ),
               SizedBox(height: 16.h),
-              _buildMenuCard(
+              TryoutMenuCard(
                 title: 'Tryout Scoring',
-                icon: Icons.sports_score_rounded,
+                imagePath: 'assets/images/Scoring.png',
                 onTap: controller.navigateToScoring,
               ),
               SizedBox(height: 16.h),
-              _buildMenuCard(
+              TryoutMenuCard(
                 title: 'Tryout Placement',
-                icon: Icons.transform_rounded,
+                imagePath: 'assets/images/Placement.png',
                 onTap: controller.navigateToPlacement,
               ),
               SizedBox(height: 16.h),
-              _buildMenuCard(
+              TryoutMenuCard(
                 title: 'Tryout Invites',
-                icon: Icons.send_rounded,
+                imagePath: 'assets/images/Invites.png',
                 onTap: controller.navigateToInvites,
               ),
               SizedBox(height: 20.h),
@@ -146,20 +146,42 @@ class TryoutsView extends GetView<TryoutsController> {
       ),
     );
   }
+}
 
-  Widget _buildMenuCard({
-    required String title,
-    required IconData icon,
-    required VoidCallback onTap,
-  }) {
+class TryoutMenuCard extends StatefulWidget {
+  final String title;
+  final String imagePath;
+  final VoidCallback onTap;
+
+  const TryoutMenuCard({
+    super.key,
+    required this.title,
+    required this.imagePath,
+    required this.onTap,
+  });
+
+  @override
+  State<TryoutMenuCard> createState() => _TryoutMenuCardState();
+}
+
+class _TryoutMenuCardState extends State<TryoutMenuCard> {
+  bool isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTapDown: (_) => setState(() => isPressed = true),
+      onTapUp: (_) {
+        setState(() => isPressed = false);
+        widget.onTap();
+      },
+      onTapCancel: () => setState(() => isPressed = false),
       child: Container(
         width: double.infinity,
         height: 97.h,
         padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 20.h),
         decoration: ShapeDecoration(
-          color: const Color(0xFFEAF2FD),
+          color: isPressed ? const Color(0xFF012356) : const Color(0xFFEAF2FD),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           shadows: [
             BoxShadow(
@@ -172,23 +194,13 @@ class TryoutsView extends GetView<TryoutsController> {
         ),
         child: Row(
           children: [
-            Container(
-              width: 48.w,
-              height: 48.w,
-              decoration: ShapeDecoration(
-                color: const Color(0xFFFEFEFE),
-                shape: OvalBorder(),
-              ),
-              child: Center(
-                child: Icon(icon, color: const Color(0xFF012355), size: 24.w),
-              ),
-            ),
+            Image.asset(widget.imagePath, width: 48.w, height: 48.w),
             SizedBox(width: 13.w),
             Expanded(
               child: Text(
-                title,
+                widget.title,
                 style: TextStyle(
-                  color: const Color(0xFF012355),
+                  color: isPressed ? Colors.white : const Color(0xFF012355),
                   fontSize: 16.sp,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w600,

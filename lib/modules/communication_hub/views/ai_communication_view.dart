@@ -19,7 +19,7 @@ class AiCommunicationView extends GetView<CommunicationHubController> {
     return BaseScaffold(
       backgroundColor: const Color(0xFFF5F9FF),
       showHeader: true,
-      headerHeight: 180.h,
+
       headerContent: Container(
         width: double.infinity,
         padding: EdgeInsets.only(bottom: 24.h, left: 20.w, right: 20.w),
@@ -129,8 +129,8 @@ class AiCommunicationView extends GetView<CommunicationHubController> {
             _buildAiOptionCard(
               title: "Coach AI",
               subtitle: "Plan session & drills",
-              iconAsset:
-                  "assets/icons/ChatBubble.png", // Use simplified icon mapping
+              iconAsset: "assets/images/CoachAI.png",
+              isSvg: false,
               onTap: () => Get.toNamed(
                 AppRoutes.aiCommunication,
                 arguments: {'title': 'Coach AI'},
@@ -140,7 +140,8 @@ class AiCommunicationView extends GetView<CommunicationHubController> {
             _buildAiOptionCard(
               title: "Player AI",
               subtitle: "Personalized feedback",
-              iconAsset: "assets/icons/ic_single_role.png",
+              iconAsset: "assets/images/PlayerAI.png",
+              isSvg: false,
               onTap: () => Get.toNamed(
                 AppRoutes.aiCommunication,
                 arguments: {'title': 'Player AI'},
@@ -150,7 +151,8 @@ class AiCommunicationView extends GetView<CommunicationHubController> {
             _buildAiOptionCard(
               title: "Parent AI",
               subtitle: "Updates & logistics",
-              iconAsset: "assets/icons/ic_group_role.png",
+              iconAsset: "assets/images/ParentAI.png",
+              isSvg: false,
               // Fallback to group icon for parent
               onTap: () => Get.toNamed(
                 AppRoutes.aiCommunication,
@@ -161,8 +163,8 @@ class AiCommunicationView extends GetView<CommunicationHubController> {
             _buildAiOptionCard(
               title: "TD AI",
               subtitle: "Club methodology & strategy",
-              iconAsset: "assets/icons/Grouping.svg",
-              isSvg: true,
+              iconAsset: "assets/images/TDAI.png",
+              isSvg: false,
               onTap: () => Get.toNamed(
                 AppRoutes.aiCommunication,
                 arguments: {'title': 'TD AI'},
@@ -172,8 +174,8 @@ class AiCommunicationView extends GetView<CommunicationHubController> {
             _buildAiOptionCard(
               title: "DOC AI",
               subtitle: "Speciality Director AI",
-              iconAsset: "assets/icons/Settings.svg",
-              isSvg: true,
+              iconAsset: "assets/images/DOCAI.png",
+              isSvg: false,
               onTap: () => Get.toNamed(
                 AppRoutes.aiCommunication,
                 arguments: {'title': 'DOC AI'},
@@ -254,11 +256,14 @@ class AiCommunicationView extends GetView<CommunicationHubController> {
                                   BlendMode.srcIn,
                                 ),
                               )
-                            : Image.asset(
-                                iconAsset,
-                                width: 24.w,
-                                height: 24.w,
-                                color: const Color(0xFF575757),
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(8.r),
+                                child: Image.asset(
+                                  iconAsset,
+                                  width: 48.w,
+                                  height: 48.w,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                       ),
                     ),

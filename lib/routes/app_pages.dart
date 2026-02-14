@@ -42,6 +42,12 @@ import '../modules/billing/views/pro_curriculum_view.dart';
 import '../modules/billing/views/parent_player_portal_view.dart';
 import '../modules/billing/views/injury_risk_view.dart';
 import '../modules/tryouts/views/tryouts_view.dart';
+import '../modules/tryouts/views/tryout_setup_view.dart';
+import '../modules/tryouts/views/tryout_eval_entry_view.dart';
+import '../modules/tryouts/views/tryout_scoring_view.dart';
+import '../modules/tryouts/views/tryout_placement_view.dart';
+import '../modules/tryouts/views/placement_list_view.dart';
+import '../modules/tryouts/views/tryout_invites_view.dart';
 import '../modules/clinics/views/clinics_view.dart';
 import '../modules/evaluation/views/evaluation_view.dart';
 import '../modules/surveys/views/surveys_view.dart';
@@ -230,6 +236,36 @@ class AppPages {
     GetPage(
       name: AppRoutes.tryouts,
       page: () => const TryoutsView(),
+      binding: TryoutsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.tryoutSetup,
+      page: () => const TryoutSetupView(),
+      binding: TryoutsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.tryoutEvalEntry,
+      page: () => const TryoutEvalEntryView(),
+      binding: TryoutsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.tryoutScoring,
+      page: () => const TryoutScoringView(),
+      binding: TryoutsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.tryoutPlacement,
+      page: () => const TryoutPlacementView(),
+      binding: TryoutsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.placementList,
+      page: () => const PlacementListView(),
+      binding: TryoutsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.tryoutInvites,
+      page: () => const TryoutInvitesView(),
       binding: TryoutsBinding(),
     ),
     GetPage(

@@ -1,23 +1,24 @@
 import 'package:get/get.dart';
+import '../../../../routes/app_routes.dart';
 
 class TryoutsController extends GetxController {
   void navigateToSetup() {
-    // Navigate to setup
+    Get.toNamed(AppRoutes.tryoutSetup);
   }
 
   void navigateToEvalEntry() {
-    // Navigate to eval entry
+    Get.toNamed(AppRoutes.tryoutEvalEntry);
   }
 
   void navigateToScoring() {
-    // Navigate to scoring
+    Get.toNamed(AppRoutes.tryoutScoring);
   }
 
   void navigateToPlacement() {
-    // Navigate to placement
+    Get.toNamed(AppRoutes.tryoutPlacement);
   }
 
   void navigateToInvites() {
-    // Navigate to invites
+    Get.toNamed(AppRoutes.tryoutInvites);
   }
 }

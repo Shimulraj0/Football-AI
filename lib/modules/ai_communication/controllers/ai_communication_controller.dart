@@ -18,29 +18,54 @@ class AiCommunicationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    String title = "Coach AI"; // Default
 
     // Check for arguments to populate suggested questions
     if (Get.arguments != null && Get.arguments is Map) {
-      final args = Get.arguments as Map;
-      if (args.containsKey('mode') && args['mode'] == 'coach_message') {
-        suggestedQuestions.addAll([
-          "How is my child progressing?",
-          "Any tips for home practice?",
-          "Playing time concerns?",
-          "What are their main strengths?",
-        ]);
+      if (Get.arguments.containsKey('title')) {
+        title = Get.arguments['title'];
       }
     }
 
-    // Add initial welcome message
-    messages.add(
-      ChatMessage(
-        text: "Hello! I'm your AI coach assistant. How can I help you today?",
-        isUser: false,
-        time:
-            "11:47 PM", // Dynamic time would be better but static for now matches design
-      ),
-    );
+    // Initialize with the design's specific suggestions based on title
+    if (title == "Parent AI") {
+      suggestedQuestions.assignAll([
+        "Nutrition & Recovery Advice",
+        "Skill Development Tips",
+        "Team Schedule & Updates",
+        "Feedback Ideas",
+      ]);
+    } else if (title == "Player AI") {
+      suggestedQuestions.assignAll([
+        "Nutrition & Recovery Advice",
+        "Skill Drill Ideas",
+        "Ask About Tactics",
+        "Feedback Ideas",
+        "Coach Announcements",
+      ]);
+    } else if (title == "TD AI") {
+      suggestedQuestions.assignAll([
+        "Facility Optimization",
+        "View Financial Trend",
+        "Curriculum Gap Analysis",
+        "Feedback Ideas",
+      ]);
+    } else if (title == "DOC AI") {
+      suggestedQuestions.assignAll([
+        "Staff Performance",
+        "Curriculum Compliance",
+        "Evaluation Builder",
+        "Professional Development",
+      ]);
+    } else {
+      // Default to Coach AI suggestions
+      suggestedQuestions.assignAll([
+        "Player Feedback",
+        "Drill Library Search",
+        "Feedback Ideas",
+        "Team Performance Review",
+      ]);
+    }
   }
 
   void sendSuggestedQuestion(String question) {

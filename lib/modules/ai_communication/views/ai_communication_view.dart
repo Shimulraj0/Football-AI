@@ -5,6 +5,7 @@ import '../controllers/ai_communication_controller.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../../../global_widgets/custom_back_button.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AiCommunicationView extends GetView<AiCommunicationController> {
   const AiCommunicationView({super.key});
@@ -14,9 +15,7 @@ class AiCommunicationView extends GetView<AiCommunicationController> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (bool didPop, Object? result) async {
-        if (didPop) {
-          return;
-        }
+        if (didPop) return;
 
         // Handle navigation state sync
         if (Get.isRegistered<HomeController>()) {
@@ -35,16 +34,16 @@ class AiCommunicationView extends GetView<AiCommunicationController> {
         }
       },
       child: Scaffold(
-        // Using Scaffold directly for custom header design or wrapping body
-        backgroundColor: const Color(
-          0xFFF3F7FF,
-        ), // Light blue background from image
+        backgroundColor: const Color(0xFFF3F7FF),
         body: Column(
           children: [
             _buildCustomHeader(),
             Expanded(
-              child: Obx(
-                () => ListView.builder(
+              child: Obx(() {
+                if (controller.messages.isEmpty) {
+                  return _buildSuggestionList();
+                }
+                return ListView.builder(
                   padding: EdgeInsets.symmetric(
                     horizontal: 20.w,
                     vertical: 20.h,
@@ -54,8 +53,8 @@ class AiCommunicationView extends GetView<AiCommunicationController> {
                     final message = controller.messages[index];
                     return _buildMessageBubble(message);
                   },
-                ),
-              ),
+                );
+              }),
             ),
             _buildInputArea(context),
           ],
@@ -78,9 +77,9 @@ class AiCommunicationView extends GetView<AiCommunicationController> {
 
   Widget _buildCustomHeader() {
     return Container(
-      height: 140.h, // Adjusted height
+      height: 140.h,
       decoration: const BoxDecoration(
-        color: Color(0xFF012355), // Dark Blue
+        color: Color(0xFF012355),
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
       ),
       padding: EdgeInsets.only(
@@ -108,7 +107,7 @@ class AiCommunicationView extends GetView<AiCommunicationController> {
           Expanded(
             child: Center(
               child: Padding(
-                padding: EdgeInsets.only(right: 40.w), // Balance back button
+                padding: EdgeInsets.only(right: 40.w),
                 child: Text(
                   Get.arguments != null &&
                           Get.arguments is Map &&
@@ -126,6 +125,121 @@ class AiCommunicationView extends GetView<AiCommunicationController> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSuggestionList() {
+    final suggestions = controller.suggestedQuestions;
+    // Map titles to specific icons based on the design requirement
+    // In a real app, this data should come from the model/controller
+    final Map<String, String> iconMap = {
+      // Coach AI
+      "Player Feedback": "assets/icons/Membership.svg",
+      "Drill Library Search": "assets/icons/Grou.svg",
+      "Feedback Ideas": "assets/icons/Settings.svg",
+      "Team Performance Review": "assets/icons/Grouping.svg",
+
+      // Parent AI
+      "Skill Development Tips":
+          "assets/icons/Membership.svg", // Reusing for now
+      "Nutrition & Recovery Advice": "assets/icons/Grou.svg", // Reusing for now
+      "Team Schedule & Updates": "assets/icons/Grouping.svg",
+
+      // Player AI (added previously, missed in this view range)
+      "Skill Drill Ideas": "assets/icons/Membership.svg",
+      "Ask About Tactics": "assets/icons/Settings.svg",
+      "Coach Announcements": "assets/icons/ChatBubble.png",
+
+      // TD AI
+      "Facility Optimization": "assets/icons/Membership.svg",
+      "View Financial Trend": "assets/icons/Grou.svg",
+      "Curriculum Gap Analysis": "assets/icons/Grouping.svg",
+
+      // DOC AI
+      "Staff Performance": "assets/icons/Membership.svg",
+      "Curriculum Compliance": "assets/icons/Grou.svg",
+      "Evaluation Builder": "assets/icons/Grouping.svg",
+      "Professional Development": "assets/icons/Settings.svg",
+    };
+
+    return SingleChildScrollView(
+      padding: EdgeInsets.only(
+        top: 150.h, // Adjusted top padding
+        left: 0.w, // Removed left padding for alignment
+        right: 20.w,
+        bottom: 20.h,
+      ),
+      child: Column(
+        crossAxisAlignment:
+            CrossAxisAlignment.start, // Align suggestions to start
+        children: suggestions.map((suggestion) {
+          return Padding(
+            padding: EdgeInsets.only(bottom: 16.h),
+            child: _buildSuggestionCard(
+              suggestion,
+              iconMap[suggestion] ?? "assets/icons/ChatBubble.png",
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildSuggestionCard(String title, String iconPath) {
+    return GestureDetector(
+      onTap: () => controller.sendSuggestedQuestion(title),
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: ShapeDecoration(
+          color: const Color(0xFFCADFFA),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          shadows: const [
+            BoxShadow(
+              color: Color(0x28000000),
+              blurRadius: 6,
+              offset: Offset(0, 3),
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 34,
+              height: 34,
+              padding: const EdgeInsets.all(5),
+              decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: iconPath.endsWith('.svg')
+                  ? SvgPicture.asset(
+                      iconPath,
+                      colorFilter: const ColorFilter.mode(
+                        Color(0xFF575757),
+                        BlendMode.srcIn,
+                      ),
+                    )
+                  : Image.asset(iconPath),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              title,
+              style: const TextStyle(
+                color: Color(0xFF012356),
+                fontSize: 14,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -188,100 +302,68 @@ class AiCommunicationView extends GetView<AiCommunicationController> {
   Widget _buildInputArea(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, -5),
-          ),
-        ],
-      ),
+      // No outer decoration - transparent container to match floating look
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Obx(() {
-            if (controller.suggestedQuestions.isEmpty) {
-              return const SizedBox.shrink();
-            }
-            return Container(
-              height: 40.h,
-              margin: EdgeInsets.only(bottom: 12.h),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: controller.suggestedQuestions.length,
-                itemBuilder: (context, index) {
-                  final question = controller.suggestedQuestions[index];
-                  return Padding(
-                    padding: EdgeInsets.only(right: 8.w),
-                    child: ActionChip(
-                      label: Text(
-                        question,
-                        style: TextStyle(
-                          color: const Color(0xFF012355),
-                          fontSize: 12.sp,
-                          fontFamily: 'Inter',
-                        ),
-                      ),
-                      backgroundColor: const Color(0xFFEAF2FD),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        side: BorderSide.none,
-                      ),
-                      onPressed: () {
-                        controller.sendSuggestedQuestion(question);
-                      },
-                    ),
-                  );
-                },
-              ),
-            );
-          }),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: const Color(0xFFE0E0E0)),
-                  ),
+          Container(
+            padding: EdgeInsets.all(8.w),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.r),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0x28000000),
+                  blurRadius: 6.r,
+                  offset: Offset(0, 3.h),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Expanded(
                   child: TextField(
                     controller: controller.messageController,
+                    style: TextStyle(
+                      color: const Color(0xFF012356),
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Inter',
+                      height: 1.1,
+                    ),
                     decoration: InputDecoration(
-                      hintText: 'Type your message...',
+                      hintText: 'Type your prompt....',
                       hintStyle: TextStyle(
-                        color: const Color(0xFF888888),
-                        fontSize: 14.sp,
+                        color: const Color(0x66012356),
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Inter',
                       ),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
                       border: InputBorder.none,
+                      isDense: true,
                     ),
                   ),
                 ),
-              ),
-              SizedBox(width: 12.w),
-              GestureDetector(
-                onTap: controller.sendMessage,
-                child: Container(
-                  width: 48.w,
-                  height: 48.w,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF012355),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
+                SizedBox(width: 8.w),
+                GestureDetector(
+                  onTap: controller.sendMessage,
+                  child: Container(
+                    width: 24.w,
+                    height: 24.w,
+                    decoration: const BoxDecoration(
+                      color: Colors.transparent, // Icon only
+                    ),
                     child: Icon(
-                      Icons.send_rounded,
-                      color: Colors.white,
-                      size: 20.w,
+                      Icons.send_rounded, // Standard icon
+                      color: const Color(0xFF012356),
+                      size: 24.w,
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
