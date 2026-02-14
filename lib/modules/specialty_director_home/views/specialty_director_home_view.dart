@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../../../../core/utils/size_utils.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../global_widgets/base_scaffold.dart';
-import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
 import '../controllers/specialty_director_home_controller.dart';
 
@@ -51,76 +50,69 @@ class SpecialtyDirectorHomeView
           ],
         ),
       ),
-      bottomNavigationBar: () {
-        if (Get.isRegistered<HomeController>()) {
-          final homeController = Get.find<HomeController>();
-          return Obx(
-            () => CustomBottomNavBar(
-              selectedIndex: homeController.selectedIndex.value,
-              onItemTapped: homeController.changeTabIndex,
-            ),
-          );
-        }
-        return null;
-      }(),
+      showBottomNav: true,
     );
   }
 
   Widget _buildHeaderContent() {
-    return Row(
-      children: [
-        Container(
-          width: 51.w,
-          height: 51.w,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.white, width: 1.w),
-            image: const DecorationImage(
-              image: AssetImage("assets/icons/Ellipse13.png"),
-              fit: BoxFit.cover,
+    return Container(
+      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 13.h),
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        children: [
+          Container(
+            width: 51.w,
+            height: 51.w,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.white, width: 1.w),
+              image: const DecorationImage(
+                image: AssetImage("assets/icons/Ellipse13.png"),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-        SizedBox(width: 16.w),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Welcome Back',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.sp,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w600,
+          SizedBox(width: 16.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Welcome Back',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.sp,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              SizedBox(height: 4.h),
-              Text(
-                'Specialty Director',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.8),
-                  fontSize: 12.sp,
-                  fontFamily: 'Inter',
+                SizedBox(height: 4.h),
+                Text(
+                  'Specialty Director',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.8),
+                    fontSize: 12.sp,
+                    fontFamily: 'Inter',
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        Container(
-          padding: EdgeInsets.all(8.w),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
+          Container(
+            padding: EdgeInsets.all(8.w),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.notifications_outlined,
+              color: const Color(0xFF00204A),
+              size: 24.w,
+            ),
           ),
-          child: Icon(
-            Icons.notifications_outlined,
-            color: const Color(0xFF00204A),
-            size: 24.w,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

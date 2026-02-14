@@ -42,7 +42,7 @@ class DashboardController extends GetxController {
       id: "Coach",
       title: "Coach",
       assetPath: 'assets/icons/ic_single_role.png',
-      // No specific route, likely stays on dashboard or handled via sub-selection
+      route: AppRoutes.coachHome,
     ),
     RoleModel(
       id: "Tryouts",
@@ -79,7 +79,7 @@ class DashboardController extends GetxController {
       // Navigate to Login with redirect arguments
       Get.toNamed(
         AppRoutes.login,
-        arguments: {'role': role.title, 'redirect': role.route},
+        arguments: {'role': role.id, 'redirect': role.route},
       );
     }
   }

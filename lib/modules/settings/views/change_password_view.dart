@@ -4,11 +4,12 @@ import '../../../../core/values/app_colors.dart';
 import '../../../../global_widgets/base_scaffold.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../home/controllers/home_controller.dart';
+import '../controllers/change_password_controller.dart';
 
 import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/custom_back_button.dart';
 
-class ChangePasswordView extends StatelessWidget {
+class ChangePasswordView extends GetView<ChangePasswordController> {
   const ChangePasswordView({super.key});
 
   @override
@@ -56,11 +57,23 @@ class ChangePasswordView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _buildPasswordField("Old Password"),
+                  _buildPasswordField(
+                    "Old Password",
+                    controller.oldPasswordVisible,
+                    controller.toggleOldPasswordVisibility,
+                  ),
                   const SizedBox(height: 16),
-                  _buildPasswordField("New Password"),
+                  _buildPasswordField(
+                    "New Password",
+                    controller.newPasswordVisible,
+                    controller.toggleNewPasswordVisibility,
+                  ),
                   const SizedBox(height: 16),
-                  _buildPasswordField("Confirm Password"),
+                  _buildPasswordField(
+                    "Confirm Password",
+                    controller.confirmPasswordVisible,
+                    controller.toggleConfirmPasswordVisibility,
+                  ),
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () {},
@@ -103,7 +116,11 @@ class ChangePasswordView extends StatelessWidget {
     );
   }
 
-  Widget _buildPasswordField(String label) {
+  Widget _buildPasswordField(
+    String label,
+    RxBool isVisible,
+    VoidCallback onToggle,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -116,32 +133,39 @@ class ChangePasswordView extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        TextFormField(
-          obscureText: true,
-          decoration: InputDecoration(
-            fillColor: AppColors.inputFill,
-            filled: true,
-            hintText: "********",
-            hintStyle: const TextStyle(color: AppColors.black, fontSize: 14),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(color: AppColors.inputBorder),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(color: AppColors.navyBlue),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(color: AppColors.inputBorder),
-            ),
-            suffixIcon: const Icon(
-              Icons.visibility_off_outlined,
-              color: AppColors.grey,
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 14,
+        Obx(
+          () => TextFormField(
+            obscureText: !isVisible.value,
+            decoration: InputDecoration(
+              fillColor: AppColors.inputFill,
+              filled: true,
+              hintText: "********",
+              hintStyle: const TextStyle(color: AppColors.black, fontSize: 14),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(color: AppColors.inputBorder),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(color: AppColors.navyBlue),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(color: AppColors.inputBorder),
+              ),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  isVisible.value
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                  color: AppColors.grey,
+                ),
+                onPressed: onToggle,
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 14,
+              ),
             ),
           ),
         ),

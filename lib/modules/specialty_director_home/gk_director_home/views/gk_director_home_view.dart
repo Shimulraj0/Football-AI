@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/base_scaffold.dart';
-import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../../global_widgets/custom_back_button.dart';
-import '../../../home/controllers/home_controller.dart';
 import '../controllers/gk_director_home_controller.dart';
 
 class GkDirectorHomeView extends GetView<GkDirectorHomeController> {
@@ -54,26 +52,16 @@ class GkDirectorHomeView extends GetView<GkDirectorHomeController> {
           ],
         ),
       ),
-      bottomNavigationBar: () {
-        if (Get.isRegistered<HomeController>()) {
-          final homeController = Get.find<HomeController>();
-          return Obx(
-            () => CustomBottomNavBar(
-              selectedIndex: homeController.selectedIndex.value,
-              onItemTapped: homeController.changeTabIndex,
-            ),
-          );
-        }
-        return null;
-      }(),
+      showBottomNav: true,
     );
   }
 
   Widget _buildHeaderContent(BuildContext context) {
     // Return just the content row. PersistentHeader handles the decoration and status bar.
     // We add some padding for alignment within the safe area provided by PersistentHeader
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+    return Container(
+      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 13.h),
+      alignment: Alignment.bottomCenter,
       child: Row(
         children: [
           CustomBackButton(

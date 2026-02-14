@@ -4,15 +4,15 @@ import '../../../global_widgets/base_scaffold.dart';
 import '../../../core/utils/size_utils.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../../routes/app_routes.dart';
-import '../controllers/evaluation_controller.dart';
+import '../controllers/coach_home_controller.dart';
 
-class EvaluationView extends GetView<EvaluationController> {
-  const EvaluationView({super.key});
+class CoachHomeView extends GetView<CoachHomeController> {
+  const CoachHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
     if (Get.isRegistered<HomeController>()) {
-      Get.find<HomeController>().currentHomeRoute.value = AppRoutes.evaluation;
+      Get.find<HomeController>().currentHomeRoute.value = AppRoutes.coachHome;
     }
 
     return BaseScaffold(
@@ -38,27 +38,20 @@ class EvaluationView extends GetView<EvaluationController> {
               SizedBox(height: 24.h),
               _buildStatusCard(
                 title: 'Players evaluated',
-                icon: Icons.check,
-                onTap: () {
-                  Get.toNamed(AppRoutes.evaluatedPlayers);
-                },
+                icon: Icons.check, // Using icon mostly matching "tick"
+                onTap: () {},
               ),
               SizedBox(height: 16.h),
               _buildStatusCard(
                 title: 'Pending evaluations',
-                icon: Icons.edit_document,
-                onTap: () {
-                  // For now, redirecting to evaluatedPlayers as a placeholder
-                  Get.toNamed(AppRoutes.evaluatedPlayers);
-                },
+                icon: Icons.edit_document, // Using document icon
+                onTap: () {},
               ),
               SizedBox(height: 16.h),
               _buildStatusCard(
                 title: 'Completed this week',
-                icon: Icons.assignment_turned_in,
-                onTap: () {
-                  Get.toNamed(AppRoutes.completedEvaluation);
-                },
+                icon: Icons.assignment_turned_in, // Clipboard icon
+                onTap: () {},
               ),
             ],
           ),
@@ -70,7 +63,7 @@ class EvaluationView extends GetView<EvaluationController> {
   Widget _buildHeader() {
     return Container(
       width: 375.w,
-      height: 124.h,
+      height: 124.h, // Fixed height validation
       padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 13.h),
       alignment: Alignment.bottomCenter,
       child: Row(
@@ -99,15 +92,15 @@ class EvaluationView extends GetView<EvaluationController> {
                   Text(
                     "Welcome Back",
                     style: TextStyle(
-                      color: const Color(0xFFFEFEFE),
+                      color: const Color(0xFFFEFEFE), // From snippet
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Inter',
                     ),
                   ),
-                  SizedBox(height: 6.h),
+                  SizedBox(height: 6.h), // Spacing 6 from snippet
                   Text(
-                    "EVALUATION SYSTEM",
+                    "EVALUATION SYSTEM", // Caps from snippet
                     style: TextStyle(
                       color: const Color(0xFFFEFEFE),
                       fontSize: 12.sp,
@@ -182,50 +175,64 @@ class EvaluationView extends GetView<EvaluationController> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 335.w,
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+        width: double.infinity,
+        height: 78.h, // Fixed height from snippet
+        padding: EdgeInsets.symmetric(
+          horizontal: 16.w,
+        ), // Vertical alignment via Center
         decoration: ShapeDecoration(
-          color: const Color(0xFF012355),
+          color: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(32.r),
+            borderRadius: BorderRadius.circular(8.r), // Radius 8 from snippet
           ),
           shadows: [
             BoxShadow(
-              color: const Color(0x1E000000),
-              blurRadius: 10.10,
-              offset: const Offset(0, 4),
+              color: const Color(0x28000000), // Shadow from snippet
+              blurRadius: 6,
+              offset: const Offset(0, 3),
               spreadRadius: 0,
             ),
           ],
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(12.w),
-                  decoration: ShapeDecoration(
-                    color: const Color(0xFFE8F3FF),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.r),
-                    ),
-                  ),
-                  child: Icon(icon, color: const Color(0xFF012356), size: 20.w),
+            Container(
+              width: 48.w,
+              height: 48.w,
+              decoration: ShapeDecoration(
+                color: const Color(0xFFF9F9F9),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
-                SizedBox(width: 16.w),
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.sp,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w600,
-                  ),
+              ),
+              child: Center(
+                child: Icon(
+                  // Using Icon but could be image if needed, keeping generic for now
+                  icon,
+                  color: const Color(
+                    0xFF000000,
+                  ), // Black icons in snippet (or close to it)
+                  size: 24.w,
                 ),
-              ],
+              ),
             ),
-            Icon(Icons.chevron_right, color: Colors.white, size: 24.w),
+            SizedBox(width: 16.w),
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: const Color(0xFF012356), // Color from snippet
+                  fontSize: 16.sp,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Icon(
+              Icons.chevron_right,
+              color: const Color(0xFF012356), // Matching title color
+              size: 24.w,
+            ),
           ],
         ),
       ),

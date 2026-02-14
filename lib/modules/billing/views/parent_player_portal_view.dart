@@ -2,24 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/base_scaffold.dart';
-import '../../home/controllers/home_controller.dart';
 import '../../../../global_widgets/custom_bottom_nav_bar.dart';
 import 'child_development_summary_view.dart';
 import 'session_explanation_view.dart';
 import '../controllers/parent_player_portal_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../global_widgets/coach_floating_button.dart';
+import '../../home/controllers/home_controller.dart';
 
 class ParentPlayerPortalView extends GetView<ParentPlayerPortalController> {
   const ParentPlayerPortalView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    if (Get.isRegistered<HomeController>()) {
-      Get.find<HomeController>().currentHomeRoute.value =
-          AppRoutes.parentPlayerPortal;
-    }
-
     return BaseScaffold(
       showHeader: true,
       title: "Parent Player Portal",

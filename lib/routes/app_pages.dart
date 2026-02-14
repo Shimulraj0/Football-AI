@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 import '../modules/dashboard/views/operations_admin_selection_view.dart';
 import '../modules/dashboard/views/team_tiers_view.dart';
+import '../modules/field_scheduling_director_home/new_schedule/views/select_age_group_view.dart';
+import '../modules/field_scheduling_director_home/new_schedule/views/select_available_fields_view.dart';
+import '../modules/field_scheduling_director_home/new_schedule/bindings/select_available_fields_binding.dart';
 import 'app_routes.dart';
 import '../modules/onboarding/views/splash_view.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
@@ -50,6 +53,11 @@ import '../modules/tryouts/views/placement_list_view.dart';
 import '../modules/tryouts/views/tryout_invites_view.dart';
 import '../modules/clinics/views/clinics_view.dart';
 import '../modules/evaluation/views/evaluation_view.dart';
+import '../modules/evaluation/views/evaluated_players_view.dart';
+import '../modules/evaluation/views/evaluation_summary_view.dart';
+import '../modules/evaluation/views/completed_evaluation_view.dart';
+import '../modules/evaluation/views/evaluation_entry_view.dart';
+import '../modules/evaluation/views/view_summaries_view.dart';
 import '../modules/surveys/views/surveys_view.dart';
 import '../modules/digital_product_hub/views/digital_product_hub_view.dart';
 import '../modules/digital_product_hub/views/add_digital_product_view.dart';
@@ -114,12 +122,24 @@ import '../modules/specialty_director_home/views/specialty_director_home_view.da
 import '../modules/specialty_director_home/bindings/specialty_director_home_binding.dart';
 import '../modules/specialty_director_home/gk_director_home/views/gk_director_home_view.dart';
 import '../modules/specialty_director_home/gk_director_home/bindings/gk_director_home_binding.dart';
+import '../modules/specialty_director_home/ac_director_home/views/ac_director_home_view.dart';
+import '../modules/specialty_director_home/ac_director_home/bindings/ac_director_home_binding.dart';
+import '../modules/specialty_director_home/sc_director_home/views/sc_director_home_view.dart';
+import '../modules/specialty_director_home/sc_director_home/bindings/sc_director_home_binding.dart';
+import '../modules/field_scheduling_director_home/views/field_scheduling_director_home_view.dart';
+import '../modules/field_scheduling_director_home/bindings/field_scheduling_director_home_binding.dart';
+import '../modules/field_scheduling_director_home/new_schedule/views/new_schedule_view.dart';
+import '../modules/field_scheduling_director_home/new_schedule/bindings/new_schedule_binding.dart';
+import '../modules/field_scheduling_director_home/new_schedule/views/select_date_range_view.dart';
+import '../modules/coach_home/views/coach_home_view.dart';
+import '../modules/coach_home/bindings/coach_home_binding.dart';
 
 import '../modules/age_group_coordinator_home/views/age_group_coordinator_home_view.dart';
 import '../modules/age_group_coordinator_home/bindings/age_group_coordinator_home_binding.dart';
 import '../modules/session_observations/views/session_observations_view.dart';
 import '../modules/session_observations/bindings/add_observation_notes_binding.dart';
 import '../modules/session_observations/views/add_observation_notes_view.dart';
+import '../modules/settings/bindings/change_password_binding.dart';
 import '../modules/session_observations/bindings/session_observations_binding.dart';
 
 class AppPages {
@@ -194,6 +214,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.changePassword,
       page: () => const ChangePasswordView(),
+      binding: ChangePasswordBinding(),
     ),
     GetPage(name: AppRoutes.faq, page: () => const FaqView()),
     GetPage(
@@ -276,6 +297,31 @@ class AppPages {
     GetPage(
       name: AppRoutes.evaluation,
       page: () => const EvaluationView(),
+      binding: EvaluationBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.evaluatedPlayers,
+      page: () => const EvaluatedPlayersView(),
+      binding: EvaluationBinding(), // reusing existing binding for now
+    ),
+    GetPage(
+      name: AppRoutes.evaluationSummary,
+      page: () => const EvaluationSummaryView(),
+      binding: EvaluationBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.completedEvaluation,
+      page: () => const CompletedEvaluationView(),
+      binding: EvaluationBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.viewSummaries,
+      page: () => const ViewSummariesView(),
+      binding: EvaluationBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.evaluationEntry,
+      page: () => const EvaluationEntryView(),
       binding: EvaluationBinding(),
     ),
     GetPage(
@@ -496,18 +542,18 @@ class AppPages {
     // Placeholder routes for new directors
     GetPage(
       name: AppRoutes.fieldSchedulingDirector,
-      page: () => const GkDirectorHomeView(), // Placeholder
-      binding: GkDirectorHomeBinding(),
+      page: () => const FieldSchedulingDirectorHomeView(),
+      binding: FieldSchedulingDirectorHomeBinding(),
     ),
     GetPage(
       name: AppRoutes.acDirectorHome,
-      page: () => const GkDirectorHomeView(), // Placeholder
-      binding: GkDirectorHomeBinding(),
+      page: () => const AcDirectorHomeView(),
+      binding: AcDirectorHomeBinding(),
     ),
     GetPage(
       name: AppRoutes.scDirectorHome,
-      page: () => const GkDirectorHomeView(), // Placeholder
-      binding: GkDirectorHomeBinding(),
+      page: () => const ScDirectorHomeView(),
+      binding: ScDirectorHomeBinding(),
     ),
     GetPage(
       name: AppRoutes.coachesOversight,
@@ -520,6 +566,29 @@ class AppPages {
     GetPage(
       name: AppRoutes.curriculumAlignment,
       page: () => const CurriculumAlignmentView(),
+    ),
+    GetPage(
+      name: AppRoutes.coachHome,
+      page: () => const CoachHomeView(),
+      binding: CoachHomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.newSchedule,
+      page: () => const NewScheduleView(),
+      binding: NewScheduleBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.selectDateRange,
+      page: () => const SelectDateRangeView(),
+    ),
+    GetPage(
+      name: AppRoutes.selectAgeGroup,
+      page: () => const SelectAgeGroupView(),
+    ),
+    GetPage(
+      name: AppRoutes.selectAvailableFields,
+      page: () => const SelectAvailableFieldsView(),
+      binding: SelectAvailableFieldsBinding(),
     ),
   ];
 }

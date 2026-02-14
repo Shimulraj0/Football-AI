@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../routes/app_routes.dart';
-import '../controllers/technical_director_home_controller.dart';
 import '../../../../global_widgets/base_scaffold.dart';
-import '../../../../core/utils/size_utils.dart'; // Ensure size utils is imported
-import '../../home/controllers/home_controller.dart';
+import '../../../../core/utils/size_utils.dart';
+import '../../../home/controllers/home_controller.dart';
+import '../../../../routes/app_routes.dart';
+import '../controllers/ac_director_home_controller.dart';
 
-class TechnicalDirectorHomeView
-    extends GetView<TechnicalDirectorHomeController> {
-  const TechnicalDirectorHomeView({super.key});
+class AcDirectorHomeView extends GetView<AcDirectorHomeController> {
+  const AcDirectorHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Ensure HomeController knows this is the current home
     if (Get.isRegistered<HomeController>()) {
       Get.find<HomeController>().currentHomeRoute.value =
-          AppRoutes.technicalDirectorHome;
+          AppRoutes.acDirectorHome;
     }
 
     return BaseScaffold(
@@ -25,31 +23,17 @@ class TechnicalDirectorHomeView
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         children: [
           _buildMenuCard(
-            title: "Curriculum Engine",
-            subtitle: "Create or upload curriculam",
-            icon: Icons.assignment_outlined,
-            onTap: () => Get.toNamed(AppRoutes.curriculumEngine),
+            title: "Assistants Oversight",
+            subtitle: "Manage and oversee assistant coaches",
+            icon: Icons.group_outlined,
+            onTap: () {},
           ),
           SizedBox(height: 16.h),
           _buildMenuCard(
-            title: "Analytics & Insights",
-            subtitle: "See the analytics & AI insights",
-            icon: Icons.bar_chart_outlined,
-            onTap: () => Get.toNamed(AppRoutes.analyticsInsights),
-          ),
-          SizedBox(height: 16.h),
-          _buildMenuCard(
-            title: "Curriculum Adaptation",
-            subtitle: "You can use adaptive curriculum editor",
-            icon: Icons.cached_outlined,
-            onTap: () => Get.toNamed(AppRoutes.curriculumAdaptation),
-          ),
-          SizedBox(height: 16.h),
-          _buildMenuCard(
-            title: "Communication Hub",
-            subtitle: "You can use adaptive curriculum editor",
-            icon: Icons.chat_bubble_outline,
-            onTap: () => Get.toNamed(AppRoutes.communicationHub),
+            title: "Training Support",
+            subtitle: "Provide support for training sessions",
+            icon: Icons.sports_soccer,
+            onTap: () {},
           ),
         ],
       ),
@@ -91,7 +75,7 @@ class TechnicalDirectorHomeView
                 ),
                 SizedBox(height: 4.h),
                 Text(
-                  "Technical Director",
+                  "Assistant Coach Director",
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.8),
                     fontSize: 12.sp,

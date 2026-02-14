@@ -71,8 +71,8 @@ abstract class AppRoutes {
   static const specialtyDirectorHome = '/specialty-director-home';
   static const gkDirectorHome = '/gk-director-home';
   static const clubCommandCenter = '/club-command-center';
-  static const clubSetupGovernance = '/club_setup_governance';
-  static const clubInfo = '/club_info';
+  static const clubSetupGovernance = '/club-setup-governance';
+  static const clubInfo = '/club-info';
   static const clubHierarchy = '/club-hierarchy';
   static const teamTiers = '/team-tiers';
   static const operationsAdmin = '/operations-admin';
@@ -85,4 +85,14 @@ abstract class AppRoutes {
   static const coachesOversight = '/coaches-oversight';
   static const evaluationDetails = '/evaluation-details';
   static const curriculumAlignment = '/curriculum-alignment';
+  static const coachHome = '/coach-home';
+  static const newSchedule = '/new-schedule';
+  static const selectDateRange = '/select-date-range';
+  static const selectAgeGroup = '/select-age-group';
+  static const selectAvailableFields = '/select-available-fields';
+  static const evaluatedPlayers = '/evaluated-players';
+  static const evaluationSummary = '/evaluation-summary';
+  static const completedEvaluation = '/completed-evaluation';
+  static const viewSummaries = '/view-summaries';
+  static const evaluationEntry = '/evaluation-entry';
 }
