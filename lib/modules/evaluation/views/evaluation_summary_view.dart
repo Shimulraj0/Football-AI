@@ -42,12 +42,14 @@ class EvaluationSummaryView extends StatelessWidget {
               ),
               SizedBox(height: 16.h),
               _buildPlayerCard(
-                name: "Landon M.",
-                details: "U8 - Evaluation Due Dec 18",
-                subDetails: "U8 Boys",
+                name: "Landom M.",
+                details: "U8 - Evaluation Due May 8",
+                subDetails: "U8 Boys Premier",
                 coach: "Emily Warner, Head Coach",
                 imagePath: "assets/images/landon_m.png",
                 dueBadgeText: "Due in 3 Days",
+                ageGroup: "U8",
+                dueDate: "May 8",
               ),
               SizedBox(height: 12.h),
               _buildPlayerCard(
@@ -57,6 +59,8 @@ class EvaluationSummaryView extends StatelessWidget {
                 coach: "Sam Cooper, Head Coach",
                 imagePath: "assets/images/ethan_m.png",
                 dueBadgeText: "Due in 4 Days",
+                ageGroup: "U9",
+                dueDate: "Dec 19",
               ),
               SizedBox(height: 24.h),
               Row(
@@ -193,6 +197,8 @@ class EvaluationSummaryView extends StatelessWidget {
     required String coach,
     required String imagePath,
     required String dueBadgeText,
+    required String ageGroup,
+    required String dueDate,
   }) {
     return Container(
       width: double.infinity,
@@ -285,7 +291,16 @@ class EvaluationSummaryView extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () {
-                  Get.toNamed(AppRoutes.evaluationEntry);
+                  Get.toNamed(
+                    AppRoutes.evaluationEntry,
+                    arguments: {
+                      'name': name,
+                      'image': imagePath,
+                      'ageGroup': ageGroup,
+                      'dueDate': dueDate,
+                      'headCoach': coach,
+                    },
+                  );
                 },
                 borderRadius: BorderRadius.circular(4.r),
                 child: Container(

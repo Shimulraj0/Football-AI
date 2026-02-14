@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../global_widgets/base_scaffold.dart';
 import '../../../core/utils/size_utils.dart';
+import '../controllers/evaluation_controller.dart';
 
-class EvaluationEntryView extends StatelessWidget {
+class EvaluationEntryView extends GetView<EvaluationController> {
   const EvaluationEntryView({super.key});
 
   @override
@@ -29,25 +31,31 @@ class EvaluationEntryView extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16.h),
-              _buildRatingCard(
-                "Handeling",
-                "U8 - Evaluation",
-                "Emily Warner, Head Coach",
-                5,
-              ),
-              SizedBox(height: 12.h),
-              _buildRatingCard(
-                "Footwork",
-                "U9 - Evaluation",
-                "Sam Cooper, Head Coach",
-                0,
-              ),
-              SizedBox(height: 12.h),
-              _buildRatingCard(
-                "Positioning",
-                "U9 - Evaluation",
-                "Alex Ruiz, Head Coach",
-                0,
+              Obx(
+                () => Column(
+                  children: [
+                    _buildRatingCard(
+                      "Handeling",
+                      "${controller.ageGroup.value} - Evaluation",
+                      controller.headCoach.value,
+                      controller.skillRatings["Handeling"] ?? 0,
+                    ),
+                    SizedBox(height: 12.h),
+                    _buildRatingCard(
+                      "Footwork",
+                      "${controller.ageGroup.value} - Evaluation",
+                      controller.headCoach.value,
+                      controller.skillRatings["Footwork"] ?? 0,
+                    ),
+                    SizedBox(height: 12.h),
+                    _buildRatingCard(
+                      "Positioning",
+                      "${controller.ageGroup.value} - Evaluation",
+                      controller.headCoach.value,
+                      controller.skillRatings["Positioning"] ?? 0,
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 24.h),
               _buildNotesSection(),
@@ -65,9 +73,7 @@ class EvaluationEntryView extends StatelessWidget {
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () {
-                        // Save action
-                      },
+                      onTap: () => controller.saveEvaluation(),
                       borderRadius: BorderRadius.circular(8.r),
                       child: Center(
                         child: Text(
@@ -92,78 +98,88 @@ class EvaluationEntryView extends StatelessWidget {
   }
 
   Widget _buildPlayerInfoCard() {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(12.w),
-      decoration: ShapeDecoration(
-        color: const Color(0xFFFEFEFE),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
-        shadows: [
-          BoxShadow(
-            color: const Color(0x28000000),
-            blurRadius: 6,
-            offset: const Offset(0, 3),
-            spreadRadius: 0,
+    return Obx(
+      () => Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(12.w),
+        decoration: ShapeDecoration(
+          color: const Color(0xFFFEFEFE),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.r),
           ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 48.w,
-                height: 48.w,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/landon_m.png"),
-                    fit: BoxFit.cover,
+          shadows: [
+            BoxShadow(
+              color: const Color(0x28000000),
+              blurRadius: 6,
+              offset: const Offset(0, 3),
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 48.w,
+                  height: 48.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: AssetImage(controller.imagePath.value),
+                      fit: BoxFit.cover,
+                      onError: (exception, stackTrace) =>
+                          const Icon(Icons.person),
+                    ),
+                    color: Colors.grey[300],
                   ),
-                  color: Colors.grey[300],
                 ),
-              ),
-              SizedBox(width: 12.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Landom M.',
-                    style: TextStyle(
-                      color: const Color(0xFF012356),
-                      fontSize: 16.sp,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
-                      height: 1.1,
+                SizedBox(width: 12.w),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      controller.playerName.value,
+                      style: TextStyle(
+                        color: const Color(0xFF012356),
+                        fontSize: 16.sp,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w600,
+                        height: 1.1,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    'U8 - Due May 8',
-                    style: TextStyle(
-                      color: const Color(0xFF012356),
-                      fontSize: 12.sp,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
+                    SizedBox(height: 4.h),
+                    Text(
+                      '${controller.ageGroup.value} - Due ${controller.dueDate.value}',
+                      style: TextStyle(
+                        color: const Color(0xFF012356),
+                        fontSize: 12.sp,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    'Head Coach: Emily Warner',
-                    style: TextStyle(
-                      color: const Color(0xFF012356),
-                      fontSize: 12.sp,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
+                    SizedBox(height: 4.h),
+                    Text(
+                      'Head Coach: ${controller.headCoach.value}',
+                      style: TextStyle(
+                        color: const Color(0xFF012356),
+                        fontSize: 12.sp,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Icon(Icons.chevron_right, color: const Color(0xFF012356), size: 24.w),
-        ],
+                  ],
+                ),
+              ],
+            ),
+            Icon(
+              Icons.chevron_right,
+              color: const Color(0xFF012356),
+              size: 24.w,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -248,33 +264,69 @@ class EvaluationEntryView extends StatelessWidget {
             ],
           ),
           SizedBox(height: 6.h),
-          Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 4.h,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE1E1E1),
-                  borderRadius: BorderRadius.circular(2.r),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return GestureDetector(
+                onHorizontalDragUpdate: (details) {
+                  _handleTouch(
+                    details.localPosition,
+                    title,
+                    constraints.maxWidth,
+                  );
+                },
+                onTapDown: (details) {
+                  _handleTouch(
+                    details.localPosition,
+                    title,
+                    constraints.maxWidth,
+                  );
+                },
+                child: Stack(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 12.h,
+                      color: Colors.transparent, // Touch area
+                      alignment: Alignment.center,
+                      child: Container(
+                        width: double.infinity,
+                        height: 4.h,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE1E1E1),
+                          borderRadius: BorderRadius.circular(2.r),
+                        ),
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: FractionallySizedBox(
+                        alignment: Alignment.centerLeft,
+                        widthFactor: (value / 10).clamp(0.0, 1.0),
+                        child: Container(
+                          height: 4.h,
+                          margin: EdgeInsets.symmetric(vertical: 4.h),
+                          decoration: BoxDecoration(
+                            color: value > 0
+                                ? const Color(0xFF55A97E)
+                                : const Color(0xFFAE4D3D),
+                            borderRadius: BorderRadius.circular(2.r),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              FractionallySizedBox(
-                widthFactor: value / 10,
-                child: Container(
-                  height: 4.h,
-                  decoration: BoxDecoration(
-                    color: value > 0
-                        ? const Color(0xFF55A97E)
-                        : const Color(0xFFAE4D3D),
-                    borderRadius: BorderRadius.circular(2.r),
-                  ),
-                ),
-              ),
-            ],
+              );
+            },
           ),
         ],
       ),
     );
+  }
+
+  void _handleTouch(Offset localPosition, String skill, double maxWidth) {
+    double p = (localPosition.dx / maxWidth).clamp(0.0, 1.0);
+    int newValue = (p * 10).round();
+    controller.updateRating(skill, newValue);
   }
 
   Widget _buildNotesSection() {
@@ -316,25 +368,36 @@ class EvaluationEntryView extends StatelessWidget {
             ],
           ),
           SizedBox(height: 12.h),
-          Container(
-            width: double.infinity,
-            height: 80.h,
-            padding: EdgeInsets.all(12.w),
-            decoration: ShapeDecoration(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                side: const BorderSide(width: 1, color: Color(0xFFE0E0E0)),
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-            ),
-            child: Text(
-              'write notes about the player',
-              style: TextStyle(
+          TextField(
+            controller: controller.coachNotesController,
+            maxLines: 3,
+            decoration: InputDecoration(
+              hintText: 'write notes about the player',
+              hintStyle: TextStyle(
                 color: const Color(0xFFBDBDBD),
                 fontSize: 12.sp,
                 fontFamily: 'Inter',
                 fontWeight: FontWeight.w400,
               ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide: const BorderSide(color: Color(0xFF3064AB)),
+              ),
+              contentPadding: EdgeInsets.all(12.w),
+            ),
+            style: TextStyle(
+              color: const Color(0xFF012356),
+              fontSize: 12.sp,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w400,
             ),
           ),
         ],

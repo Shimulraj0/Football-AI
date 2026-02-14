@@ -52,6 +52,9 @@ import '../modules/tryouts/views/tryout_placement_view.dart';
 import '../modules/tryouts/views/placement_list_view.dart';
 import '../modules/tryouts/views/tryout_invites_view.dart';
 import '../modules/clinics/views/clinics_view.dart';
+import '../modules/clinics/views/create_clinic_view.dart';
+import '../modules/clinics/views/assign_staff_view.dart';
+import '../modules/clinics/views/curriculum_builder_view.dart';
 import '../modules/evaluation/views/evaluation_view.dart';
 import '../modules/evaluation/views/evaluated_players_view.dart';
 import '../modules/evaluation/views/evaluation_summary_view.dart';
@@ -292,6 +295,21 @@ class AppPages {
     GetPage(
       name: AppRoutes.clinics,
       page: () => const ClinicsView(),
+      binding: ClinicsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.createClinic,
+      page: () => const CreateClinicView(),
+      binding: ClinicsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.assignStaff,
+      page: () => const AssignStaffView(),
+      binding: ClinicsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.curriculumBuilder,
+      page: () => const CurriculumBuilderView(),
       binding: ClinicsBinding(),
     ),
     GetPage(

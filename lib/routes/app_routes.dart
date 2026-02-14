@@ -95,4 +95,7 @@ abstract class AppRoutes {
   static const completedEvaluation = '/completed-evaluation';
   static const viewSummaries = '/view-summaries';
   static const evaluationEntry = '/evaluation-entry';
+  static const createClinic = '/create-clinic';
+  static const assignStaff = '/assign-staff';
+  static const curriculumBuilder = '/curriculum-builder';
 }
