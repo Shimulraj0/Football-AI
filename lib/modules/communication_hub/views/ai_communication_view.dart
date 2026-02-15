@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../global_widgets/base_scaffold.dart';
-import '../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../core/utils/size_utils.dart';
-import '../../home/controllers/home_controller.dart';
 import '../controllers/communication_hub_controller.dart';
 import '../../../routes/app_routes.dart';
 // Assuming controller exists, otherwise I'll need to check if I should use Get.put or find
@@ -183,17 +181,6 @@ class AiCommunicationView extends GetView<CommunicationHubController> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: CustomBottomNavBar(
-        selectedIndex: 0, // Home selected as per snippet
-        onItemTapped: (index) {
-          if (Get.isRegistered<HomeController>()) {
-            Get.find<HomeController>().changeTabIndex(index);
-            if (index != 0) {
-              Get.back(); // If logic requires returning to main home
-            }
-          }
-        },
       ),
     );
   }

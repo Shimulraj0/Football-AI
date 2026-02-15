@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../global_widgets/base_scaffold.dart';
-import '../../../global_widgets/custom_bottom_nav_bar.dart';
 import '../../../global_widgets/custom_back_button.dart';
-import '../../../core/utils/size_utils.dart'; // Ensure size utils are imported
-import '../controllers/player_home_controller.dart';
+import '../../../core/utils/size_utils.dart';
 import '../controllers/training_feedback_controller.dart';
 
 class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
@@ -12,24 +10,13 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
 
   @override
   Widget build(BuildContext context) {
-    // Attempt to find PlayerHomeController to manage bottom nav
-    final playerHomeController = Get.find<PlayerHomeController>();
-
     return BaseScaffold(
-      // We use a custom header content that spans the width and height we need
-      // BaseScaffold usually provides a header slot. We will put our custom blue header there.
-      // Note: BaseScaffold might have its own background color. We set it to match the body background or white.
-      backgroundColor: const Color(0xFFF5F9FF), // Light background for contrast
+      backgroundColor: const Color(0xFFF5F9FF),
       showHeader: true,
-      headerHeight: 180.h, // Adjusted height for the custom header content
+      headerHeight: 180.h,
       headerContent: Container(
         width: double.infinity,
-        padding: EdgeInsets.only(
-          bottom: 24.h,
-          left: 20.w,
-          right: 20.w,
-          // Top padding handled by BaseScaffold/SafeArea usually, but let's be safe
-        ),
+        padding: EdgeInsets.only(bottom: 24.h, left: 20.w, right: 20.w),
         decoration: ShapeDecoration(
           color: const Color(0xFF012355),
           shape: RoundedRectangleBorder(
@@ -51,7 +38,6 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Custom Back Button Row
             Row(
               children: [
                 CustomBackButton(
@@ -62,13 +48,11 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
               ],
             ),
             SizedBox(height: 20.h),
-            // Title and Subtitle
             Text(
               'Training Feedback',
               style: TextStyle(
                 color: const Color(0xFFFEFEFE),
-                fontSize:
-                    24.sp, // Larger title as per visual hierarchy often seen
+                fontSize: 24.sp,
                 fontFamily: 'Inter',
                 fontWeight: FontWeight.w600,
               ),
@@ -83,7 +67,7 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            SizedBox(height: 10.h), // Bottom spacing
+            SizedBox(height: 10.h),
           ],
         ),
       ),
@@ -91,12 +75,9 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         child: Column(
           children: [
-            // Form Container
             Container(
               width: double.infinity,
-              padding: EdgeInsets.all(
-                16.w,
-              ), // 12 in snippet, usually 16 feels better
+              padding: EdgeInsets.all(16.w),
               decoration: ShapeDecoration(
                 color: const Color(0xFFFEFEFE),
                 shape: RoundedRectangleBorder(
@@ -116,7 +97,6 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Passing Feedback Section
                   SizedBox(
                     width: double.infinity,
                     child: Column(
@@ -159,16 +139,16 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                             ),
                             contentPadding: EdgeInsets.all(10.w),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 width: 1,
-                                color: const Color(0xFFE0E0E0),
+                                color: Color(0xFFE0E0E0),
                               ),
                               borderRadius: BorderRadius.circular(8.r),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 width: 1,
-                                color: const Color(0xFF012355),
+                                color: Color(0xFF012355),
                               ),
                               borderRadius: BorderRadius.circular(8.r),
                             ),
@@ -178,7 +158,6 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                     ),
                   ),
                   SizedBox(height: 23.h),
-                  // Sliders Section
                   SizedBox(
                     width: double.infinity,
                     child: Column(
@@ -210,7 +189,6 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                     ),
                   ),
                   SizedBox(height: 23.h),
-                  // Additional Notes Section
                   SizedBox(
                     width: double.infinity,
                     child: Column(
@@ -253,16 +231,16 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
                             ),
                             contentPadding: EdgeInsets.all(10.w),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 width: 1,
-                                color: const Color(0xFFE0E0E0),
+                                color: Color(0xFFE0E0E0),
                               ),
                               borderRadius: BorderRadius.circular(8.r),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 width: 1,
-                                color: const Color(0xFF012355),
+                                color: Color(0xFF012355),
                               ),
                               borderRadius: BorderRadius.circular(8.r),
                             ),
@@ -276,17 +254,6 @@ class TrainingFeedbackView extends GetView<TrainingFeedbackController> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: CustomBottomNavBar(
-        selectedIndex: 0, // Always highlight Home
-        onItemTapped: (index) {
-          if (index != 0) {
-            playerHomeController.changeTabIndex(index);
-            Get.back(); // Return to PlayerHome
-          } else {
-            Get.back(); // Just return to PlayerHome main view
-          }
-        },
       ),
     );
   }

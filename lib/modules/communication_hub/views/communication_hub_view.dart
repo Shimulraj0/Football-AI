@@ -1,57 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../global_widgets/custom_bottom_nav_bar.dart';
+import '../../../global_widgets/base_scaffold.dart';
 import '../../../../routes/app_routes.dart';
 import '../controllers/communication_hub_controller.dart';
 import '../../../../global_widgets/custom_back_button.dart';
-import '../../home/controllers/home_controller.dart';
 
 class CommunicationHubView extends GetView<CommunicationHubController> {
   const CommunicationHubView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    return BaseScaffold(
+      headerContent: _buildHeader(),
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
         children: [
-          _buildHeader(),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 20.0,
-              ),
-              children: [
-                _buildActionCard(
-                  title: "Communication Summary",
-                  subtitle: "You can see coach/parents/player feedback",
-                  icon: Icons.chat_bubble_outline,
-                  onTap: () => Get.toNamed(AppRoutes.communicationSummary),
-                ),
-                const SizedBox(height: 16),
-                _buildActionCard(
-                  title: "AI Communication",
-                  subtitle: "You can see AI Recommendation",
-                  icon: Icons.auto_awesome_outlined,
-                  onTap: () => Get.toNamed(AppRoutes.aiCommunicationHub),
-                ),
-              ],
-            ),
+          _buildActionCard(
+            title: "Communication Summary",
+            subtitle: "You can see coach/parents/player feedback",
+            icon: Icons.chat_bubble_outline,
+            onTap: () => Get.toNamed(AppRoutes.communicationSummary),
+          ),
+          const SizedBox(height: 16),
+          _buildActionCard(
+            title: "AI Communication",
+            subtitle: "You can see AI Recommendation",
+            icon: Icons.auto_awesome_outlined,
+            onTap: () => Get.toNamed(AppRoutes.aiCommunicationHub),
           ),
         ],
       ),
-      bottomNavigationBar: () {
-        if (Get.isRegistered<HomeController>()) {
-          final homeController = Get.find<HomeController>();
-          return Obx(
-            () => CustomBottomNavBar(
-              selectedIndex: homeController.selectedIndex.value,
-              onItemTapped: homeController.changeTabIndex,
-            ),
-          );
-        }
-        return null;
-      }(),
     );
   }
 

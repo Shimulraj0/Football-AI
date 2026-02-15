@@ -55,6 +55,8 @@ import '../modules/clinics/views/clinics_view.dart';
 import '../modules/clinics/views/create_clinic_view.dart';
 import '../modules/clinics/views/assign_staff_view.dart';
 import '../modules/clinics/views/curriculum_builder_view.dart';
+import '../modules/clinics/views/manage_registration_view.dart';
+import '../modules/clinics/views/attendance_tracker_view.dart';
 import '../modules/evaluation/views/evaluation_view.dart';
 import '../modules/evaluation/views/evaluated_players_view.dart';
 import '../modules/evaluation/views/evaluation_summary_view.dart';
@@ -62,6 +64,8 @@ import '../modules/evaluation/views/completed_evaluation_view.dart';
 import '../modules/evaluation/views/evaluation_entry_view.dart';
 import '../modules/evaluation/views/view_summaries_view.dart';
 import '../modules/surveys/views/surveys_view.dart';
+import '../modules/surveys/views/survey_details_view.dart';
+import '../modules/surveys/views/survey_results_view.dart';
 import '../modules/digital_product_hub/views/digital_product_hub_view.dart';
 import '../modules/digital_product_hub/views/add_digital_product_view.dart';
 import '../modules/digital_product_hub/views/manual_builder_view.dart';
@@ -313,6 +317,16 @@ class AppPages {
       binding: ClinicsBinding(),
     ),
     GetPage(
+      name: AppRoutes.manageRegistration,
+      page: () => const ManageRegistrationView(),
+      binding: ClinicsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.attendanceTracker,
+      page: () => const AttendanceTrackerView(),
+      binding: ClinicsBinding(),
+    ),
+    GetPage(
       name: AppRoutes.evaluation,
       page: () => const EvaluationView(),
       binding: EvaluationBinding(),
@@ -345,6 +359,16 @@ class AppPages {
     GetPage(
       name: AppRoutes.surveys,
       page: () => const SurveysView(),
+      binding: SurveysBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.surveyDetails,
+      page: () => const SurveyDetailsView(),
+      binding: SurveysBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.surveyResults,
+      page: () => const SurveyResultsView(),
       binding: SurveysBinding(),
     ),
     GetPage(

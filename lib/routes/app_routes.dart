@@ -98,4 +98,8 @@ abstract class AppRoutes {
   static const createClinic = '/create-clinic';
   static const assignStaff = '/assign-staff';
   static const curriculumBuilder = '/curriculum-builder';
+  static const manageRegistration = '/manage-registration';
+  static const attendanceTracker = '/attendance-tracker';
+  static const surveyDetails = '/survey-details';
+  static const surveyResults = '/survey-results';
 }

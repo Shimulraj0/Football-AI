@@ -15,6 +15,8 @@ class AuthController extends GetxController {
   final RxBool isConfirmPasswordVisible = false.obs;
   final RxBool rememberMe = false.obs;
 
+  final RxBool isTermsAccepted = false.obs;
+
   // Selected Role from Dashboard
   final RxString selectedRole = ''.obs;
   String? redirectRoute;
@@ -51,6 +53,18 @@ class AuthController extends GetxController {
   }
 
   void signUp() {
+    if (nameController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        passwordController.text.isEmpty) {
+      Get.snackbar("Error", "Please fill in all fields");
+      return;
+    }
+
+    if (!isTermsAccepted.value) {
+      Get.snackbar("Error", "Please accept the terms and conditions");
+      return;
+    }
+
     // Implement sign up logic
     debugPrint(
       "Sign up with ${emailController.text} and role ${selectedRole.value}",

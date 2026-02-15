@@ -1,8 +1,11 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'dart:convert';
+import '../../../core/services/storage_service.dart';
 import '../models/evaluation_model.dart';
 
 class EvaluationController extends GetxController {
+  final StorageService _storage = Get.find<StorageService>();
   // Observables for the selected player's evaluation
   final RxString playerName = "".obs;
   final RxString imagePath = "".obs;
@@ -48,7 +51,12 @@ class EvaluationController extends GetxController {
       coachNotes: coachNotesController.text,
     );
 
-    // TODO: Persist evaluation to local storage or API
+    // Persist evaluation to local storage
+    final evaluationsJson = _storage.read('evaluations') ?? '[]';
+    final List<dynamic> evaluationsList = jsonDecode(evaluationsJson);
+    evaluationsList.add(evaluation.toJson());
+    _storage.write('evaluations', jsonEncode(evaluationsList));
+
     debugPrint("Saving Evaluation: ${evaluation.toJson()}");
     Get.back();
     Get.snackbar(

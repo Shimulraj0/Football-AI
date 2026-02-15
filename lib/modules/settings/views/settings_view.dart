@@ -4,9 +4,6 @@ import '../controllers/settings_controller.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../core/values/app_padding.dart';
 import '../../../../global_widgets/base_scaffold.dart';
-import '../../../global_widgets/custom_bottom_nav_bar.dart';
-import '../../home/controllers/home_controller.dart';
-
 import '../../../../core/utils/size_utils.dart'; // For .w .sp
 import '../../../../global_widgets/custom_back_button.dart';
 
@@ -42,19 +39,6 @@ class SettingsView extends GetView<SettingsController> {
         ],
       ),
       body: _buildSettingsContent(),
-      bottomNavigationBar: () {
-        if (Get.isRegistered<HomeController>()) {
-          final homeController = Get.find<HomeController>();
-          return Obx(
-            () => CustomBottomNavBar(
-              selectedIndex: homeController.selectedIndex.value,
-              onItemTapped: homeController.changeTabIndex,
-            ),
-          );
-        } else {
-          return null;
-        }
-      }(),
     );
   }
 

@@ -79,19 +79,22 @@ class SignUpView extends GetView<AuthController> {
               ),
 
               const SizedBox(height: 16),
-              // Terms checkbox (Placeholder)
-              Row(
-                children: [
-                  Checkbox(
-                    value: false,
-                    onChanged: (v) {},
-                    activeColor: const Color(0xFF00204A),
-                  ),
-                  const Text(
-                    "Accept terms & conditions",
-                    style: TextStyle(color: Colors.grey, fontSize: 13),
-                  ),
-                ],
+              // Terms checkbox
+              Obx(
+                () => Row(
+                  children: [
+                    Checkbox(
+                      value: controller.isTermsAccepted.value,
+                      onChanged: (v) =>
+                          controller.isTermsAccepted.value = v ?? false,
+                      activeColor: const Color(0xFF00204A),
+                    ),
+                    const Text(
+                      "Accept terms & conditions",
+                      style: TextStyle(color: Colors.grey, fontSize: 13),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 20),
 

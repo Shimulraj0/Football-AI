@@ -58,15 +58,13 @@ class BaseScaffold extends StatelessWidget {
     if (effectiveBottomNavigationBar == null &&
         showBottomNav &&
         !isKeyboardOpen) {
-      if (Get.isRegistered<HomeController>()) {
-        final homeController = Get.find<HomeController>();
-        effectiveBottomNavigationBar = Obx(
-          () => CustomBottomNavBar(
-            selectedIndex: homeController.selectedIndex.value,
-            onItemTapped: homeController.changeTabIndex,
-          ),
-        );
-      }
+      final homeController = Get.find<HomeController>();
+      effectiveBottomNavigationBar = Obx(
+        () => CustomBottomNavBar(
+          selectedIndex: homeController.selectedIndex.value,
+          onItemTapped: homeController.changeTabIndex,
+        ),
+      );
     }
 
     Widget scaffoldContent = AnnotatedRegion<SystemUiOverlayStyle>(

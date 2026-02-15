@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../global_widgets/base_scaffold.dart';
-import '../../../../global_widgets/custom_bottom_nav_bar.dart';
-import '../controllers/player_home_controller.dart';
-
 import '../../../../core/values/app_padding.dart';
 import '../controllers/skill_progress_tracker_controller.dart';
 
@@ -12,10 +9,6 @@ class SkillProgressTrackerView extends GetView<SkillProgressTrackerController> {
 
   @override
   Widget build(BuildContext context) {
-    // Attempt to find PlayerHomeController to manage bottom nav
-    // Use try-catch or Get.isRegistered check if unsure, but it should be there from PlayerHome
-    final playerHomeController = Get.find<PlayerHomeController>();
-
     return BaseScaffold(
       title: "Skill Progress Tracker",
       body: SingleChildScrollView(
@@ -48,18 +41,6 @@ class SkillProgressTrackerView extends GetView<SkillProgressTrackerController> {
             _buildSummaryCard(),
           ],
         ),
-      ),
-      bottomNavigationBar: CustomBottomNavBar(
-        selectedIndex:
-            0, // Always highlight Home as we are in a sub-feature of Home
-        onItemTapped: (index) {
-          if (index != 0) {
-            playerHomeController.changeTabIndex(index);
-            Get.back(); // Return to PlayerHome which will switch tab
-          } else {
-            Get.back(); // Just return to PlayerHome main view
-          }
-        },
       ),
     );
   }

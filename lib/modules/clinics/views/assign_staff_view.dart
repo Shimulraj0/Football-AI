@@ -68,13 +68,13 @@ class AssignStaffView extends GetView<ClinicsController> {
               _buildStaffCard(
                 name: "Michael B.",
                 role: "DOC",
-                imageUrl: "https://placehold.co/34x34",
+                imageUrl: "assets/icons/Ellipse13.png",
                 isSelected: false,
               ),
               _buildStaffCard(
                 name: "Sara k.",
                 role: "DOC",
-                imageUrl: "https://placehold.co/34x34",
+                imageUrl: "assets/icons/Ellipse13.png",
                 isSelected: true,
               ),
               SizedBox(height: 16.h),
@@ -82,25 +82,25 @@ class AssignStaffView extends GetView<ClinicsController> {
               _buildStaffCard(
                 name: "James R.",
                 role: "Head Coach",
-                imageUrl: "https://placehold.co/34x34",
+                imageUrl: "assets/icons/Ellipse13.png",
                 isSelected: true,
               ),
               _buildStaffCard(
                 name: "Emily Warner",
                 role: "U12 Boys Premier",
-                imageUrl: "https://placehold.co/34x34",
+                imageUrl: "assets/icons/Ellipse13.png",
                 isSelected: true,
               ),
               _buildStaffCard(
                 name: "Jason Myers",
                 role: "Asst. Coach",
-                imageUrl: "https://placehold.co/34x34",
+                imageUrl: "assets/icons/Ellipse13.png",
                 isSelected: false,
               ),
               _buildStaffCard(
                 name: "Ryan S.",
                 role: "U12 Girls",
-                imageUrl: "https://placehold.co/34x34",
+                imageUrl: "assets/icons/Ellipse13.png",
                 isSelected: false,
               ),
               SizedBox(height: 24.h),
@@ -215,7 +215,7 @@ class AssignStaffView extends GetView<ClinicsController> {
       ),
       child: Row(
         children: [
-          CircleAvatar(radius: 17.r, backgroundImage: NetworkImage(imageUrl)),
+          CircleAvatar(radius: 17.r, backgroundImage: AssetImage(imageUrl)),
           SizedBox(width: 12.w),
           Expanded(
             child: Column(

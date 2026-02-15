@@ -170,17 +170,17 @@ class CurriculumBuilderView extends GetView<ClinicsController> {
           _buildExpandableItem(
             title: "Ball Control & Dribbling",
             subtitle: "2 Session | 60 mins",
-            imageUrl: "https://placehold.co/34x34",
+            imageUrl: "assets/icons/Ellipse13.png",
           ),
           _buildExpandableItem(
             title: "James R.",
             subtitle: "U12 Boys Premier",
-            imageUrl: "https://placehold.co/34x34",
+            imageUrl: "assets/icons/Ellipse13.png",
           ),
           _buildExpandableItem(
             title: "Jason Myers",
             subtitle: "Asst. Coach",
-            imageUrl: "https://placehold.co/34x34",
+            imageUrl: "assets/icons/Ellipse13.png",
             isLast: true,
           ),
           SizedBox(height: 24.h),
@@ -290,7 +290,7 @@ class CurriculumBuilderView extends GetView<ClinicsController> {
       ),
       child: Row(
         children: [
-          CircleAvatar(radius: 17.r, backgroundImage: NetworkImage(imageUrl)),
+          CircleAvatar(radius: 17.r, backgroundImage: AssetImage(imageUrl)),
           SizedBox(width: 8.w),
           Expanded(
             child: Column(

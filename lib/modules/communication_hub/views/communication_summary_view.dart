@@ -1,43 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../global_widgets/custom_bottom_nav_bar.dart';
-
-import '../../home/controllers/home_controller.dart';
+import '../../../global_widgets/base_scaffold.dart';
 
 class CommunicationSummaryView extends StatelessWidget {
   const CommunicationSummaryView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    return BaseScaffold(
+      headerContent: _buildHeader(),
+      body: ListView(
+        padding: const EdgeInsets.all(20.0),
         children: [
-          _buildHeader(),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(20.0),
-              children: [
-                _buildStatRow(),
-                const SizedBox(height: 24),
-                _buildFeedbackList(),
-                const SizedBox(height: 80),
-              ],
-            ),
-          ),
+          _buildStatRow(),
+          const SizedBox(height: 24),
+          _buildFeedbackList(),
+          const SizedBox(height: 80),
         ],
       ),
-      bottomNavigationBar: () {
-        if (Get.isRegistered<HomeController>()) {
-          final homeController = Get.find<HomeController>();
-          return Obx(
-            () => CustomBottomNavBar(
-              selectedIndex: homeController.selectedIndex.value,
-              onItemTapped: homeController.changeTabIndex,
-            ),
-          );
-        }
-        return null;
-      }(),
     );
   }
 

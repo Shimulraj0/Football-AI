@@ -4,8 +4,6 @@ import '../../../../routes/app_routes.dart';
 import '../../../../core/utils/size_utils.dart';
 import '../../../../global_widgets/base_scaffold.dart';
 
-import '../../../../global_widgets/custom_bottom_nav_bar.dart';
-import '../../home/controllers/home_controller.dart';
 import '../controllers/billing_controller.dart';
 import '../widgets/billing_add_on_card.dart';
 
@@ -96,32 +94,6 @@ class BillingView extends GetView<BillingController> {
           SizedBox(height: 16.h), // Bottom padding
         ],
       ),
-      bottomNavigationBar: () {
-        if (Get.isRegistered<HomeController>()) {
-          final homeController = Get.find<HomeController>();
-          return Obx(
-            () => CustomBottomNavBar(
-              selectedIndex: homeController.selectedIndex.value,
-              onItemTapped: homeController.changeTabIndex,
-            ),
-          );
-        } else {
-          // Fallback if HomeController is not present (e.g. direct navigation)
-          // We assume index 2 (Settings) as Billing is often related to Settings
-          return CustomBottomNavBar(
-            selectedIndex: 0,
-            onItemTapped: (index) {
-              if (index == 0) {
-                // Already on Home (Billing Home)
-              } else if (index == 1) {
-                Get.offAllNamed(AppRoutes.home);
-              } else if (index == 2) {
-                Get.offNamed(AppRoutes.settings);
-              }
-            },
-          );
-        }
-      }(),
     );
   }
 
