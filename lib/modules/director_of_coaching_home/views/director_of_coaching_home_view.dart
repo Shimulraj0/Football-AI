@@ -49,6 +49,15 @@ class DirectorOfCoachingHomeView
               Get.toNamed(AppRoutes.curriculumAlignment);
             },
           ),
+          SizedBox(height: 16.h),
+          _buildMenuCard(
+            title: "Periodization Integration",
+            subtitle: "Review teams time or date slot",
+            icon: Icons.calendar_month_outlined,
+            onTap: () {
+              Get.toNamed(AppRoutes.periodizationIntegration);
+            },
+          ),
         ],
       ),
     );

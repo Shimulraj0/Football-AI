@@ -140,6 +140,8 @@ import '../modules/field_scheduling_director_home/new_schedule/bindings/new_sche
 import '../modules/field_scheduling_director_home/new_schedule/views/select_date_range_view.dart';
 import '../modules/coach_home/views/coach_home_view.dart';
 import '../modules/coach_home/bindings/coach_home_binding.dart';
+import '../modules/periodization_integration/views/periodization_integration_view.dart';
+import '../modules/periodization_integration/bindings/periodization_integration_binding.dart';
 
 import '../modules/age_group_coordinator_home/views/age_group_coordinator_home_view.dart';
 import '../modules/age_group_coordinator_home/bindings/age_group_coordinator_home_binding.dart';
@@ -631,6 +633,11 @@ class AppPages {
       name: AppRoutes.selectAvailableFields,
       page: () => const SelectAvailableFieldsView(),
       binding: SelectAvailableFieldsBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.periodizationIntegration,
+      page: () => const PeriodizationIntegrationView(),
+      binding: PeriodizationIntegrationBinding(),
     ),
   ];
 }

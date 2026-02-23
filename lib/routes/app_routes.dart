@@ -86,6 +86,7 @@ abstract class AppRoutes {
   static const evaluationDetails = '/evaluation-details';
   static const curriculumAlignment = '/curriculum-alignment';
   static const coachHome = '/coach-home';
+  static const periodizationIntegration = '/periodization-integration';
   static const newSchedule = '/new-schedule';
   static const selectDateRange = '/select-date-range';
   static const selectAgeGroup = '/select-age-group';

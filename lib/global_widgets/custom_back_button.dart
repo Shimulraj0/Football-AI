@@ -32,7 +32,7 @@ class CustomBackButton extends StatelessWidget {
                 if (Navigator.of(context).canPop()) {
                   Get.back();
                 } else {
-                  Get.offAllNamed(AppRoutes.dashboard);
+                  Get.offAllNamed(AppRoutes.home);
                 }
               },
           child: Padding(

@@ -50,7 +50,10 @@ class _HomeActionCardState extends State<HomeActionCard> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
-      constraints: BoxConstraints(minHeight: widget.isPremium ? 100.h : 72.h),
+      constraints: BoxConstraints(
+        minHeight: widget.isPremium ? 100.h : 72.h,
+        maxWidth: 355.w,
+      ),
       decoration: BoxDecoration(
         color: widget.backgroundGradient == null
             ? (widget.backgroundColor ??
